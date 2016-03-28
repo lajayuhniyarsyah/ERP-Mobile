@@ -1,0 +1,19 @@
+<ion-view style="" title="SALES ACTIVITY" >
+    <ion-content class="has-header" overflow-scroll="true" padding="true" >
+        <form style="" class="list" >
+            <label style="" name="search-activity" class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input placeholder="Search Activity" type="search">
+            </label>
+            <ion-list ng-controller="salesactivityCtrl" >
+                <ion-item style="" ui-sref="formreviewactivity({idsact: sls.id})" class="item-thumbnail-left" ng-repeat="sls in sales">
+                    <img>
+                    <!-- <h1>{{sls.id}}</h1> -->
+                    <h2>{{sls.user_id[1]}}</h2>
+                    <p>Date : {{sls.begin|date:"MM/dd/yyyy"}} - {{sls.end|date:"MM/dd/yyyy"}}</p>
+                </ion-item>
+            </ion-list>
+        </form>
+        <a class="button button-positive  icon-right ion-android-add-circle" id="salesactivity-button32" ui-sref="formactivity">Add</a>
+    </ion-content>
+</ion-view>

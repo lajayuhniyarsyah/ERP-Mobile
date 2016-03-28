@@ -1,0 +1,2 @@
+uername=admin;
+password=admin;
