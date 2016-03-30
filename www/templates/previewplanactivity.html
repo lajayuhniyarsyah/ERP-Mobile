@@ -3,12 +3,12 @@
         <div style="">
             <p>
 
-                <b>PIC : Ricky Djendakang
+                <b>PIC : {{pic}}
 
                 </b>
                 <br>Date :
                 <u>
-                    02/22/2016 - 02/28/2016
+                    {{begin|date:"MM/dd/yyyy"}} - {{end|date:"MM/dd/yyyy"}}
                 </u>
             </p>
             <hr>
@@ -16,7 +16,7 @@
         <ion-list style=""></ion-list>
         <ion-list style=""></ion-list>
         <div style="width: 284px; height: 12px;" class="spacer"></div>
-        <div style="">
+        <div style="" >
             <b>
                 <p>
                     <u>MONDAY</u>
@@ -38,11 +38,33 @@
             <u>AFTER LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{ap_senin.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{ap_senin.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+            <b>Objectives:</b>{{ap_senin.name}}
+
+            <br>
+            <br>
+            <u>BEFORE LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{ba_senin.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ba_senin.location}}
+            <br>
+            <b>Objectives:</b>{{ba_senin.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{aa_senin.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{aa_senin.location}}
+            <br>
+            <b>Objectives:</b>{{aa_senin.name}}
         </div>
         <div style="width: 284px; height: 43px;" class="spacer"></div>
         <div style="">
@@ -56,23 +78,44 @@
             <u>BEFORE LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{bp_selasa.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{bp_selasa.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-            dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+            <b>Objectives:</b>{{bp_selasa.name}}
 
             <br>
             <br>
             <u>AFTER LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{ap_selasa.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{ap_selasa.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+            <b>Objectives:</b>{{ap_selasa.name}}
+
+            <br>
+            <br>
+            <u>BEFORE LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{ba_selasa.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ba_selasa.location}}
+            <br>
+            <b>Objectives:</b>{{ba_selasa.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{aa_selasa.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{aa_selasa.location}}
+            <br>
+            <b>Objectives:</b>{{aa_selasa.name}}
         </div>
         <div style="width: 284px; height: 43px;" class="spacer"></div>
         <div style="">
@@ -86,23 +129,44 @@
             <u>BEFORE LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{bp_rabu.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{bp_rabu.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-            dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+            <b>Objectives:</b>{{bp_rabu.name}}
 
             <br>
             <br>
             <u>AFTER LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{ap_rabu.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{ap_rabu.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+            <b>Objectives:</b>{{ap_rabu.name}}
+
+            <br>
+            <br>
+            <u>BEFORE LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{ba_rabu.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ba_rabu.location}}
+            <br>
+            <b>Objectives:</b>{{ba_rabu.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{aa_rabu.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{aa_rabu.location}}
+            <br>
+            <b>Objectives:</b>{{aa_rabu.name}}
         </div>
         <div style="width: 284px; height: 43px;" class="spacer"></div>
         <div style="">
@@ -116,23 +180,44 @@
             <u>BEFORE LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{bp_kamis.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{bp_kamis.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-            dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+            <b>Objectives:</b>{{bp_kamis.name}}
 
             <br>
             <br>
             <u>AFTER LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{ap_kamis.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{ap_kamis.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+            <b>Objectives:</b>{{ap_kamis.name}}
+
+            <br>
+            <br>
+            <u>BEFORE LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{ba_kamis.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ba_kamis.location}}
+            <br>
+            <b>Objectives:</b>{{ba_kamis.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{aa_kamis.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{aa_kamis.location}}
+            <br>
+            <b>Objectives:</b>{{aa_kamis.name}}
         </div>
         <div style="width: 284px; height: 43px;" class="spacer"></div>
         <div style="">
@@ -146,24 +231,148 @@
             <u>BEFORE LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{bp_jumat.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{bp_jumat.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-            dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+            <b>Objectives:</b>{{bp_jumat.name}}
 
             <br>
             <br>
             <u>AFTER LUNCH</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{ap_jumat.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{ap_jumat.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+            <b>Objectives:</b>{{ap_jumat.name}}
+
+            <br>
+            <br>
+            <u>BEFORE LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{ba_jumat.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ba_jumat.location}}
+            <br>
+            <b>Objectives:</b>{{ba_jumat.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{aa_jumat.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{aa_jumat.location}}
+            <br>
+            <b>Objectives:</b>{{aa_jumat.name}}
         </div>
+        <div style="width: 284px; height: 43px;" class="spacer"></div>
+        <div style="">
+            <b>
+                <p>
+                    <u>SATURDAY</u>
+                </p>
+            </b>
+
+
+            <u>BEFORE LUNCH</u>
+
+            <br>
+            <b>Customer:</b>{{bp_sabtu.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{bp_sabtu.location}}
+            <br>
+            <b>Objectives:</b>{{bp_sabtu.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH</u>
+
+            <br>
+            <b>Customer:</b>{{ap_sabtu.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ap_sabtu.location}}
+            <br>
+            <b>Objectives:</b>{{ap_sabtu.name}}
+
+            <br>
+            <br>
+            <u>BEFORE LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{ba_sabtu.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ba_sabtu.location}}
+            <br>
+            <b>Objectives:</b>{{ba_sabtu.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{aa_sabtu.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{aa_sabtu.location}}
+            <br>
+            <b>Objectives:</b>{{aa_sabtu.name}}
+        </div>
+        <div style="width: 284px; height: 43px;" class="spacer"></div>
+        <div style="">
+            <b>
+                <p>
+                    <u>SUNDAY</u>
+                </p>
+            </b>
+
+
+            <u>BEFORE LUNCH</u>
+
+            <br>
+            <b>Customer:</b>{{bp_ahad.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{bp_ahad.location}}
+            <br>
+            <b>Objectives:</b>{{bp_ahad.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH</u>
+
+            <br>
+            <b>Customer:</b>{{ap_ahad.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ap_ahad.location}}
+            <br>
+            <b>Objectives:</b>{{ap_ahad.name}}
+
+            <br>
+            <br>
+            <u>BEFORE LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{ba_ahad.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{ba_ahad.location}}
+            <br>
+            <b>Objectives:</b>{{ba_ahad.name}}
+
+            <br>
+            <br>
+            <u>AFTER LUNCH ACTUAL</u>
+
+            <br>
+            <b>Customer:</b>{{aa_ahad.partner_id[1]}}
+            <br>
+            <b>Location:</b>{{aa_ahad.location}}
+            <br>
+            <b>Objectives:</b>{{aa_ahad.name}}
+        </div>
+
         <div style="width: 284px; height: 43px;" class="spacer"></div>
         <button class="button button-positive  button-block icon-left ion-android-add-circle" style="border-radius:22px 22px 22px 22px;" id="previewplanactivity-button9">SAVE ACTIVITY</button>
         <ion-list style=""></ion-list>

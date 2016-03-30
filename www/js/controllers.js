@@ -24,7 +24,7 @@ angular.module('app.controllers', [])
 
 	   
 		 LoginService.loginUser(name, pass).success(function(data) {
-			$state.go('salesactivity');
+			$state.go('menuutama');
 		
 		}).error(function(data) {
 			var alertPopup = $ionicPopup.alert({
@@ -36,7 +36,7 @@ angular.module('app.controllers', [])
 	$scope.login = function() {
 		console.log(window.btoa($scope.data.username))  
 		LoginService.loginUser(window.btoa($scope.data.username),window.btoa($scope.data.pass)).success(function(data) {
-			$state.go('salesactivity');
+			$state.go('menuutama');
 
 		 
 		   
@@ -68,18 +68,27 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window) {
+.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,$timeout) {
    
-	  // $scope.loadingIndicator = $ionicLoading.show({
-	  //       template: '<ion-spinner icon="spiral"></ion-spinner>'
-	  //   });
+	  $ionicLoading.show({
+	    content: 'Loading',
+	    animation: 'fade-in',
+	    showBackdrop: true,
+	    maxWidth: 200,
+	    showDelay: 0
+	  });
+
+
+
+	$timeout(function () {
+    $ionicLoading.hide();  
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var sales_data_activity = (window.localStorage.getItem('sales_data_activity'));
 
 	 if (sales_data_activity==null) {
 			
-			$http(
+		$http(
 				{
 					method: 'POST',
 					url: 'http://10.36.15.51:8000/openerp/sales.activity/',
@@ -127,10 +136,9 @@ angular.module('app.controllers', [])
 			}
 		).then(
 			function successCallback(response){
-				console.log('success tembak server');
+				console.log('success cek update dari server');
 				
 				var sda_update = response.data['Result']
-				console.log(sda_update.length,"dafaadaf")
 				
 				var current = window.localStorage.getItem('sales_data_activity'); //string
 				var currentObj = JSON.parse(current); //object
@@ -161,58 +169,53 @@ angular.module('app.controllers', [])
 
 			},
 			function errorCallback(response){
-				console.log('erroor tembak server');
+				console.log('gagal cek update dari server');
 				$window.localStorage.clear();
 				$state.go('menulogin');
 			}
 		) 
 	 
-	 }    
+	 }
+	 }, 1000);    
 })
    
 .controller('formactivityCtrl', function($scope) {
 
 })
    
-.controller('previewplanactivityCtrl', function($scope,$stateParams,$http) {
+.controller('previewplanactivityCtrl', function($scope,$stateParams,$http,$timeout,$ionicLoading) {
 
+	 $ionicLoading.show({
+	    content: 'Loading',
+	    animation: 'fade-in',
+	    showBackdrop: true,
+	    maxWidth: 200,
+	    showDelay: 0
+	  });
+
+	$timeout(function () {
+    $ionicLoading.hide(); 
+    $scope.pic = $stateParams.pic;
+    $scope.begin = $stateParams.begin;
+    $scope.end = $stateParams.end; 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 
 	var id = $stateParams.id;
-	var get_sales_data_activity = JSON.parse( window.localStorage.getItem( 'sales_data_activity' ));
+	// var hari = ["senin", "selasa", "rabu", "kamis", "jumat", "sabtu", "ahad"];
+	// console.log(hari.length)
 
-	function getItemById(get_sales_data_activity, id) {
-
-	var i, len;
-	for (i = 0, len = get_sales_data_activity.length; i < len; i += 1) {
-		if(id == get_sales_data_activity[i].id) {
-			return get_sales_data_activity[i];
-		}
-	}
- 
-	return null;
-	}
-
-	get_sales_by_id = getItemById(get_sales_data_activity, id); // ngambil data dari local storage by id
-	beforeplansenin_id = get_sales_by_id.beforeplansenin;
-	beforeplanselasa_id = get_sales_by_id.beforeplanselasa;
-	beforeplanrabu_id = get_sales_by_id.beforeplanrabu;
-	beforeplankamis_id = get_sales_by_id.beforeplankamis;
-	beforeplanjumat_id = get_sales_by_id.beforeplanjumat;
-
-	
 	if(!id){
-		alert('Not Found');
+		alert('Not Found'); // selesai
 
 	}
-	else{
+	else {
 		
-		$http(
+	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.senin/ids/',
-				data: {'usn':name,'pw':pass ,'ids':beforeplansenin_id,'fields':[]},
+				url: 'http://10.36.15.51:8000/openerp/before.plan.senin/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},
@@ -220,64 +223,66 @@ angular.module('app.controllers', [])
 			}
 		).then(
 			function successCallback(response){
-				// console.log('success beforeplansenin');
 				var bp_update_senin = response.data['Result'];
-
+				
 				var current = window.localStorage.getItem('sales_activity_before_plan_senin'); //string
-				var currentObj = JSON.parse(current); //object
 
+
+				var currentObj = JSON.parse(current); //object
+				
 				if(current!=null){
 					if(currentObj.length>=100){
 						// jika current storage sudah 100
 
-					}else{
+					}
+					else{
+						ada = false
 						//append new object
-
 						var get_sales_activity_before_plan_senin = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_senin'));
-						console.log(get_sales_activity_before_plan_senin)
-						for (i = 0, len = get_sales_activity_before_plan_senin.length; i < len; i++){
-							// console.log(get_sales_activity_before_plan_senin[i],"lllllllllllllllllllll")
-							ini_ada = false
 
-							console.log("loop")
-							if (get_sales_activity_before_plan_senin[i].id==beforeplansenin_id[0]){
-								ini_ada = true
-								console.log("masuk gak")
+							for (i = 0, len = get_sales_activity_before_plan_senin.length; i < len; i++) {
+								if (id == get_sales_activity_before_plan_senin[i][0].activity_id[0]){
+									ada=true
 								}
 
-							if (!ini_ada){
-								
-								var refreshOBj = currentObj.push();
-								console.log("masuk set",refreshOBj)
-								console.log(currentObj,"////////")
-								window.localStorage.setItem('sales_activity_before_plan_senin',JSON.stringify(currentObj));
-							}
-							else{
-								console.log("gak kebaca bos")
-							}
-						}
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_plan_senin = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_senin'));
 
+							var refreshOBj = currentObj.push(bp_update_senin);
+							
+							window.localStorage.setItem('sales_activity_before_plan_senin',JSON.stringify(currentObj));
+
+								}
+			
 					}
 				}
-				else{
-					console.log("aaaaaaaaaaaaaaaaa")
-					window.localStorage.setItem('sales_activity_before_plan_senin',JSON.stringify([bp_update_senin[0]]));
-				} 
-				// var idnya =0
-				var get_sales_activity_before_plan_senin = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_senin'));
-				// console.log(get_sales_activity_before_plan_senin,"<<<<<<<<")
-				for (var i = 0; i < get_sales_activity_before_plan_senin.length; i++) {
-					// console.log(get_sales_activity_before_plan_senin[i].id,"?????")
 
-					if (get_sales_activity_before_plan_senin[i].id==beforeplansenin_id[0]){
-						var idnya = i
-						
+				else{
+
+					window.localStorage.setItem('sales_activity_before_plan_senin',JSON.stringify([bp_update_senin]));
+				} 
+
+				var get_sales_activity_before_plan_senin = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_senin'));
+
+				for (var i = 0; i < get_sales_activity_before_plan_senin.length; i++) {
+					console.log("Test=====================");
+					console.log(get_sales_activity_before_plan_senin[i][0]);
+					if (id == get_sales_activity_before_plan_senin[i][0].activity_id[0]){
+						var key = i
+						console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+						console.log(i);
+						console.log(id);
+						console.log(get_sales_activity_before_plan_senin[i][0].activity_id[0]);
 					}
 
 				};
-				// console.log(idnya)
-				$scope.bp_senin = get_sales_activity_before_plan_senin[idnya]; 
-				console.log($scope.bp_senin) 
+
+				$scope.bp_senin = get_sales_activity_before_plan_senin[key][0];
+				// console.log(get_sales_activity_before_plan_senin[0][0])  
 
 
 			},
@@ -287,215 +292,2110 @@ angular.module('app.controllers', [])
 				// $state.go('formreviewactivity');
 			}
 		)
-		
-		// $http(
-		// 	{
-		// 		method: 'POST',
-		// 		url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/ids/',
-		// 		data: {'usn':name,'pw':pass ,'ids':beforeplanselasa_id,'fields':[]},
-		// 		headers: {
-		// 			'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-		// 		},
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.plan.senin/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
 			
-		// 	}
-		// ).then(
-		// 	function successCallback(response){
-		// 		console.log('success beforeplanselasa');
-		// 		var bp_update_selasa = response.data['Result'];
-		// 		var current = window.localStorage.getItem('sales_activity_before_plan_selasa'); //string
+			}
+		).then(
+			function successCallback(response){
+				var ap_update_senin = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_plan_senin'); //string
 
 
-		// 		var currentObj = JSON.parse(current); //object
-		// 		if(current){
-		// 			if(currentObj.length>=100){
-		// 				// jika current storage sudah 100
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
 
-		// 			}else{
-		// 				//append new object
-		// 				// for (i = 0, len = bp_update_senin.length; i < len; i++){
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_plan_senin = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_senin'));
 
-		// 					var refreshOBj = currentObj.push(bp_update_selasa);
+							for (i = 0, len = get_sales_activity_after_plan_senin.length; i < len; i++) {
+								if (id == get_sales_activity_after_plan_senin[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_plan_senin = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_senin'));
+
+							var refreshOBj = currentObj.push(ap_update_senin);
 							
-		// 					window.localStorage.setItem('sales_activity_before_plan_selasa',JSON.stringify(currentObj));
-		// 				// }
+							window.localStorage.setItem('sales_activity_after_plan_senin',JSON.stringify(currentObj));
 
-		// 			}
-		// 		}
-		// 		else{
-
-		// 			window.localStorage.setItem('sales_activity_before_plan_selasa',JSON.stringify([bp_update_selasa]));
-		// 		} 
-
-		// 		var get_sales_activity_before_plan_selasa = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_selasa'));
-
-		// 		$scope.bp_selasa = get_sales_activity_before_plan_selasa;  
-
-
-		// 	},
-		// 	function errorCallback(response){
-		// 		console.log('erroor data kosong');
-		// 		// $window.localStorage.clear();
-		// 		// $state.go('formreviewactivity');
-		// 	}
-		// )
-		
-		// $http(
-		// 	{
-		// 		method: 'POST',
-		// 		url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/ids/',
-		// 		data: {'usn':name,'pw':pass ,'ids':beforeplanrabu_id,'fields':[]},
-		// 		headers: {
-		// 			'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-		// 		},
+								}
 			
-		// 	}
-		// ).then(
-		// 	function successCallback(response){
-		// 		console.log('success beforeplanrabu');
-		// 		var bp_update_rabu = response.data['Result'];
-		// 		var current = window.localStorage.getItem('sales_activity_before_plan_rabu'); //string
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_plan_senin',JSON.stringify([ap_update_senin]));
+				} 
+
+				var get_sales_activity_after_plan_senin = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_senin'));
+
+				for (var i = 0; i < get_sales_activity_after_plan_senin.length; i++) {
+
+					if (id == get_sales_activity_after_plan_senin[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ap_senin = get_sales_activity_after_plan_senin[key][0];
+				// console.log(get_sales_activity_before_plan_senin[0][0])  
 
 
-		// 		var currentObj = JSON.parse(current); //object
-		// 		if(current){
-		// 			if(currentObj.length>=100){
-		// 				// jika current storage sudah 100
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
 
-		// 			}else{
-		// 				//append new object
-		// 				// for (i = 0, len = bp_update_senin.length; i < len; i++){
-
-		// 					var refreshOBj = currentObj.push(bp_update_rabu);
-							
-		// 					window.localStorage.setItem('sales_activity_before_plan_rabu',JSON.stringify(currentObj));
-		// 				// }
-
-		// 			}
-		// 		}
-		// 		else{
-
-		// 			window.localStorage.setItem('sales_activity_before_plan_rabu',JSON.stringify([bp_update_rabu]));
-		// 		} 
-
-		// 		var get_sales_activity_before_plan_rabu = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_rabu'));
-
-		// 		$scope.bp_rabu = get_sales_activity_before_plan_rabu;  
-
-
-		// 	},
-		// 	function errorCallback(response){
-		// 		console.log('erroor data kosong');
-		// 		// $window.localStorage.clear();
-		// 		// $state.go('formreviewactivity');
-		// 	}
-		// )
-		
-		// $http(
-		// 	{
-		// 		method: 'POST',
-		// 		url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/ids/',
-		// 		data: {'usn':name,'pw':pass ,'ids':beforeplankamis_id,'fields':[]},
-		// 		headers: {
-		// 			'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-		// 		},
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.actual.senin/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
 			
-		// 	}
-		// ).then(
-		// 	function successCallback(response){
-		// 		console.log('success beforeplankamis');
-		// 		var bp_update_kamis = response.data['Result'];
-		// 		var current = window.localStorage.getItem('sales_activity_before_plan_kamis'); //string
+			}
+		).then(
+			function successCallback(response){
+				var ba_update_senin = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_actual_senin'); //string
 
 
-		// 		var currentObj = JSON.parse(current); //object
-		// 		if(current){
-		// 			if(currentObj.length>=100){
-		// 				// jika current storage sudah 100
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
 
-		// 			}else{
-		// 				//append new object
-		// 				// for (i = 0, len = bp_update_senin.length; i < len; i++){
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_actual_senin = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_senin'));
 
-		// 					var refreshOBj = currentObj.push(bp_update_kamis);
+							for (i = 0, len = get_sales_activity_before_actual_senin.length; i < len; i++) {
+								if (id == get_sales_activity_before_actual_senin[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_actual_senin = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_senin'));
+
+							var refreshOBj = currentObj.push(ba_update_senin);
 							
-		// 					window.localStorage.setItem('sales_activity_before_plan_kamis',JSON.stringify(currentObj));
-		// 				// }
+							window.localStorage.setItem('sales_activity_before_actual_senin',JSON.stringify(currentObj));
 
-		// 			}
-		// 		}
-		// 		else{
-
-		// 			window.localStorage.setItem('sales_activity_before_plan_kamis',JSON.stringify([bp_update_kamis]));
-		// 		} 
-
-		// 		var get_sales_activity_before_plan_kamis = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_kamis'));
-
-		// 		$scope.bp_kamis = get_sales_activity_before_plan_kamis;  
-
-
-		// 	},
-		// 	function errorCallback(response){
-		// 		console.log('erroor data kosong');
-		// 		// $window.localStorage.clear();
-		// 		// $state.go('formreviewactivity');
-		// 	}
-		// )
-		
-		// $http(
-		// 	{
-		// 		method: 'POST',
-		// 		url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/ids/',
-		// 		data: {'usn':name,'pw':pass ,'ids':beforeplanjumat_id,'fields':[]},
-		// 		headers: {
-		// 			'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-		// 		},
+								}
 			
-		// 	}
-		// ).then(
-		// 	function successCallback(response){
-		// 		console.log('success beforeplanjumat');
-		// 		var bp_update_jumat = response.data['Result'];
-		// 		var current = window.localStorage.getItem('sales_activity_before_plan_jumat'); //string
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_actual_senin',JSON.stringify([ba_update_senin]));
+				} 
+
+				var get_sales_activity_before_actual_senin = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_senin'));
+
+				for (var i = 0; i < get_sales_activity_before_actual_senin.length; i++) {
+
+					if (id == get_sales_activity_before_actual_senin[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ba_senin = get_sales_activity_before_actual_senin[key][0];
+				// console.log(get_sales_activity_before_plan_senin[0][0])  
 
 
-		// 		var currentObj = JSON.parse(current); //object
-		// 		if(current){
-		// 			if(currentObj.length>=100){
-		// 				// jika current storage sudah 100
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
 
-		// 			}else{
-		// 				//append new object
-		// 				// for (i = 0, len = bp_update_senin.length; i < len; i++){
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.actual.senin/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var aa_update_senin = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_actual_senin'); //string
 
-		// 					var refreshOBj = currentObj.push(bp_update_jumat);
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_actual_senin = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_senin'));
+
+							for (i = 0, len = get_sales_activity_after_actual_senin.length; i < len; i++) {
+								if (id == get_sales_activity_after_actual_senin[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_actual_senin = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_senin'));
+
+							var refreshOBj = currentObj.push(aa_update_senin);
 							
-		// 					window.localStorage.setItem('sales_activity_before_plan_jumat',JSON.stringify(currentObj));
-		// 				// }
+							window.localStorage.setItem('sales_activity_after_actual_senin',JSON.stringify(currentObj));
 
-		// 			}
-		// 		}
-		// 		else{
+								}
+			
+					}
+				}
 
-		// 			window.localStorage.setItem('sales_activity_before_plan_jumat',JSON.stringify([bp_update_jumat]));
-		// 		} 
+				else{
 
-		// 		var get_sales_activity_before_plan_jumat = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_jumat'));
+					window.localStorage.setItem('sales_activity_after_actual_senin',JSON.stringify([aa_update_senin]));
+				} 
 
-		// 		$scope.bp_jumat = get_sales_activity_before_plan_jumat;  
+				var get_sales_activity_after_actual_senin = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_senin'));
+
+				for (var i = 0; i < get_sales_activity_after_actual_senin.length; i++) {
+
+					if (id == get_sales_activity_after_actual_senin[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.aa_senin = get_sales_activity_after_actual_senin[key][0];
+				// console.log(get_sales_activity_before_plan_senin[0][0])  
 
 
-		// 	},
-		// 	function errorCallback(response){
-		// 		console.log('erroor data kosong');
-		// 		// $window.localStorage.clear();
-		// 		// $state.go('formreviewactivity');
-		// 	}
-		// )
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
 
-	
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var bp_update_selasa = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_plan_selasa'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_plan_selasa = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_selasa'));
+
+							for (i = 0, len = get_sales_activity_before_plan_selasa.length; i < len; i++) {
+								if (id == get_sales_activity_before_plan_selasa[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_plan_selasa = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_selasa'));
+
+							var refreshOBj = currentObj.push(bp_update_selasa);
+							
+							window.localStorage.setItem('sales_activity_before_plan_selasa',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_plan_selasa',JSON.stringify([bp_update_selasa]));
+				} 
+
+				var get_sales_activity_before_plan_selasa = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_selasa'));
+
+				for (var i = 0; i < get_sales_activity_before_plan_selasa.length; i++) {
+
+					if (id == get_sales_activity_before_plan_selasa[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.bp_selasa = get_sales_activity_before_plan_selasa[key][0];
+				// console.log(get_sales_activity_before_plan_selasa[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.plan.selasa/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ap_update_selasa = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_plan_selasa'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_plan_selasa = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_selasa'));
+
+							for (i = 0, len = get_sales_activity_after_plan_selasa.length; i < len; i++) {
+								if (id == get_sales_activity_after_plan_selasa[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_plan_selasa = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_selasa'));
+
+							var refreshOBj = currentObj.push(ap_update_selasa);
+							
+							window.localStorage.setItem('sales_activity_after_plan_selasa',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_plan_selasa',JSON.stringify([ap_update_selasa]));
+				} 
+
+				var get_sales_activity_after_plan_selasa = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_selasa'));
+
+				for (var i = 0; i < get_sales_activity_after_plan_selasa.length; i++) {
+
+					if (id == get_sales_activity_after_plan_selasa[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ap_selasa = get_sales_activity_after_plan_selasa[key][0];
+				// console.log(get_sales_activity_before_plan_selasa[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.actual.selasa/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ba_update_selasa = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_actual_selasa'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_actual_selasa = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_selasa'));
+
+							for (i = 0, len = get_sales_activity_before_actual_selasa.length; i < len; i++) {
+								if (id == get_sales_activity_before_actual_selasa[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_actual_selasa = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_selasa'));
+
+							var refreshOBj = currentObj.push(ba_update_selasa);
+							
+							window.localStorage.setItem('sales_activity_before_actual_selasa',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_actual_selasa',JSON.stringify([ba_update_selasa]));
+				} 
+
+				var get_sales_activity_before_actual_selasa = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_selasa'));
+
+				for (var i = 0; i < get_sales_activity_before_actual_selasa.length; i++) {
+
+					if (id == get_sales_activity_before_actual_selasa[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ba_selasa = get_sales_activity_before_actual_selasa[key][0];
+				// console.log(get_sales_activity_before_plan_selasa[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.actual.selasa/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var aa_update_selasa = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_actual_selasa'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_actual_selasa = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_selasa'));
+
+							for (i = 0, len = get_sales_activity_after_actual_selasa.length; i < len; i++) {
+								if (id == get_sales_activity_after_actual_selasa[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_actual_selasa = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_selasa'));
+
+							var refreshOBj = currentObj.push(aa_update_selasa);
+							
+							window.localStorage.setItem('sales_activity_after_actual_selasa',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_actual_selasa',JSON.stringify([aa_update_selasa]));
+				} 
+
+				var get_sales_activity_after_actual_selasa = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_selasa'));
+
+				for (var i = 0; i < get_sales_activity_after_actual_selasa.length; i++) {
+
+					if (id == get_sales_activity_after_actual_selasa[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.aa_selasa = get_sales_activity_after_actual_selasa[key][0];
+				// console.log(get_sales_activity_before_plan_selasa[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var bp_update_rabu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_plan_rabu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_plan_rabu = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_rabu'));
+
+							for (i = 0, len = get_sales_activity_before_plan_rabu.length; i < len; i++) {
+								if (id == get_sales_activity_before_plan_rabu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_plan_rabu = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_rabu'));
+
+							var refreshOBj = currentObj.push(bp_update_rabu);
+							
+							window.localStorage.setItem('sales_activity_before_plan_rabu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_plan_rabu',JSON.stringify([bp_update_rabu]));
+				} 
+
+				var get_sales_activity_before_plan_rabu = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_rabu'));
+
+				for (var i = 0; i < get_sales_activity_before_plan_rabu.length; i++) {
+
+					if (id == get_sales_activity_before_plan_rabu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.bp_rabu = get_sales_activity_before_plan_rabu[key][0];
+				// console.log(get_sales_activity_before_plan_rabu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.plan.rabu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ap_update_rabu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_plan_rabu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_plan_rabu = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_rabu'));
+
+							for (i = 0, len = get_sales_activity_after_plan_rabu.length; i < len; i++) {
+								if (id == get_sales_activity_after_plan_rabu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_plan_rabu = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_rabu'));
+
+							var refreshOBj = currentObj.push(ap_update_rabu);
+							
+							window.localStorage.setItem('sales_activity_after_plan_rabu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_plan_rabu',JSON.stringify([ap_update_rabu]));
+				} 
+
+				var get_sales_activity_after_plan_rabu = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_rabu'));
+
+				for (var i = 0; i < get_sales_activity_after_plan_rabu.length; i++) {
+
+					if (id == get_sales_activity_after_plan_rabu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ap_rabu = get_sales_activity_after_plan_rabu[key][0];
+				// console.log(get_sales_activity_before_plan_rabu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.actual.rabu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ba_update_rabu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_actual_rabu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_actual_rabu = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_rabu'));
+
+							for (i = 0, len = get_sales_activity_before_actual_rabu.length; i < len; i++) {
+								if (id == get_sales_activity_before_actual_rabu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_actual_rabu = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_rabu'));
+
+							var refreshOBj = currentObj.push(ba_update_rabu);
+							
+							window.localStorage.setItem('sales_activity_before_actual_rabu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_actual_rabu',JSON.stringify([ba_update_rabu]));
+				} 
+
+				var get_sales_activity_before_actual_rabu = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_rabu'));
+
+				for (var i = 0; i < get_sales_activity_before_actual_rabu.length; i++) {
+
+					if (id == get_sales_activity_before_actual_rabu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ba_rabu = get_sales_activity_before_actual_rabu[key][0];
+				// console.log(get_sales_activity_before_plan_rabu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.actual.rabu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var aa_update_rabu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_actual_rabu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_actual_rabu = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_rabu'));
+
+							for (i = 0, len = get_sales_activity_after_actual_rabu.length; i < len; i++) {
+								if (id == get_sales_activity_after_actual_rabu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_actual_rabu = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_rabu'));
+
+							var refreshOBj = currentObj.push(aa_update_rabu);
+							
+							window.localStorage.setItem('sales_activity_after_actual_rabu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_actual_rabu',JSON.stringify([aa_update_rabu]));
+				} 
+
+				var get_sales_activity_after_actual_rabu = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_rabu'));
+
+				for (var i = 0; i < get_sales_activity_after_actual_rabu.length; i++) {
+
+					if (id == get_sales_activity_after_actual_rabu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.aa_rabu = get_sales_activity_after_actual_rabu[key][0];
+				// console.log(get_sales_activity_before_plan_rabu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var bp_update_kamis = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_plan_kamis'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_plan_kamis = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_kamis'));
+
+							for (i = 0, len = get_sales_activity_before_plan_kamis.length; i < len; i++) {
+								if (id == get_sales_activity_before_plan_kamis[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_plan_kamis = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_kamis'));
+
+							var refreshOBj = currentObj.push(bp_update_kamis);
+							
+							window.localStorage.setItem('sales_activity_before_plan_kamis',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_plan_kamis',JSON.stringify([bp_update_kamis]));
+				} 
+
+				var get_sales_activity_before_plan_kamis = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_kamis'));
+
+				for (var i = 0; i < get_sales_activity_before_plan_kamis.length; i++) {
+
+					if (id == get_sales_activity_before_plan_kamis[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.bp_kamis = get_sales_activity_before_plan_kamis[key][0];
+				// console.log(get_sales_activity_before_plan_kamis[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.plan.kamis/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ap_update_kamis = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_plan_kamis'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_plan_kamis = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_kamis'));
+
+							for (i = 0, len = get_sales_activity_after_plan_kamis.length; i < len; i++) {
+								if (id == get_sales_activity_after_plan_kamis[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_plan_kamis = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_kamis'));
+
+							var refreshOBj = currentObj.push(ap_update_kamis);
+							
+							window.localStorage.setItem('sales_activity_after_plan_kamis',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_plan_kamis',JSON.stringify([ap_update_kamis]));
+				} 
+
+				var get_sales_activity_after_plan_kamis = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_kamis'));
+
+				for (var i = 0; i < get_sales_activity_after_plan_kamis.length; i++) {
+
+					if (id == get_sales_activity_after_plan_kamis[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ap_kamis = get_sales_activity_after_plan_kamis[key][0];
+				// console.log(get_sales_activity_before_plan_kamis[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.actual.kamis/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ba_update_kamis = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_actual_kamis'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_actual_kamis = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_kamis'));
+
+							for (i = 0, len = get_sales_activity_before_actual_kamis.length; i < len; i++) {
+								if (id == get_sales_activity_before_actual_kamis[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_actual_kamis = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_kamis'));
+
+							var refreshOBj = currentObj.push(ba_update_kamis);
+							
+							window.localStorage.setItem('sales_activity_before_actual_kamis',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_actual_kamis',JSON.stringify([ba_update_kamis]));
+				} 
+
+				var get_sales_activity_before_actual_kamis = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_kamis'));
+
+				for (var i = 0; i < get_sales_activity_before_actual_kamis.length; i++) {
+
+					if (id == get_sales_activity_before_actual_kamis[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ba_kamis = get_sales_activity_before_actual_kamis[key][0];
+				// console.log(get_sales_activity_before_plan_kamis[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.actual.kamis/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var aa_update_kamis = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_actual_kamis'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_actual_kamis = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_kamis'));
+
+							for (i = 0, len = get_sales_activity_after_actual_kamis.length; i < len; i++) {
+								if (id == get_sales_activity_after_actual_kamis[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_actual_kamis = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_kamis'));
+
+							var refreshOBj = currentObj.push(aa_update_kamis);
+							
+							window.localStorage.setItem('sales_activity_after_actual_kamis',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_actual_kamis',JSON.stringify([aa_update_kamis]));
+				} 
+
+				var get_sales_activity_after_actual_kamis = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_kamis'));
+
+				for (var i = 0; i < get_sales_activity_after_actual_kamis.length; i++) {
+
+					if (id == get_sales_activity_after_actual_kamis[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.aa_kamis = get_sales_activity_after_actual_kamis[key][0];
+				// console.log(get_sales_activity_before_plan_kamis[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var bp_update_jumat = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_plan_jumat'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_plan_jumat = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_jumat'));
+
+							for (i = 0, len = get_sales_activity_before_plan_jumat.length; i < len; i++) {
+								if (id == get_sales_activity_before_plan_jumat[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_plan_jumat = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_jumat'));
+
+							var refreshOBj = currentObj.push(bp_update_jumat);
+							
+							window.localStorage.setItem('sales_activity_before_plan_jumat',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_plan_jumat',JSON.stringify([bp_update_jumat]));
+				} 
+
+				var get_sales_activity_before_plan_jumat = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_jumat'));
+
+				for (var i = 0; i < get_sales_activity_before_plan_jumat.length; i++) {
+
+					if (id == get_sales_activity_before_plan_jumat[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.bp_jumat = get_sales_activity_before_plan_jumat[key][0];
+				// console.log(get_sales_activity_before_plan_jumat[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.plan.jumat/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ap_update_jumat = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_plan_jumat'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_plan_jumat = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_jumat'));
+
+							for (i = 0, len = get_sales_activity_after_plan_jumat.length; i < len; i++) {
+								if (id == get_sales_activity_after_plan_jumat[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_plan_jumat = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_jumat'));
+
+							var refreshOBj = currentObj.push(ap_update_jumat);
+							
+							window.localStorage.setItem('sales_activity_after_plan_jumat',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_plan_jumat',JSON.stringify([ap_update_jumat]));
+				} 
+
+				var get_sales_activity_after_plan_jumat = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_jumat'));
+
+				for (var i = 0; i < get_sales_activity_after_plan_jumat.length; i++) {
+
+					if (id == get_sales_activity_after_plan_jumat[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ap_jumat = get_sales_activity_after_plan_jumat[key][0];
+				// console.log(get_sales_activity_before_plan_jumat[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.actual.jumat/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ba_update_jumat = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_actual_jumat'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_actual_jumat = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_jumat'));
+
+							for (i = 0, len = get_sales_activity_before_actual_jumat.length; i < len; i++) {
+								if (id == get_sales_activity_before_actual_jumat[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_actual_jumat = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_jumat'));
+
+							var refreshOBj = currentObj.push(ba_update_jumat);
+							
+							window.localStorage.setItem('sales_activity_before_actual_jumat',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_actual_jumat',JSON.stringify([ba_update_jumat]));
+				} 
+
+				var get_sales_activity_before_actual_jumat = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_jumat'));
+
+				for (var i = 0; i < get_sales_activity_before_actual_jumat.length; i++) {
+
+					if (id == get_sales_activity_before_actual_jumat[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ba_jumat = get_sales_activity_before_actual_jumat[key][0];
+				// console.log(get_sales_activity_before_plan_jumat[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.actual.jumat/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var aa_update_jumat = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_actual_jumat'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_actual_jumat = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_jumat'));
+
+							for (i = 0, len = get_sales_activity_after_actual_jumat.length; i < len; i++) {
+								if (id == get_sales_activity_after_actual_jumat[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_actual_jumat = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_jumat'));
+
+							var refreshOBj = currentObj.push(aa_update_jumat);
+							
+							window.localStorage.setItem('sales_activity_after_actual_jumat',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_actual_jumat',JSON.stringify([aa_update_jumat]));
+				} 
+
+				var get_sales_activity_after_actual_jumat = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_jumat'));
+
+				for (var i = 0; i < get_sales_activity_after_actual_jumat.length; i++) {
+
+					if (id == get_sales_activity_after_actual_jumat[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.aa_jumat = get_sales_activity_after_actual_jumat[key][0];
+				// console.log(get_sales_activity_before_plan_jumat[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.plan.sabtu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var bp_update_sabtu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_plan_sabtu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_plan_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_sabtu'));
+
+							for (i = 0, len = get_sales_activity_before_plan_sabtu.length; i < len; i++) {
+								if (id == get_sales_activity_before_plan_sabtu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_plan_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_sabtu'));
+
+							var refreshOBj = currentObj.push(bp_update_sabtu);
+							
+							window.localStorage.setItem('sales_activity_before_plan_sabtu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_plan_sabtu',JSON.stringify([bp_update_sabtu]));
+				} 
+
+				var get_sales_activity_before_plan_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_sabtu'));
+
+				for (var i = 0; i < get_sales_activity_before_plan_sabtu.length; i++) {
+
+					if (id == get_sales_activity_before_plan_sabtu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.bp_sabtu = get_sales_activity_before_plan_sabtu[key][0];
+				// console.log(get_sales_activity_before_plan_sabtu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.plan.sabtu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ap_update_sabtu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_plan_sabtu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_plan_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_sabtu'));
+
+							for (i = 0, len = get_sales_activity_after_plan_sabtu.length; i < len; i++) {
+								if (id == get_sales_activity_after_plan_sabtu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_plan_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_sabtu'));
+
+							var refreshOBj = currentObj.push(ap_update_sabtu);
+							
+							window.localStorage.setItem('sales_activity_after_plan_sabtu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_plan_sabtu',JSON.stringify([ap_update_sabtu]));
+				} 
+
+				var get_sales_activity_after_plan_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_sabtu'));
+
+				for (var i = 0; i < get_sales_activity_after_plan_sabtu.length; i++) {
+
+					if (id == get_sales_activity_after_plan_sabtu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ap_sabtu = get_sales_activity_after_plan_sabtu[key][0];
+				// console.log(get_sales_activity_before_plan_sabtu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.actual.sabtu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ba_update_sabtu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_actual_sabtu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_actual_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_sabtu'));
+
+							for (i = 0, len = get_sales_activity_before_actual_sabtu.length; i < len; i++) {
+								if (id == get_sales_activity_before_actual_sabtu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_actual_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_sabtu'));
+
+							var refreshOBj = currentObj.push(ba_update_sabtu);
+							
+							window.localStorage.setItem('sales_activity_before_actual_sabtu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_actual_sabtu',JSON.stringify([ba_update_sabtu]));
+				} 
+
+				var get_sales_activity_before_actual_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_sabtu'));
+
+				for (var i = 0; i < get_sales_activity_before_actual_sabtu.length; i++) {
+
+					if (id == get_sales_activity_before_actual_sabtu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ba_sabtu = get_sales_activity_before_actual_sabtu[key][0];
+				// console.log(get_sales_activity_before_plan_sabtu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.actual.sabtu/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var aa_update_sabtu = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_actual_sabtu'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_actual_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_sabtu'));
+
+							for (i = 0, len = get_sales_activity_after_actual_sabtu.length; i < len; i++) {
+								if (id == get_sales_activity_after_actual_sabtu[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_actual_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_sabtu'));
+
+							var refreshOBj = currentObj.push(aa_update_sabtu);
+							
+							window.localStorage.setItem('sales_activity_after_actual_sabtu',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_actual_sabtu',JSON.stringify([aa_update_sabtu]));
+				} 
+
+				var get_sales_activity_after_actual_sabtu = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_sabtu'));
+
+				for (var i = 0; i < get_sales_activity_after_actual_sabtu.length; i++) {
+
+					if (id == get_sales_activity_after_actual_sabtu[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.aa_sabtu = get_sales_activity_after_actual_sabtu[key][0];
+				// console.log(get_sales_activity_before_plan_sabtu[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.plan.ahad/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var bp_update_ahad = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_plan_ahad'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_plan_ahad = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_ahad'));
+
+							for (i = 0, len = get_sales_activity_before_plan_ahad.length; i < len; i++) {
+								if (id == get_sales_activity_before_plan_ahad[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_plan_ahad = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_ahad'));
+
+							var refreshOBj = currentObj.push(bp_update_ahad);
+							
+							window.localStorage.setItem('sales_activity_before_plan_ahad',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_plan_ahad',JSON.stringify([bp_update_ahad]));
+				} 
+
+				var get_sales_activity_before_plan_ahad = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_ahad'));
+
+				for (var i = 0; i < get_sales_activity_before_plan_ahad.length; i++) {
+
+					if (id == get_sales_activity_before_plan_ahad[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.bp_ahad = get_sales_activity_before_plan_ahad[key][0];
+				// console.log(get_sales_activity_before_plan_ahad[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.plan.ahad/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ap_update_ahad = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_plan_ahad'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_plan_ahad = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_ahad'));
+
+							for (i = 0, len = get_sales_activity_after_plan_ahad.length; i < len; i++) {
+								if (id == get_sales_activity_after_plan_ahad[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_plan_ahad = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_ahad'));
+
+							var refreshOBj = currentObj.push(ap_update_ahad);
+							
+							window.localStorage.setItem('sales_activity_after_plan_ahad',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_plan_ahad',JSON.stringify([ap_update_ahad]));
+				} 
+
+				var get_sales_activity_after_plan_ahad = JSON.parse(window.localStorage.getItem('sales_activity_after_plan_ahad'));
+
+				for (var i = 0; i < get_sales_activity_after_plan_ahad.length; i++) {
+
+					if (id == get_sales_activity_after_plan_ahad[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ap_ahad = get_sales_activity_after_plan_ahad[key][0];
+				// console.log(get_sales_activity_before_plan_ahad[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/before.actual.ahad/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var ba_update_ahad = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_before_actual_ahad'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_before_actual_ahad = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_ahad'));
+
+							for (i = 0, len = get_sales_activity_before_actual_ahad.length; i < len; i++) {
+								if (id == get_sales_activity_before_actual_ahad[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_before_actual_ahad = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_ahad'));
+
+							var refreshOBj = currentObj.push(ba_update_ahad);
+							
+							window.localStorage.setItem('sales_activity_before_actual_ahad',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_before_actual_ahad',JSON.stringify([ba_update_ahad]));
+				} 
+
+				var get_sales_activity_before_actual_ahad = JSON.parse(window.localStorage.getItem('sales_activity_before_actual_ahad'));
+
+				for (var i = 0; i < get_sales_activity_before_actual_ahad.length; i++) {
+
+					if (id == get_sales_activity_before_actual_ahad[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.ba_ahad = get_sales_activity_before_actual_ahad[key][0];
+				// console.log(get_sales_activity_before_plan_ahad[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)
+
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/after.actual.ahad/search/',
+				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},
+			
+			}
+		).then(
+			function successCallback(response){
+				var aa_update_ahad = response.data['Result'];
+				
+				var current = window.localStorage.getItem('sales_activity_after_actual_ahad'); //string
+
+
+				var currentObj = JSON.parse(current); //object
+				
+				if(current!=null){
+					if(currentObj.length>=100){
+						// jika current storage sudah 100
+
+					}
+					else{
+						ada = false
+						//append new object
+						var get_sales_activity_after_actual_ahad = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_ahad'));
+
+							for (i = 0, len = get_sales_activity_after_actual_ahad.length; i < len; i++) {
+								if (id == get_sales_activity_after_actual_ahad[i][0].activity_id[0]){
+									ada=true
+								}
+
+							};
+								if (ada){
+									console.log('id sama')
+								}
+								else {
+							var get_sales_activity_after_actual_ahad = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_ahad'));
+
+							var refreshOBj = currentObj.push(aa_update_ahad);
+							
+							window.localStorage.setItem('sales_activity_after_actual_ahad',JSON.stringify(currentObj));
+
+								}
+			
+					}
+				}
+
+				else{
+
+					window.localStorage.setItem('sales_activity_after_actual_ahad',JSON.stringify([aa_update_ahad]));
+				} 
+
+				var get_sales_activity_after_actual_ahad = JSON.parse(window.localStorage.getItem('sales_activity_after_actual_ahad'));
+
+				for (var i = 0; i < get_sales_activity_after_actual_ahad.length; i++) {
+
+					if (id == get_sales_activity_after_actual_ahad[i][0].activity_id[0]){
+						var key = i
+						
+					}
+
+				};
+
+				$scope.aa_ahad = get_sales_activity_after_actual_ahad[key][0];
+				// console.log(get_sales_activity_before_plan_ahad[0][0])  
+
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)		
 	}
-
-	
+	},2000);
 })
 
 // .controller('formreviewactivityCtrl', function($scope,$stateParams) {

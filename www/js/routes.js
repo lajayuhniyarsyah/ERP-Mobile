@@ -50,7 +50,7 @@ angular.module('app.routes', [])
   })
 
   .state('previewplanactivity', {
-    url: '/preview-plan-activity/:id',
+    url: '/preview-plan-activity/?:id?pic?begin?end',
     templateUrl: 'templates/previewplanactivity.html',
     controller: 'previewplanactivityCtrl'
 
