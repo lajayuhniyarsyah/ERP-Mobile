@@ -74,6 +74,12 @@ angular.module('app.routes', [])
     controller: 'formdaymondayCtrl'
   })
 
+  .state('salesactivitytimeline', {
+    url: '/sales-activity-timeline',
+    templateUrl: 'templates/salesactivitytimeline.html',
+    controller: 'salesactivitytimelineCtrl'
+  })
+
 $urlRouterProvider.otherwise('/login')
 
   
