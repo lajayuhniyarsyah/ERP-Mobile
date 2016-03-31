@@ -56,12 +56,6 @@ angular.module('app.routes', [])
 
   })
 
-  // .state('formreviewactivity', {
-  //   url: '/form-review-activity/:idsact',
-  //   templateUrl: 'templates/formreviewactivity.html',
-  //   controller: 'formreviewactivityCtrl'
-  // })
-
   .state('formupdateactivity', {
     url: '/form-update-activity/?:hari?beforeplan?afterplan?beforeactual?afteractual',
     templateUrl: 'templates/formupdateactivity.html',
