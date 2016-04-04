@@ -19,7 +19,7 @@
         <div style="">
             <b>
                 <p>
-                    <u>MONDAY</u>
+                    <u>Activity</u>
                 </p>
             </b>
 
@@ -27,11 +27,11 @@
             <u>BEFORE LUNCH PLAN</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{bplan.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{bplan.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+            <b>Objectives:</b>{{bplan.name}}
 
         </div>
         <div style="width: 284px; height: 43px;" class="spacer"></div>
@@ -48,11 +48,11 @@
             <u>AFTER LUNCH PLAN</u>
 
             <br>
-            <b>Customer:</b>FREEPORT INDONESIA,PT
+            <b>Customer:</b>{{aplan.partner_id[1]}}
             <br>
-            <b>Location:</b>Jakarta
+            <b>Location:</b>{{aplan.location}}
             <br>
-            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+            <b>Objectives:</b>{{aplan.name}}
         </div>
         <form style="" class="list"></form>
         <form style="" class="list">
