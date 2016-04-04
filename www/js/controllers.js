@@ -255,10 +255,18 @@ angular.module('app.controllers', [])
 })
  
 
- .controller('salesactivitytimelineCtrl', function($scope,$http,$state) {
+ .controller('salesactivitytimelineCtrl', function($scope,$http,$state,$ionicLoading) {
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+	$ionicLoading.show({
+		    content: 'Loading',
+		    animation: 'fade-in',
+		    showBackdrop: true,
+		    maxWidth: 200,
+		    showDelay: 0
+  		});
+ 		
 	if (timeline==null){
 		$http(
 				{
@@ -280,12 +288,13 @@ angular.module('app.controllers', [])
 					var sales_tm = response.data['data'];
 					
 					window.localStorage.setItem( 'sales_tm', JSON.stringify(sales_tm));
-				
+					 $ionicLoading.hide();
 	   
 				},
 				function errorCallback(response){
 					console.log('erroor data kosong');
 					$window.localStorage.clear();
+					$ionicLoading.hide();
 					$state.go('menulogin');
 				}
 			)
@@ -310,8 +319,9 @@ angular.module('app.controllers', [])
 					console.log('success isi storage kosong dari server');
 
 					timeline_update = response.data['data']
+					timeline_update.reverse()
 					// $scope.sales_tm = response.data['data']
-					print
+				
 					// var sales_tm = response.data['data'];
 					console.log(timeline_update)
 					
@@ -324,17 +334,17 @@ angular.module('app.controllers', [])
 						
 						}
 					var timeline_cek_pop =JSON.parse(window.localStorage.getItem("sales_tm"));
-					if (timeline_cek_pop.length > 5){
+					if (timeline_cek_pop.length > 150){
 						length_sales_tm = timeline_cek_pop.length
-						splice = length_sales_tm - 5
-						timeline_cek_pop.splice(4,splice)
+						splice = length_sales_tm - 150
+						timeline_cek_pop.splice(149,splice)
 						console.log(timeline_cek_pop,"masuk")
 						window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline_cek_pop));
 					} 
 					var Update_timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
-					// console.log(timeline,"iniii")
-					$scope.sales_tm = Update_timeline
 				
+					$scope.sales_tm = Update_timeline
+					$ionicLoading.hide();
 				
 	   
 				},
@@ -342,6 +352,7 @@ angular.module('app.controllers', [])
 					console.log('erroor data kosong');
 					$window.localStorage.clear();
 					$state.go('menulogin');
+					$ionicLoading.hide();
 				}
 			)
 		var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
