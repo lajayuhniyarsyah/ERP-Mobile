@@ -2,3 +2,50 @@
 .btn-gantung{
 	float: right;
 }
+.timeline{
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	margin-right: 10px;
+}
+.judul-timeline{
+	background-color: #E3DCD5;
+	width: 100%;
+	margin-top: -10px;
+	border-radius: 10px 10px 0px 0px;
+	-webkit-border-radius: 10px 10px 0px 0px;
+	-moz-border-radius: 10px 10px 0px 0px;
+
+}
+.isitimeline{
+	padding: 5px;
+}
+.namasales{
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 18px;
+	margin-left: 5px; 
+	margin-top: 5px;
+	padding-top: 5px;
+}
+.datesales{
+	font-size: 16px;
+	margin-left: 5px; 
+}
+.isicontent{
+	text-align: justify;
+}
+.cancel-area{
+	background-color: #E3C1BF;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	padding: 5px;
+}
+.cancel-area .fontred{
+	color: red;
+}
+.both{
+	clear: both;
+}
