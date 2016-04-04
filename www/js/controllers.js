@@ -255,10 +255,16 @@ angular.module('app.controllers', [])
 })
  
 
- .controller('salesactivitytimelineCtrl', function($scope,$http,$state,$ionicLoading) {
+ .controller('salesactivitytimelineCtrl', function($scope,$http,$state,$ionicLoading,$window) {
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+	$scope.numberOfItemsToDisplay = 150;
+
+	$scope.colortext= {
+        "color" : "red",
+        
+    }
 	$ionicLoading.show({
 		    content: 'Loading',
 		    animation: 'fade-in',
@@ -292,10 +298,11 @@ angular.module('app.controllers', [])
 	   
 				},
 				function errorCallback(response){
-					console.log('erroor data kosong');
-					$window.localStorage.clear();
 					$ionicLoading.hide();
-					$state.go('menulogin');
+					console.log('erroor data kosong 1');
+					$window.localStorage.clear();
+					
+					// $state.go('menulogin');
 				}
 			)
 
@@ -349,14 +356,23 @@ angular.module('app.controllers', [])
 	   
 				},
 				function errorCallback(response){
-					console.log('erroor data kosong');
-					$window.localStorage.clear();
-					$state.go('menulogin');
 					$ionicLoading.hide();
+					console.log('erroor data kosong 2');
+					$window.localStorage.clear();
+					// $state.go('menulogin');
+			
 				}
 			)
+		
 		var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
 		$scope.sales_tm = timeline
+
+		$scope.addMoreItem = function(done) {
+        
+        // if ($scope.sales_tm > $scope.numberOfItemsToDisplay)
+          $scope.numberOfItemsToDisplay = 50; // load 5 more items
+        // done(); // need to call this when finish loading more data
+      }
 	}
 	
 })
