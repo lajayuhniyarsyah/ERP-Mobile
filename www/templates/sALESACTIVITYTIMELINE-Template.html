@@ -2,212 +2,131 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <ion-list></ion-list>
 
-        <div class="timeline">
-            <div class="judul-timeline">
-                <div class="namasales">M.REZA PAHLEPI</div>
-                <div class="datesales">Friday 04/08/2016</div>
-            </div>
-            <div class="isitimeline">
-                <div class="list card">
-                <div class="item item-divider  before-lunch">BEFORE LUNCH</div>
-                    <div class="item item-body">
-                        <div class="list card">
-                            <div class="item item-divider">PLAN</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                                        dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
-                                    </div>
-                                    <br/>
-                                    <br/>
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
-                        </div>
+        <div ng-repeat="sls in sales_tm |limitTo:numberOfItemsToDisplay">
+   
 
-                        <div class="list card">
-                            <div class="item item-divider">ACTUAL</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                                        dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
-                                    </div>
-                                    <br/>
-                                    <br/>
-                                    <div class="cancel-area">
-                                        <b>Customer:</b>FREEPORT INDONESIA,PT
-                                        <br>
-                                        <b>Location:</b>Jakarta
-                                        <br>
-                                        <div class="isicontent">
-                                            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+            <div class="timeline"  ng-if="(sls.the_date|date:'yyyyMMdd')<=(date|date:'yyyyMMdd')&& (sls.the_date !=sales_tm[$index-1].the_date || sls.user != sales_tm[$index-1].user)">
+                <div class="judul-timeline">
+                    <div class="namasales">{{sls.user}}</div>
+                    <div class="datesales">{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"dd/MM/yyyy" }}</div>
+                </div>
+                <div class="isitimeline">
+                    <div class="list card">
+                    <div class="item item-divider before-lunch">{{sls.daylight}}</div>
+                        <div class="item item-body">
+                            <div class="list card">
+                                <div class="item item-divider">PLAN</div>
+
+                                    <div class="item item-body" >
+                                        <div ng-repeat='plan in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="Before Lunch / Break"'>
+                                            <b>Customer:</b>{{plan.partner}} 
+                                            <br>
+                                            <b>Location:</b>{{plan.location}}
+                                            <br>
+                                            <div class="isicontent">
+                                                <b>Objectives:</b>
+                                                {{plan.name}}
+                                            </div>
+                                            <br/>
                                         </div>
                                     </div>
-                                    <br/>
-                                    <br/>
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-                    
-                </div>
-              <div class="list card">
-                <div class="item item-divider after-lunch">AFTER LUNCH</div>
-                <div class="item item-body">
-                        <div class="list card">
-                            <div class="item item-divider">PLAN</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
-                        </div>
+                            </div>
 
-                        <div class="list card">
-                            <div class="item item-divider ">ACTUAL</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        <div class="both"></div>
-
-
-   <div class="timeline">
-            <div class="judul-timeline">
-                <div class="namasales">Ricky Djendakang </div>
-                <div class="datesales">Friday 04/08/2016</div>
-            </div>
-            <div class="isitimeline">
-                <div class="list card">
-                <div class="item item-divider  before-lunch">BEFORE LUNCH</div>
-                    <div class="item item-body">
-                        <div class="list card">
-                            <div class="item item-divider">PLAN</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                                        dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
-                                    </div>
-                                    <br/>
-                                    <br/>
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
-                        </div>
-
-                        <div class="list card">
-                            <div class="item item-divider">ACTUAL</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                                        dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
-                                    </div>
-                                    <br/>
-                                    <br/>
-                                    <div class="cancel-area">
-                                        <b>Customer:</b>FREEPORT INDONESIA,PT
-                                        <br>
-                                        <b>Location:</b>Jakarta
-                                        <br>
-                                        <div class="isicontent">
-                                            <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                            <div class="list card">
+                                <div class="item item-divider">ACTUAL</div>
+                                    <div class="item item-body">
+                                        <div ng-repeat='actual in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="Before Lunch / Break"'>
+                                           
+                                        
+                                            <div ng-if='!actual.canceled_plan'>
+                                                <b>Customer:</b>{{actual.actual_result_partner}}
+                                                <br>
+                                                <b>Location:</b>{{actual.actual_result_location}}
+                                                <br>
+                                                <div class="isicontent">
+                                                    <b>Objectives:</b>{{actual.actual_result}}
+                                                </div>
+                                                <br/>
+                                                <br/>
+                                            </div>
+                                            
+                                            <div ng-if='actual.canceled_plan' class="cancel-area">
+                                                <b>Customer:</b>{{actual.actual_result_partner}}
+                                                <br>
+                                                <b>Location:</b>{{actual.actual_result_location}}
+                                                <br>
+                                                <div class="isicontent">
+                                                    <b>Objectives:</b>{{actual.actual_result}}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <br/>
-                                    <br/>
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                        
+                    </div>
+                  <div class="list card">
+                    <div class="item item-divider after-lunch">AFTER LUNCH</div>
+                    <div class="item item-body">
+                            <div class="list card">
+                                <div class="item item-divider">PLAN</div>
+                                    <div class="item item-body">
+                                        <div ng-repeat='plan in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="After Lunch / Break"'>
+                                            <b>Customer:</b>{{plan.partner}} 
+                                            <br>
+                                            <b>Location:</b>{{plan.location}}
+                                            <br>
+                                            <div class="isicontent">
+                                                <b>Objectives:</b>
+                                                {{plan.name}}
+                                            </div>
+                                            <br/>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div class="list card">
+                                <div class="item item-divider ">ACTUAL</div>
+                                    <div class="item item-body">
+                                        <div ng-repeat='actual in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="After Lunch / Break"'>
+                                           
+                                        
+                                            <div ng-if='!actual.canceled_plan'>
+                                                <b>Customer:</b>{{actual.actual_result_partner}}
+                                                <br>
+                                                <b>Location:</b>{{actual.actual_result_location}}
+                                                <br>
+                                                <div class="isicontent">
+                                                    <b>Objectives:</b>{{actual.actual_result}}
+                                                </div>
+                                                <br/>
+                                                <br/>
+                                            </div>
+                                            
+                                            <div ng-if='actual.canceled_plan' class="cancel-area">
+                                                <b>Customer:</b>{{actual.actual_result_partner}}
+                                                <br>
+                                                <b>Location:</b>{{actual.actual_result_location}}
+                                                <br>
+                                                <div class="isicontent">
+                                                    <b>Objectives:</b>{{actual.actual_result}}
+                                                </div>
+                                                <br/>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                     
                 </div>
-              <div class="list card">
-                <div class="item item-divider after-lunch">AFTER LUNCH</div>
-                <div class="item item-body">
-                        <div class="list card">
-                            <div class="item item-divider">PLAN</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
-                        </div>
 
-                        <div class="list card">
-                            <div class="item item-divider ">ACTUAL</div>
-                                <div class="item item-body">
-                                    <b>Customer:</b>FREEPORT INDONESIA,PT
-                                    <br>
-                                    <b>Location:</b>Jakarta
-                                    <br>
-                                    <div class="isicontent">
-                                        <b>Objectives:</b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+            <div class="both"></div>
+        </div>
+        <center><button class="btn" ng-click="loadMore()">Load more</button></center>
         <ion-list></ion-list>
     </ion-content>
 </ion-view>

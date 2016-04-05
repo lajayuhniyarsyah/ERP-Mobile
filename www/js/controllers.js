@@ -187,7 +187,8 @@ angular.module('app.controllers', [])
 .controller('formactivityCtrl', function($scope) {
 
 })
-   
+
+  
 .controller('previewplanactivityCtrl', function($scope,$stateParams,$http,$timeout,$ionicLoading) {
 
 	 $ionicLoading.show({
@@ -2527,5 +2528,252 @@ $http(
    
 .controller('formdaymondayCtrl', function($scope) {
 
+
+})
+
+
+.controller('salesactivitytimelineCtrl', function($scope,$http,$state,$ionicLoading,$window) {
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+	$scope.numberOfItemsToDisplay = 5;
+	$scope.loadMore = function () {
+		  $scope.numberOfItemsToDisplay += 5;  
+		};
+	$scope.loadMore();
+	$scope.colortext= {
+        "color" : "red",
+        
+    }
+	$ionicLoading.show({
+		    content: 'Loading',
+		    animation: 'fade-in',
+		    showBackdrop: true,
+		    maxWidth: 200,
+		    showDelay: 0
+  		});
+ 		
+	if (timeline==null){
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/getjason/AllData/',
+					data: {'usn':name,'pw':pass},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					console.log(response.data['data'])
+					$scope.sales_tm = response.data['data']
+
+					var sales_tm = response.data['data'];
+					
+					window.localStorage.setItem( 'sales_tm', JSON.stringify(sales_tm));
+					 $ionicLoading.hide();
+	   
+				},
+				function errorCallback(response){
+					$ionicLoading.hide();
+					console.log('erroor data kosong 1');
+					$window.localStorage.clear();
+					
+					// $state.go('menulogin');
+				}
+			)
+
+	}
+	else{
+		// console.log(timeline[0].daylight_num)
+
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/getjason/GetUpdate/',
+					data: {'usn':name,'pw':pass,'activity_id':timeline[0].activity_id,'user_id':timeline[0].user_id,'dow':timeline[0].dow,'day_ligth':timeline[0].daylight_num,'idview':timeline[0].id},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+
+					timeline_update = response.data['data']
+					timeline_update.reverse()
+					// $scope.sales_tm = response.data['data']
+				
+					// var sales_tm = response.data['data'];
+					console.log(timeline_update)
+					
+					for (index =0 ; index < timeline_update.length; index++) {
+						timeline.unshift(timeline_update[index])
+				
+						window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline));
+						
+					
+						
+						}
+					var timeline_cek_pop =JSON.parse(window.localStorage.getItem("sales_tm"));
+					if (timeline_cek_pop.length > 150){
+						length_sales_tm = timeline_cek_pop.length
+						splice = length_sales_tm - 150
+						timeline_cek_pop.splice(149,splice)
+						console.log(timeline_cek_pop,"masuk")
+						window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline_cek_pop));
+					} 
+					var Update_timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+				
+					$scope.sales_tm = Update_timeline
+					$ionicLoading.hide();
+				
+	   
+				},
+				function errorCallback(response){
+					$ionicLoading.hide();
+					console.log('erroor data kosong 2');
+					$window.localStorage.clear();
+					// $state.go('menulogin');
+			
+				}
+			)
+		
+		var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+		$scope.sales_tm = timeline
+
+		// $scope.addMoreItem = function(done) {
+        
+  //       // if ($scope.sales_tm > $scope.numberOfItemsToDisplay)
+  //         $scope.numberOfItemsToDisplay = 50; // load 5 more items
+  //       // done(); // need to call this when finish loading more data
+  //     }
+	}
+	
+})
+.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window) {
+	$scope.date = new Date();
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+	$scope.numberOfItemsToDisplay = 200;
+	console.log(timeline,"datanya")
+	$scope.loadMore = function () {
+		  $scope.numberOfItemsToDisplay += 20;  
+		};
+	$scope.loadMore();
+	$scope.colortext= {
+        "color" : "red",
+        
+    }
+	$ionicLoading.show({
+		    content: 'Loading',
+		    animation: 'fade-in',
+		    showBackdrop: true,
+		    maxWidth: 200,
+		    showDelay: 0
+  		});
+ 		
+	if (timeline==null){
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/getjason/AllData/',
+					data: {'usn':name,'pw':pass},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					console.log(response.data['data'])
+					$scope.sales_tm = response.data['data']
+
+					var sales_tm = response.data['data'];
+					
+					window.localStorage.setItem( 'sales_tm', JSON.stringify(sales_tm));
+					 $ionicLoading.hide();
+	   
+				},
+				function errorCallback(response){
+					$ionicLoading.hide();
+					console.log('erroor data kosong 1');
+					// $window.localStorage.clear();
+					
+					// $state.go('menulogin');
+				}
+			)
+
+	}
+	else{
+		// console.log(timeline[0].daylight_num)
+
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/getjason/GetUpdate/',
+					data: {'usn':name,'pw':pass,'activity_id':timeline[0].activity_id,'user_id':timeline[0].user_id,'dow':timeline[0].dow,'day_ligth':timeline[0].daylight_num,'idview':timeline[0].id},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+
+					timeline_update = response.data['data']
+					timeline_update.reverse()
+					// $scope.sales_tm = response.data['data']
+				
+					// var sales_tm = response.data['data'];
+					console.log(timeline_update)
+					
+					for (index =0 ; index < timeline_update.length; index++) {
+						timeline.unshift(timeline_update[index])
+				
+						window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline));
+						
+					
+						
+						}
+					var timeline_cek_pop =JSON.parse(window.localStorage.getItem("sales_tm"));
+					if (timeline_cek_pop.length > 150){
+						length_sales_tm = timeline_cek_pop.length
+						splice = length_sales_tm - 150
+						timeline_cek_pop.splice(149,splice)
+						console.log(timeline_cek_pop,"masuk")
+						window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline_cek_pop));
+					} 
+					var Update_timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+				
+					$scope.sales_tm = Update_timeline
+					$ionicLoading.hide();
+				
+	   
+				},
+				function errorCallback(response){
+					$ionicLoading.hide();
+					console.log('erroor data kosong 2');
+					// $window.localStorage.clear();
+					// $state.go('menulogin');
+			
+				}
+			)
+		
+		var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+		$scope.sales_tm = timeline
+
+	
+	}
 
 })
