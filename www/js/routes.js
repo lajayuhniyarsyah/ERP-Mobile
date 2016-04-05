@@ -50,20 +50,20 @@ angular.module('app.routes', [])
   })
 
   .state('previewplanactivity', {
-    url: '/preview-plan-activity',
+    url: '/preview-plan-activity/?:id?pic?begin?end',
     templateUrl: 'templates/previewplanactivity.html',
     controller: 'previewplanactivityCtrl'
 
   })
 
-  .state('formreviewactivity', {
-    url: '/form-review-activity/:idsact',
-    templateUrl: 'templates/formreviewactivity.html',
-    controller: 'formreviewactivityCtrl'
-  })
+  // .state('formreviewactivity', {
+  //   url: '/form-review-activity/:idsact',
+  //   templateUrl: 'templates/formreviewactivity.html',
+  //   controller: 'formreviewactivityCtrl'
+  // })
 
   .state('formupdateactivity', {
-    url: '/form-update-activity',
+    url: '/form-update-activity/?:hari?beforeplan?afterplan?beforeactual?afteractual',
     templateUrl: 'templates/formupdateactivity.html',
     controller: 'formupdateactivityCtrl'
   })
