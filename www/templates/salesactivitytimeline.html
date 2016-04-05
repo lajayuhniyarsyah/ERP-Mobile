@@ -1,30 +1,41 @@
 <ion-view style="" title="SALES ACTIVITY TIMELINE" >
-    <ion-content class="has-header" overflow-scroll="true" padding="true" >
-        <form style="" class="list" >
-           
-            <ion-list ng-controller="salesactivitytimelineCtrl" >
-                <!-- <ion-item style="" ui-sref="formreviewactivity({idsact: sls.id})" class="item" ng-repeat="sls in sales_tm">
-                   <h>{{sls.user}}</h><br/>
-                    <a><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
-                    <br/>
-                    <p><b>Planned Go To {{sls.partner}} / {{sls.location}}<b/></p>
-                    <a>{{sls.name}}<a/>
-                 
-                </ion-item> -->
+    <pane ng-controller="salesactivitytimelineCtrl">
+        <ion-content class="has-header" overflow-scroll="true" padding="true"   >
+            <form style="" class="list" >
+               
+                <!-- <ion-list ng-controller="salesactivitytimelineCtrl"> -->
+                    <!-- <ion-item style="" ui-sref="formreviewactivity({idsact: sls.id})" class="item" ng-repeat="sls in sales_tm">
+                       <h>{{sls.user}}</h><br/>
+                        <a><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
+                        <br/>
+                        <p><b>Planned Go To {{sls.partner}} / {{sls.location}}<b/></p>
+                        <a>{{sls.name}}<a/>
+                     
+                    </ion-item> -->
 
-                <div ng-repeat="sls in sales_tm">
-                   <div class="col">
-                 <h4>{{sls.user}}</h4>
-                    <a><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
-                    <br/>
-                    <a><b>Planned Go To {{sls.partner}} / {{sls.location}}<b/></a>
-                    <a>{{sls.name}}<a/>
-                <hr>
-               </div>
-                    </div>
-            </ion-list>
-        </form>
+                    <div ng-repeat="sls in sales_tm |limitTo:numberOfItemsToDisplay"  >
+                       <div class="col">
+                        <a style='float: right;' ng-if='sls.daylight!=sales_tm[$index-1].daylight'><b>{{sls.daylight}}</b><a/>
+                     <h4 ng-if='sls.daylight!="After Lunch / Break" && sls.daylight!=sales_tm[$index-1].daylight')>{{sls.user}}
+                        </h4>
+                        
+                        <a ng-if='sls.daylight!="After Lunch / Break"  && sls.daylight!=sales_tm[$index-1].daylight'><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
+                        <br/>
+                        <a ng-style=colortext ng-if='sls.canceled_plan'>Planned Go To {{sls.partner}} / {{sls.location}} Was Canceled<br/>{{sls.name}}<br/></a>
+                        <a ng-if='!sls.canceled_plan'>Planned Go To {{sls.partner}} / {{sls.location}}<br/>{{sls.name}}<br/></a>
+                       
+                        
+                        {{sls.actual_result_partner}}<br/>
+                        <!-- {{sls.actual_result}} -->
+                    <hr ng-if='sls.daylight=="After Lunch / Break"'>
+                   </div>
+                        </div>
+                    
+            </form>
+            <!-- <ion-infinite-scroll on-infinite="addMoreItem()" ng-if="sales_tm.length > numberOfItemsToDisplay"></ion-infinite-scroll> -->
+            <!-- </ion-list> -->
 
-    </ion-content>
+        </ion-content>
+    </pane>
 
 </ion-view>
