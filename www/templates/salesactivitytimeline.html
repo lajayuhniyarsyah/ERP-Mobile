@@ -1,30 +1,52 @@
-<ion-view style="" title="SALES ACTIVITY TIMELINE" >
-    <ion-content class="has-header" overflow-scroll="true" padding="true" >
-        <form style="" class="list" >
-           
-            <ion-list ng-controller="salesactivitytimelineCtrl" >
-                <!-- <ion-item style="" ui-sref="formreviewactivity({idsact: sls.id})" class="item" ng-repeat="sls in sales_tm">
-                   <h>{{sls.user}}</h><br/>
-                    <a><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
-                    <br/>
-                    <p><b>Planned Go To {{sls.partner}} / {{sls.location}}<b/></p>
-                    <a>{{sls.name}}<a/>
-                 
-                </ion-item> -->
+<ion-view title="SALES ACTIVITY TIMELINE" id="page11">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-list></ion-list>
 
-                <div ng-repeat="sls in sales_tm">
-                   <div class="col">
-                 <h4>{{sls.user}}</h4>
-                    <a><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
-                    <br/>
-                    <a><b>Planned Go To {{sls.partner}} / {{sls.location}}<b/></a>
-                    <a>{{sls.name}}<a/>
-                <hr>
-               </div>
+            
+        <div class="list card">
+            <div class="item item-divider head-name">
+                <div class="namasales">M.REZA PAHLEPI</div>
+                <div class="datesales">Friday 04/08/2016</div>
+            </div>
+                <div class="item item-body">
+                    <div class="plan">
+                        <b>Planned Go To : FREEPORT INDONESIA,PT - Jakarta</b>
+                        <div class="isicontent line">
+                            Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                        </div>
                     </div>
-            </ion-list>
-        </form>
 
+                    <b>Actual Result Went To : FREEPORT INDONESIA,PT - Jakarta</b>
+                    <div class="isicontent">
+                        Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                    </div>
+                </div>
+        </div>
+
+           <div class="list card">
+            <div class="item item-divider head-name">
+                <div class="namasales">M.REZA PAHLEPI</div>
+                <div class="datesales">Friday 04/08/2016</div>
+            </div>
+                <div class="item item-body">
+                    <div class="plan cancel">
+                        <b>Planned Go To : FREEPORT INDONESIA,PT - Jakarta  Was Canceled</b>
+                        <div class="isicontent line">
+                            Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                        </div>
+                    </div>
+                    <b>Actual Result Went To : FREEPORT INDONESIA,PT - Jakarta</b>
+                    <div class="isicontent">
+                        Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                    </div>
+                </div>
+        </div>
+ 
+
+
+        <div class="both"></div>
+
+
+        <ion-list></ion-list>
     </ion-content>
-
 </ion-view>
