@@ -1,17 +1,17 @@
-<ion-view style="" title="FORM DAY MONDAY">
+<ion-view style="" title="FORM DAY">
     <ion-content class="has-header" overflow-scroll="true" padding="true">
         <div style="">
             <p>
             </p>
             <center>
-                <b>MONDAY</b>
+                <b>{{day}}</b>
             </center>
             <p></p>
             <hr>
 
         </div>
         <form style="" class="list"></form>
-        <button class="button button-positive  icon-right ion-android-add-circle" style="font-weight:bolder;color:#FFFFFF;border-radius:29px 29px 29px 29px;" id="formdaymonday-button18">Add</button>
+        <button class="button button-positive  icon-right ion-android-add-circle" style="font-weight:bolder;color:#FFFFFF;border-radius:29px 29px 29px 29px;" id="formdaymonday-button01" ng-click="setdatabefore()">Add</button>
         <div style="width: 284px; height: 14px;" class="spacer"></div>
         <div style="">
             <p>
@@ -20,28 +20,25 @@
                 </b>
             </p>
         </div>
-        <form style="" class="list">
+        <form style="" class="list" >
             <label style="" name="customer-before-lunch" class="item item-select">
                 <span class="input-label">Customer</span>
-                <select>
-                    <option>None</option>
-                    <option>FREEPORT INDONESIA,PT</option>
-                    <option>HOLCIM INDONESIA, PT</option>
-                    <option>ADARO INDONESIA, PT</option>
+                <select ng-model="before.customer">
+                    <option ng-repeat="option in partner" value="{{option.display_name}}">{{option.display_name}}</option>
                 </select>
             </label>
             <label style="" name="location-before-lunch" class="item item-input">
                 <span class="input-label">Location</span>
-                <input placeholder="Location" type="text">
+                <input placeholder="Location" type="text" ng-model="before.location">
             </label>
             <label style="" name="objectives-before-lunch" class="item item-input">
                 <span class="input-label">Objectives</span>
-                <input placeholder="Objectives " type="text">
+                <input placeholder="Objectives " type="text" ng-model="before.objective">
             </label>
         </form>
         <div style="height: 100px;" class="spacer"></div>
         <form style="" class="list"></form>
-        <button class="button button-positive  icon-right ion-android-add-circle" style="font-weight:bolder;color:#FFFFFF;border-radius:29px 29px 29px 29px;" id="formdaymonday-button19">Add</button>
+        <button class="button button-positive  icon-right ion-android-add-circle" style="font-weight:bolder;color:#FFFFFF;border-radius:29px 29px 29px 29px;" id="formdaymonday-button02" ng-click="setdataafter()">Add</button>
         <form style="" class="list"></form>
         <div style="">
             <p>
@@ -54,10 +51,7 @@
             <label style="" name="customer-after-lunch" class="item item-select">
                 <span class="input-label">Customer</span>
                 <select>
-                    <option>None</option>
-                    <option>FREEPORT INDONESIA,PT</option>
-                    <option>HOLCIM INDONESIA, PT</option>
-                    <option>ADARO INDONESIA, PT</option>
+                    <option ng-repeat="option in partner" value="{{option.id}}">{{option.display_name}}</option>
                 </select>
             </label>
             <label style="" name="location-after-lunch" class="item item-input">
@@ -69,7 +63,7 @@
                 <input placeholder="Objectives " type="text">
             </label>
         </form>
-        <button class="button button-positive  button-block icon ion-android-arrow-forward" style="border-radius:10px 10px 10px 10px;" id="formdaymonday-button20">NEXT STEP</button>
+        <button class="button button-positive  button-block icon ion-android-arrow-forward" style="border-radius:10px 10px 10px 10px;" id="formdaymonday-button20" ng-click="savadata()">NEXT STEP</button>
         <form style="" class="list"></form>
         <div style="width: 284px; height: 14px;" class="spacer"></div>
     </ion-content>

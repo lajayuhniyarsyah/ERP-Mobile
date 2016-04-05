@@ -1,4 +1,4 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['ngMaterial'])
   
 .controller('menuutamaCtrl', function($scope) {
 
@@ -34,7 +34,7 @@ angular.module('app.controllers', [])
 		});
 	}
 	$scope.login = function() {
-		console.log(window.btoa($scope.data.username))  
+		// console.log(window.btoa($scope.data.username))  
 		LoginService.loginUser(window.btoa($scope.data.username),window.btoa($scope.data.pass)).success(function(data) {
 			$state.go('menuutama');
 
@@ -142,14 +142,14 @@ angular.module('app.controllers', [])
 				var sda_update = response.data['Result'];
 				var currentObj = JSON.parse(window.localStorage.getItem('sales_data_activity')); //object
 					
-					if(currentObj.length>=4){
+					if(currentObj.length>100){
 						// jika current storage sudah 100
 						for (i = 0, len = sda_update.length; i < len; i++){
 
 							currentObj.pop();
 							window.localStorage.setItem('sales_data_activity',JSON.stringify(currentObj));
 						};
-					}					
+					 }					
 
 					//append new object
 
@@ -158,12 +158,7 @@ angular.module('app.controllers', [])
 						currentObj.unshift(sda_update[i]);
 						window.localStorage.setItem('sales_data_activity',JSON.stringify(currentObj));
 					};
-					
-					console.log(currentObj.length,"hasil setelah di push")
-					
-
-
-					console.log(currentObj.length,"hasil setelah di pop")				
+								
 				
 				var get_sales_data_activity = JSON.parse(window.localStorage.getItem('sales_data_activity'));
 
@@ -181,7 +176,53 @@ angular.module('app.controllers', [])
 	 }, 1000);    
 })
    
-.controller('formactivityCtrl', function($scope) {
+.controller('formactivityCtrl', function($scope,$http,$state,$filter) {
+
+            $scope.dates = {};
+            $scope.minDate = new Date();
+            $scope.onlyWeekendsPredicate = function(date) {
+               var day = date.getDay();
+               return day === 1; }
+              $scope.datechange = function() {
+    			$scope.endDate = $filter('date')($scope.dates.myDate,"dd/MM/yyyy");
+ 			 };
+
+            // $scope.endDate = $scope.dates.myDate;
+            // console.log($scope.endDate);
+            // $scope.myDate.getFullYear(),
+            // $scope.myDate.getMonth(),
+            // $scope.myDate.getDate()+7);
+	 
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+
+	
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/res.users/search/',
+					data: {'usn':name,'pw':pass,'searchfield':'login','searchoperator':'=','searchcateg':window.atob(name),'fields':['name']},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					
+					$scope.user = (response.data['Result'])[0].name
+
+					// var sales_tm = response.data['data'];
+					
+					// window.localStorage.setItem( 'sales_tm', JSON.stringify(sales_tm));
+				},
+				function errorCallback(response){
+					console.log('erroor data kosong');
+					// $window.localStorage.clear();
+					// $state.go('menulogin');
+				}
+			)
 
 })
    
@@ -205,7 +246,7 @@ angular.module('app.controllers', [])
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var id = $stateParams.id;
 	
-	var current_local = JSON.parse(window.localStorage.getItem('sales_activity_before_plan_senin'));
+	var current_local = JSON.parse(window.localStorage.getItem('current_activity_id'));
 	// console.log(current_local)
 	
 
@@ -2114,6 +2155,49 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('formdaymondayCtrl', function($scope) {
+.controller('formdaymondayCtrl', function($scope,$stateParams,$http) {
 
+	$scope.day = $stateParams.day;
+	$scope.before = {};
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+			
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/res.partner/',
+					data: {'usn':name,'pw':pass , 'fields':['id','display_name']},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					$scope.partner = response.data['Result']
+
+					// var sda = response.data['Result'];
+					
+					// window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sda));
+				
+	   
+				},
+				function errorCallback(response){
+					console.log('erroor data kosong');
+					// $window.localStorage.clear();
+					// $state.go('menulogin');
+				}
+			)
+		$scope.savedata = function() {
+		// console.log(window.btoa($scope.data.username))  
+		
+			window.alert($scope.before.customer);
+			window.alert($scope.before.location); 
+			window.alert($scope.before.objective); 
+		}
+		
 })
+
+

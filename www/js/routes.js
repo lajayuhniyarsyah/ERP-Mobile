@@ -63,7 +63,7 @@ angular.module('app.routes', [])
   })
 
   .state('formdaymonday', {
-    url: '/form-day-monday',
+    url: '/form-day-monday/?:pic?day',
     templateUrl: 'templates/formdaymonday.html',
     controller: 'formdaymondayCtrl'
   })
