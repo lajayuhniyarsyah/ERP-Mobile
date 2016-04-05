@@ -10,7 +10,7 @@
 	margin-right: 10px;
 }
 .judul-timeline{
-	background-color: #E3DCD5;
+	background-color: #9DC2F2;
 	width: 100%;
 	margin-top: -10px;
 	border-radius: 10px 10px 0px 0px;
@@ -28,9 +28,10 @@
 	margin-left: 5px; 
 	margin-top: 5px;
 	padding-top: 5px;
+	color: white;
 }
 .datesales{
-	font-size: 16px;
+	font-size: 14px;
 	margin-left: 5px; 
 }
 .isicontent{
@@ -48,4 +49,10 @@
 }
 .both{
 	clear: both;
+}
+.before-lunch{
+	background-color: #D5D7F2 !important;
+}
+.after-lunch{
+	background-color: #D0F2DB !important;	
 }
