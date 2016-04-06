@@ -18,30 +18,51 @@
 	-moz-border-radius: 10px 10px 0px 0px;*/
 
 }
+.custom-list{
+	margin-top: 0px !important;	 
+	margin-bottom: 0px !important;
+}
+.item-divider-erp{
+	min-height: 0px !important;
+}
 .isitimeline{
 	padding: 5px;
 }
 .namasales{
 	text-transform: uppercase;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 14px;
 	color: white;
 	float: left;
 	width: 50%;
 }
+.font-black{
+	 color: black !important;
+}
 .datesales{
-	font-size: 10px;
-	margin-left: 5px; 
-	float: right;
 	color: white;
+    float: right;
+    font-size: 10px;
+    margin-right: 33px;
 }
 .isicontent{
 	text-align: justify;
 
 }
+.judul-header{
+	font-size: 10px;
+	color: #F4B350;
+}
+.judul-plan{
+	font-size: 10px;
+}
 .line{
 	border-bottom: 2px solid #03C9A9;
 	padding-bottom: 5px;
+}
+.line-silver{
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 5px;	
 }
 .cancel-area{
 	background-color: #E3C1BF;
@@ -50,7 +71,44 @@
 	-moz-border-radius: 10px;
 	padding: 5px;
 }
+.inisia-name{
+	 float: left;
+	 background-color: #36D7B7 !important;
+	border-radius: 50%;
+	-wbekit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-right: 5px;	
+	color: white;
+	font-size: 12px;
+}
 
+.status {
+    overflow: hidden;
+    width: 100px;
+}
+.status span {
+    color: #fff;
+    display: inline-block;
+    padding: 2px 0;
+    position: absolute;
+    right: -24px;
+    text-align: center;
+    top: 7px;
+    font-size: 8px;
+    transform: rotate(45deg);
+    width: 90px;
+}
+.ok-status{
+	background: #19B5FE none repeat scroll 0 0;
+}
+.cancel-status{
+	background: #ec2f2f none repeat scroll 0 0;
+}
 .cancel{
 	color: red !important;
 }
@@ -58,7 +116,7 @@
 	clear: both;
 }
 .head-name{
-	background-color: #03C9A9 !important;
+	background-color: #36D7B7 !important;
 }
 .line{
 	border-color: 1px solid #03C9A9;
