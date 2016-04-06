@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['ngMaterial'])
+angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
   
 .controller('menuutamaCtrl', function($scope) {
 
@@ -184,7 +184,7 @@ angular.module('app.controllers', ['ngMaterial'])
                var day = date.getDay();
                return day === 1; }
               $scope.datechange = function() {
-    			$scope.endDate = $filter('date')($scope.dates.myDate,"dd/MM/yyyy");
+    			$scope.endDate = $filter('date')($scope.dates.myDate,"M/dd/yyyy");
  			 };
 
             // $scope.endDate = $scope.dates.myDate;
@@ -201,7 +201,11 @@ angular.module('app.controllers', ['ngMaterial'])
 				{
 					method: 'POST',
 					url: 'http://10.36.15.51:8000/openerp/res.users/search/',
-					data: {'usn':name,'pw':pass,'searchfield':'login','searchoperator':'=','searchcateg':window.atob(name),'fields':['name']},
+					data: {
+						'domain':[
+									['login','ilike',window.atob(name)],
+								],
+						'usn':name,'pw':pass,'fields':['name']},
 					headers: {
 						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 					  
@@ -256,7 +260,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.plan.senin/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -278,7 +286,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.plan.senin/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -301,7 +313,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.actual.senin/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -324,7 +340,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.actual.senin/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -348,7 +368,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -371,7 +395,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.plan.selasa/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -394,7 +422,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.actual.selasa/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -417,7 +449,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.actual.selasa/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -441,7 +477,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -464,7 +504,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.plan.rabu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -487,7 +531,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.actual.rabu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -510,7 +558,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.actual.rabu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -534,7 +586,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -557,7 +613,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.plan.kamis/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -580,7 +640,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.actual.kamis/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -603,7 +667,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.actual.kamis/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -627,7 +695,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -650,7 +722,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.plan.jumat/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -673,7 +749,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.actual.jumat/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -696,7 +776,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.actual.jumat/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -720,7 +804,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.plan.sabtu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -743,7 +831,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.plan.sabtu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -766,7 +858,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.actual.sabtu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -789,7 +885,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.actual.sabtu/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -813,7 +913,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.plan.ahad/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -836,7 +940,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.plan.ahad/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -859,7 +967,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/before.actual.ahad/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -882,7 +994,11 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://10.36.15.51:8000/openerp/after.actual.ahad/search/',
-				data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+				data: {
+					'domain':[
+								['activity_id','=',id],
+							],
+					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 				},		
@@ -927,7 +1043,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.plan.senin/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -956,7 +1076,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.plan.senin/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -985,7 +1109,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.actual.senin/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1014,7 +1142,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.actual.senin/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1044,7 +1176,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1073,7 +1209,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.plan.selasa/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1102,7 +1242,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.actual.selasa/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1131,7 +1275,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.actual.selasa/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1161,7 +1309,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1190,7 +1342,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.plan.rabu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1219,7 +1375,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.actual.rabu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1248,7 +1408,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.actual.rabu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1278,7 +1442,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1307,7 +1475,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.plan.kamis/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1336,7 +1508,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.actual.kamis/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1365,7 +1541,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.actual.kamis/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1395,7 +1575,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1424,7 +1608,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.plan.jumat/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1453,7 +1641,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.actual.jumat/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1482,7 +1674,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.actual.jumat/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1512,7 +1708,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.plan.sabtu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1541,7 +1741,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.plan.sabtu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1570,7 +1774,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.actual.sabtu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1599,7 +1807,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.actual.sabtu/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1629,7 +1841,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.plan.ahad/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1658,7 +1874,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.plan.ahad/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1687,7 +1907,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/before.actual.ahad/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -1716,7 +1940,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					{
 						method: 'POST',
 						url: 'http://10.36.15.51:8000/openerp/after.actual.ahad/search/',
-						data: {'usn':name,'pw':pass ,'searchfield':"activity_id","searchoperator":"=","searchcateg":id,'fields':[]},
+						data: {
+							'domain':[
+										['activity_id','=',id],
+									],
+							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 						},		
@@ -2161,42 +2389,61 @@ angular.module('app.controllers', ['ngMaterial'])
 	$scope.before = {};
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
-			
-		$http(
-				{
-					method: 'POST',
-					url: 'http://10.36.15.51:8000/openerp/res.partner/',
-					data: {'usn':name,'pw':pass , 'fields':['id','display_name']},
-					headers: {
-						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-					  
-					},
-				
-				}
-			).then(
-				function successCallback(response){
-					console.log('success isi storage kosong dari server');
-					$scope.partner = response.data['Result']
 
-					// var sda = response.data['Result'];
-					
-					// window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sda));
-				
-	   
+	// $scope.items = [
+	// 	{'display_name':'Indocement Test, PT'},
+	// 	{'display_name':'Adaro Test, PT'},
+	// ]
+
+	// fungsi untuk nyari
+	$scope.getMatches = function(searchText){
+		var res_matched = []
+		// looping dari static data
+		/*angular.forEach($scope.items, function(value,key){
+
+			regex = new RegExp(searchText,"gi")
+
+			if(value.display_name.match(regex)){
+				res_matched.push(value)
+			}
+		})*/
+		// cari via ajax
+		res_matched = $http
+	  	(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/res.partner/search/',
+				data: {
+				'domain':[
+							['is_company','=','false'],
+							['customer','=','true'],
+							['display_name','ilike',searchText]
+						],
+				'usn':name,'pw':pass ,'fields':['display_name']},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				  
 				},
-				function errorCallback(response){
-					console.log('erroor data kosong');
-					// $window.localStorage.clear();
-					// $state.go('menulogin');
-				}
-			)
-		$scope.savedata = function() {
-		// console.log(window.btoa($scope.data.username))  
+			}
+		).then(function(response){
+			// if success
+			console.log(response.data.Result)
+			return response.data.Result
+		},
+		function(response){
+			return []
+		})
 		
-			window.alert($scope.before.customer);
-			window.alert($scope.before.location); 
-			window.alert($scope.before.objective); 
-		}
+		return res_matched
+	}
+
+	$scope.savedata = function() {
+	// console.log(window.btoa($scope.data.username))  
+	
+		window.alert($scope.before.customer);
+		window.alert($scope.before.location); 
+		window.alert($scope.before.objective); 
+	}
 		
 })
 
