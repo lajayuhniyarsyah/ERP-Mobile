@@ -2,3 +2,73 @@
 .btn-gantung{
 	float: right;
 }
+.timeline{
+	border: 1px solid #ccc;
+	/*border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;*/
+	margin-right: 10px;
+}
+.judul-timeline{
+	/*background-color: #9DC2F2;*/
+	width: 100%;
+	/*margin-top: -10px;*/
+/*	border-radius: 10px 10px 0px 0px;
+	-webkit-border-radius: 10px 10px 0px 0px;
+	-moz-border-radius: 10px 10px 0px 0px;*/
+
+}
+.isitimeline{
+	padding: 5px;
+}
+.namasales{
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 12px;
+	color: white;
+	float: left;
+	width: 50%;
+}
+.datesales{
+	font-size: 10px;
+	margin-left: 5px; 
+	float: right;
+	color: white;
+}
+.isicontent{
+	text-align: justify;
+
+}
+.line{
+	border-bottom: 2px solid #03C9A9;
+	padding-bottom: 5px;
+}
+.cancel-area{
+	background-color: #E3C1BF;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	padding: 5px;
+}
+
+.cancel{
+	color: red !important;
+}
+.both{
+	clear: both;
+}
+.head-name{
+	background-color: #03C9A9 !important;
+}
+.line{
+	border-color: 1px solid #03C9A9;
+}
+.before-lunch{
+	background-color: #D5D7F2 !important;
+}
+.after-lunch{
+	background-color: #D0F2DB !important;	
+}
+.item-body{
+	font-size: 10px !important;
+}
