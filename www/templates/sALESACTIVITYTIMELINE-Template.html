@@ -19,15 +19,17 @@
 
                                     <div class="item item-body" >
                                         <div ng-repeat='plan in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="Before Lunch / Break"'>
-                                            <b>Customer:</b>{{plan.partner}} 
-                                            <br>
-                                            <b>Location:</b>{{plan.location}}
-                                            <br>
-                                            <div class="isicontent">
-                                                <b>Objectives:</b>
-                                                {{plan.name}}
+                                            <div ng-if="!plan.not_planned_actual">
+                                                <b>Customer:</b>{{plan.partner}} 
+                                                <br>
+                                                <b>Location:</b>{{plan.location}}
+                                                <br>
+                                                <div class="isicontent">
+                                                    <b>Objectives:</b>
+                                                    {{plan.name}}
+                                                </div>
+                                                <br/>
                                             </div>
-                                            <br/>
                                         </div>
                                     </div>
                             </div>
@@ -58,6 +60,8 @@
                                                 <div class="isicontent">
                                                     <b>Objectives:</b>{{actual.actual_result}}
                                                 </div>
+                                                <br/>
+                                                <br/>
                                             </div>
                                         </div>
                                     </div>
@@ -73,15 +77,17 @@
                                 <div class="item item-divider">PLAN</div>
                                     <div class="item item-body">
                                         <div ng-repeat='plan in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="After Lunch / Break"'>
-                                            <b>Customer:</b>{{plan.partner}} 
-                                            <br>
-                                            <b>Location:</b>{{plan.location}}
-                                            <br>
-                                            <div class="isicontent">
-                                                <b>Objectives:</b>
-                                                {{plan.name}}
+                                            <div ng-if="!plan.not_planned_actual">
+                                                <b>Customer:</b>{{plan.partner}} 
+                                                <br>
+                                                <b>Location:</b>{{plan.location}}
+                                                <br>
+                                                <div class="isicontent">
+                                                    <b>Objectives:</b>
+                                                    {{plan.name}}
+                                                </div>
+                                                <br/>
                                             </div>
-                                            <br/>
                                         </div>
                                     </div>
                             </div>

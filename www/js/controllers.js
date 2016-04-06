@@ -2656,13 +2656,13 @@ $http(
 	}
 	
 })
-.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window) {
+.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup) {
 	$scope.date = new Date();
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
 	$scope.numberOfItemsToDisplay = 200;
-	console.log(timeline,"datanya")
+	// console.log(timeline,"datanya")
 	$scope.loadMore = function () {
 		  $scope.numberOfItemsToDisplay += 20;  
 		};
@@ -2716,6 +2716,17 @@ $http(
 	else{
 		// console.log(timeline[0].daylight_num)
 
+		console.log(timeline[0].daylight_num)
+		myJson = timeline.filter(function(jsonObject) {
+    				return jsonObject.the_date === "2015-12-11";
+						});
+		timeline = timeline.filter(function(jsonObject) {
+    				return jsonObject.the_date !== "2015-12-11";
+						});
+		window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline));
+		window.localStorage.setItem('sales_tm_sementara', JSON.stringify(myJson));
+		
+		// console.log(myJson)
 		$http(
 				{
 					method: 'POST',
@@ -2733,10 +2744,6 @@ $http(
 
 					timeline_update = response.data['data']
 					timeline_update.reverse()
-					// $scope.sales_tm = response.data['data']
-				
-					// var sales_tm = response.data['data'];
-					console.log(timeline_update)
 					
 					for (index =0 ; index < timeline_update.length; index++) {
 						timeline.unshift(timeline_update[index])
@@ -2763,7 +2770,26 @@ $http(
 				},
 				function errorCallback(response){
 					$ionicLoading.hide();
-					console.log('erroor data kosong 2');
+					var timeline_sementara =JSON.parse(window.localStorage.getItem("sales_tm_sementara"));
+					timeline_sementara.reverse()
+					$ionicPopup.alert({
+							title:"Errorrr",
+							template:"Ada kesalahan di koneksi"
+						});
+					for (index =0 ; index < timeline_sementara.length; index++) {
+						timeline.unshift(timeline_sementara[index])
+				
+						window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline));
+						
+					
+						
+						}
+					var Update_timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+				
+					$scope.sales_tm = Update_timeline
+			
+					console.log('erroor data kosong',timeline_sementara);
+
 					// $window.localStorage.clear();
 					// $state.go('menulogin');
 			
