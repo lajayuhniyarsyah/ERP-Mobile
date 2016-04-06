@@ -80,6 +80,12 @@ angular.module('app.routes', [])
     controller: 'salesactivitytimelineCtrl'
   })
 
+  .state('salestimeline', {
+    url: '/sales-timeline',
+    templateUrl: 'templates/sALESACTIVITYTIMELINE-Template.html',
+    controller: 'salestimelineCtrl'
+  })
+
 $urlRouterProvider.otherwise('/login')
 
   

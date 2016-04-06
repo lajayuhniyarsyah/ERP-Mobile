@@ -1,48 +1,44 @@
-<ion-view title="SALES ACTIVITY TIMELINE" id="page11">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <ion-list></ion-list>
+<ion-view style="" title="SALES ACTIVITY TIMELINE" >
+    <!-- <pane ng-controller="salesactivitytimelineCtrl"> -->
+        <ion-content class="has-header" overflow-scroll="true" padding="true"   >
+            <form style="" class="list" >
+               
+                <ion-list ng-controller="salesactivitytimelineCtrl">
+                    <!-- <ion-item style="" ui-sref="formreviewactivity({idsact: sls.id})" class="item" ng-repeat="sls in sales_tm">
+                       <h>{{sls.user}}</h><br/>
+                        <a><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
+                        <br/>
+                        <p><b>Planned Go To {{sls.partner}} / {{sls.location}}<b/></p>
+                        <a>{{sls.name}}<a/>
+                     
+                    </ion-item> -->
 
-            
-        <div class="list card">
-            <div class="item item-divider head-name">
-                <div class="namasales">M.REZA PAHLEPI</div>
-                <div class="datesales">Friday 04/08/2016</div>
-            </div>
-                <div class="item item-body">
-                    <div class="plan">
-                        <b>Planned Go To : FREEPORT INDONESIA,PT - Jakarta</b>
-                        <div class="isicontent line">
-                            Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                    <div ng-repeat="sls in sales_tm |limitTo:numberOfItemsToDisplay"  >
+                       <div class="col">
+                        <a style='float: right;' ng-if='sls.daylight!=sales_tm[$index-1].daylight'><b>{{sls.daylight}}</b><a/>
+                     <h4 ng-if='sls.daylight!="After Lunch / Break" && sls.daylight!=sales_tm[$index-1].daylight')>{{sls.user}}
+                        </h4>
+                        
+                        <a ng-if='sls.daylight!="After Lunch / Break"  && sls.daylight!=sales_tm[$index-1].daylight'><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"dd/MM/yyyy" }}</b></a>
+                        <br/>
+                        <a ng-style=colortext ng-if='sls.canceled_plan'>Planned Go To {{sls.partner}} / {{sls.location}} Was Canceled<br/>{{sls.name}}<br/></a>
+                        <a ng-if='!sls.canceled_plan'>Planned Go To {{sls.partner}} / {{sls.location}}<br/>{{sls.name}}<br/></a>
+                       
+                        
+                        {{sls.actual_result_partner}}<br/>
+                        <!-- {{sls.actual_result}} -->
+                    <hr ng-if='sales_tm[$index+1].daylight=="Before Lunch / Break"&& sls.daylight=="After Lunch / Break" '>
+                   </div>
                         </div>
-                    </div>
+                    
+            </form>
+            <center><button class="btn" ng-click="loadMore()">Load more</button></center>
+            <!-- <ion-infinite-scroll on-infinite="loadMore()" ></ion-infinite-scroll> -->
 
-                    <b>Actual Result Went To : FREEPORT INDONESIA,PT - Jakarta</b>
-                    <div class="isicontent">
-                        Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                    </div>
-                </div>
-        </div>
+            <!-- <ion-infinite-scroll on-infinite="loadMore()" distance="10%"></ion-infinite-scroll>  -->
+             </ion-list> 
 
-           <div class="list card">
-            <div class="item item-divider head-name">
-                <div class="namasales">M.REZA PAHLEPI</div>
-                <div class="datesales">Friday 04/08/2016</div>
-            </div>
-                <div class="item item-body">
-                    <div class="plan cancel">
-                        <b>Planned Go To : FREEPORT INDONESIA,PT - Jakarta  Was Canceled</b>
-                        <div class="isicontent line">
-                            Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                        </div>
-                    </div>
-                    <b>Actual Result Went To : FREEPORT INDONESIA,PT - Jakarta</b>
-                    <div class="isicontent">
-                        Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
-                    </div>
-                </div>
-        </div>
- 
-
+        </ion-content>
 
         <div class="both"></div>
 
