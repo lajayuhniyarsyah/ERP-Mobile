@@ -2656,6 +2656,79 @@ $http(
 	}
 	
 })
+
+.controller('salestimeline2Ctrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup) {
+	var timeline = JSON.parse(window.localStorage.getItem("timeline2")); //data to fetch in view
+	var reloadSalesTm =function(data){
+		console.log('called')
+		$scope.sales_tm = data
+	}
+
+	$scope.date = new Date();
+
+	
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	
+
+	$scope.numberOfItemsToDisplay = 2;
+	// console.log(timeline,"datanya")
+	$scope.loadMore = function () {
+
+		$scope.numberOfItemsToDisplay += 20;  
+	};
+	$scope.loadMore();
+	$scope.colortext= {
+        "color" : "red",
+        
+    }
+	$ionicLoading.show(
+		{
+		    content: 'Loading',
+		    animation: 'fade-in',
+		    showBackdrop: true,
+		    maxWidth: 200,
+		    showDelay: 0
+  		}
+  	);
+
+
+  	$http
+  	(
+		{
+			method: 'POST',
+			url: 'http://10.36.15.51:8000/openerp/getjason/AllData/',
+			data: {'usn':name,'pw':pass},
+			headers: {
+				'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+			  
+			},
+			transformRequest: function(data, headersGetter, status){
+				console.log('tesssssssssssss')
+			}
+		
+		}
+	).then(
+		function successCallback(response){
+			console.log('success isi storage kosong dari server');
+			console.log(response)
+			window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+			reloadSalesTm(response.data.data)
+
+			$ionicLoading.hide();
+		},
+		function errorCallback(response){
+			$ionicLoading.hide();
+			console.log(response)
+
+			console.log('erroor data kosong');
+	
+		}
+	)
+
+	reloadSalesTm(timeline)
+})
+
 .controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup) {
 	$scope.date = new Date();
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
