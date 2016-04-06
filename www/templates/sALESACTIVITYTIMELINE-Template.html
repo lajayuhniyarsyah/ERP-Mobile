@@ -2,14 +2,48 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <ion-list></ion-list>
 
+        <div class="list card custom-list">
+            <div class="item item-divider item-divider-erp">
+                <span class="inisia-name">MRP</span>
+                <div class="namasales font-black">M.REZA PAHLEPI</div>
+                <div class="datesales font-black">Friday 04/08/2016</div>
+                <div class="status"><span class="ok-status">OK</span></div>
+                <div class="both"></div>
+                <div class="judul-header"><b>FREEPORT INDONESIA,PT - Jakarta</b></div>
+            </div>
+                <div class="item item-body">
+                    <div class="both"></div>
+                    <div class="plan">
+                        <div class="isicontent line-silver">
+                            <div class="judul-plan"><b>Planned Go To : FREEPORT INDONESIA,PT - Jakarta</b></div>
+                            Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                        </div>
+                    </div>
 
         <div ng-repeat="sls in sales_tm |limitTo:numberOfItemsToDisplay">
    
 
-            <div class="timeline"  ng-if="(sls.the_date|date:'yyyyMMdd')<=(date|date:'yyyyMMdd')&& (sls.the_date !=sales_tm[$index-1].the_date || sls.user != sales_tm[$index-1].user)">
-                <div class="judul-timeline">
-                    <div class="namasales">{{sls.user}}</div>
-                    <div class="datesales">{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"dd/MM/yyyy" }}</div>
+           <div class="list card custom-list">
+            <div class="item item-divider item-divider-erp">
+                <span class="inisia-name">MRP</span>
+                <div class="namasales font-black">M.REZA PAHLEPI</div>
+                <div class="datesales font-black">Friday 04/08/2016</div>
+                <div class="status"><span class="cancel-status">CANCEL</span></div>
+                <div class="both"></div>
+                <div class="judul-header"><b>FREEPORT INDONESIA,PT - Jakarta </b></div>
+            </div>
+                <div class="item item-body">
+                    <div class="both"></div>
+                    <div class="plan cancel">
+                        <div class="isicontent line-silver">
+                            <div class="judul-plan"><b>Planned Go To : FREEPORT INDONESIA,PT - Jakarta  Was Canceled</b></div>
+                            Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                        </div>
+                    </div>
+                    <b>Actual Result Went To : FREEPORT INDONESIA,PT - Jakarta</b>
+                    <div class="isicontent">
+                        Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
+                    </div>
                 </div>
                 <div class="isitimeline">
                     <div class="list card">
@@ -33,36 +67,22 @@
                                     </div>
                             </div>
 
-                            <div class="list card">
-                                <div class="item item-divider">ACTUAL</div>
-                                    <div class="item item-body">
-                                        <div ng-repeat='actual in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="Before Lunch / Break"'>
-                                           
-                                        
-                                            <div ng-if='!actual.canceled_plan'>
-                                                <b>Customer:</b>{{actual.actual_result_partner}}
-                                                <br>
-                                                <b>Location:</b>{{actual.actual_result_location}}
-                                                <br>
-                                                <div class="isicontent">
-                                                    <b>Objectives:</b>{{actual.actual_result}}
-                                                </div>
-                                                <br/>
-                                                <br/>
-                                            </div>
-                                            
-                                            <div ng-if='actual.canceled_plan' class="cancel-area">
-                                                <b>Customer:</b>{{actual.actual_result_partner}}
-                                                <br>
-                                                <b>Location:</b>{{actual.actual_result_location}}
-                                                <br>
-                                                <div class="isicontent">
-                                                    <b>Objectives:</b>{{actual.actual_result}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
+        <div class="both"></div>
+        <div class="list card custom-list">
+            <div class="item item-divider item-divider-erp">
+                <span class="inisia-name">RKD</span>
+                <div class="namasales font-black">Ricky Djendakang</div>
+                <div class="datesales font-black">Friday 04/08/2016</div>
+                <div class="status"><span class="ok-status">OK</span></div>
+                <div class="both"></div>
+                <div class="judul-header"><b>ANEKA TAMBANG,PT - Jakarta</b></div>
+            </div>
+                <div class="item item-body">
+                    <div class="both"></div>
+                    <div class="plan">
+                        <div class="isicontent line-silver">
+                            <div class="judul-plan"><b>Planned Go To : ANEKA TAMBANG,PT - Jakarta</b></div>
+                            Kordiniasi Kebutuhan project
                         </div>
                     </div>
                         
@@ -87,38 +107,21 @@
                                     </div>
                             </div>
 
-                            <div class="list card">
-                                <div class="item item-divider ">ACTUAL</div>
-                                    <div class="item item-body">
-                                        <div ng-repeat='actual in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="After Lunch / Break"'>
-                                           
-                                        
-                                            <div ng-if='!actual.canceled_plan'>
-                                                <b>Customer:</b>{{actual.actual_result_partner}}
-                                                <br>
-                                                <b>Location:</b>{{actual.actual_result_location}}
-                                                <br>
-                                                <div class="isicontent">
-                                                    <b>Objectives:</b>{{actual.actual_result}}
-                                                </div>
-                                                <br/>
-                                                <br/>
-                                            </div>
-                                            
-                                            <div ng-if='actual.canceled_plan' class="cancel-area">
-                                                <b>Customer:</b>{{actual.actual_result_partner}}
-                                                <br>
-                                                <b>Location:</b>{{actual.actual_result_location}}
-                                                <br>
-                                                <div class="isicontent">
-                                                    <b>Objectives:</b>{{actual.actual_result}}
-                                                </div>
-                                                <br/>
-                                                <br/>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
+           <div class="list card custom-list">
+            <div class="item item-divider item-divider-erp">
+                <span class="inisia-name">RKD</span>
+                <div class="namasales font-black">Ricky Djendakang</div>
+                <div class="datesales font-black">Friday 04/08/2016</div>
+                <div class="status"><span class="ok-status">OK</span></div>
+                <div class="both"></div>
+                <div class="judul-header"><b>FREEPORT INDONESIA,PT - Jakarta </b></div>
+            </div>
+                <div class="item item-body">
+                    <div class="both"></div>
+                    <div class="plan">
+                        <div class="isicontent line-silver">
+                            <div class="judul-plan"><b>Planned Go To : FREEPORT INDONESIA,PT - Jakarta </b></div>
+                            Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
                         </div>
                     </div>
                     
