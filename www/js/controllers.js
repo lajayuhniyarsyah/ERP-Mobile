@@ -1,4 +1,5 @@
-angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
+// angular.module('app.controllers', ['ngMaterial'])
+angular.module('app.controllers', [])
   
 .controller('menuutamaCtrl', function($scope) {
 
@@ -262,7 +263,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.plan.senin/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -272,6 +273,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 		).then(
 			function successCallback(response){
 				console.log('sukses isi storage kosong before plan senin dari server')
+				$scope.bp_senin = response.data['Result'];
 				var bp_update_senin = response.data['Result'];
 
 				window.localStorage.setItem( 'sales_activity_before_plan_senin', JSON.stringify(bp_update_senin));
@@ -288,7 +290,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.plan.senin/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -315,7 +317,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.actual.senin/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -342,7 +344,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.actual.senin/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -370,7 +372,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -397,7 +399,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.plan.selasa/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -424,7 +426,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.actual.selasa/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -451,7 +453,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.actual.selasa/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -479,7 +481,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -506,7 +508,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.plan.rabu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -533,7 +535,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.actual.rabu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -560,7 +562,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.actual.rabu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -588,7 +590,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -615,7 +617,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.plan.kamis/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -642,7 +644,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.actual.kamis/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -669,7 +671,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.actual.kamis/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -697,7 +699,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -724,7 +726,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.plan.jumat/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -751,7 +753,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.actual.jumat/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -778,7 +780,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.actual.jumat/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -806,7 +808,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.plan.sabtu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -833,7 +835,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.plan.sabtu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -860,7 +862,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.actual.sabtu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -887,7 +889,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.actual.sabtu/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -915,7 +917,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.plan.ahad/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -942,7 +944,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.plan.ahad/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -969,7 +971,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/before.actual.ahad/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -996,7 +998,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 				url: 'http://10.36.15.51:8000/openerp/after.actual.ahad/search/',
 				data: {
 					'domain':[
-								['activity_id','=',id],
+								['activity_id','=',parseInt(id)],
 							],
 					'usn':name,'pw':pass ,'fields':[]},
 				headers: {
@@ -1045,7 +1047,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.plan.senin/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1078,7 +1080,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.plan.senin/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1111,7 +1113,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.actual.senin/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1144,7 +1146,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.actual.senin/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1178,7 +1180,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1211,7 +1213,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.plan.selasa/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1244,7 +1246,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.actual.selasa/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1277,7 +1279,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.actual.selasa/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1311,7 +1313,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1344,7 +1346,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.plan.rabu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1377,7 +1379,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.actual.rabu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1410,7 +1412,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.actual.rabu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1444,7 +1446,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1477,7 +1479,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.plan.kamis/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1510,7 +1512,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.actual.kamis/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1543,7 +1545,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.actual.kamis/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1577,7 +1579,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1610,7 +1612,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.plan.jumat/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1643,7 +1645,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.actual.jumat/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1676,7 +1678,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.actual.jumat/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1710,7 +1712,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.plan.sabtu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1743,7 +1745,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.plan.sabtu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1776,7 +1778,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.actual.sabtu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1809,7 +1811,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.actual.sabtu/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1843,7 +1845,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.plan.ahad/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1876,7 +1878,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.plan.ahad/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1909,7 +1911,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/before.actual.ahad/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -1942,7 +1944,7 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 						url: 'http://10.36.15.51:8000/openerp/after.actual.ahad/search/',
 						data: {
 							'domain':[
-										['activity_id','=',id],
+										['activity_id','=',parseInt(id)],
 									],
 							'usn':name,'pw':pass ,'fields':[]},
 						headers: {
@@ -2383,30 +2385,17 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 
 })
    
-.controller('formdaymondayCtrl', function($scope,$stateParams,$http) {
+.controller('formdaymondayCtrl', function($scope,$stateParams,$http,$state) {
 
 	$scope.day = $stateParams.day;
-	$scope.before = {};
+	// $scope.before = {};
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 
-	// $scope.items = [
-	// 	{'display_name':'Indocement Test, PT'},
-	// 	{'display_name':'Adaro Test, PT'},
-	// ]
-
-	// fungsi untuk nyari
+	// fungsi untuk nyari data
 	$scope.getMatches = function(searchText){
-		var res_matched = []
-		// looping dari static data
-		/*angular.forEach($scope.items, function(value,key){
+		var res_matched = [];
 
-			regex = new RegExp(searchText,"gi")
-
-			if(value.display_name.match(regex)){
-				res_matched.push(value)
-			}
-		})*/
 		// cari via ajax
 		res_matched = $http
 	  	(
@@ -2437,14 +2426,48 @@ angular.module('app.controllers', ['ngMaterial','angucomplete-alt'])
 		return res_matched
 	}
 
-	$scope.savedata = function() {
-	// console.log(window.btoa($scope.data.username))  
-	
-		window.alert($scope.before.customer);
-		window.alert($scope.before.location); 
-		window.alert($scope.before.objective); 
-	}
+	//fungsi tambah form
+	$scope.formBefore = [{id: 'before_plan1'}];
+	$scope.formAfter = [{id: 'after_plan1'}];
+
+	$scope.tambahformBefore = function() {
+		var newItemNo = $scope.formBefore.length+1;
+	    $scope.formBefore.push({'id':'before_plan'+newItemNo});
+	};  
+	$scope.tambahformAfter = function() {
+		var newItemNo = $scope.formAfter.length+1;
+	    $scope.formAfter.push({'id':'after_plan'+newItemNo});
+	};
+
+	$scope.savedata = function() {  
+	var simpan = $scope.formBefore;
 		
+	// window.alert($scope.formBefore.length);
+	window.localStorage.setItem('coba',JSON.stringify(simpan));
+	
+	// window.location.reload();
+
+	}
+
+	// $scope.removeChoice = function() {
+	//     var lastItem = $scope.formBefore.length-1;
+	//     $scope.formBefore.splice(lastItem);
+	// };
+
 })
+	
 
+	// contoh kasus untuk autocomplete nyari data static
+	// $scope.items = [
+	// 	{'display_name':'Indocement Test, PT'},
+	// 	{'display_name':'Adaro Test, PT'},
+	// ]
+	// looping dari static data
+	/*angular.forEach($scope.items, function(value,key){
 
+		regex = new RegExp(searchText,"gi")
+
+		if(value.display_name.match(regex)){
+			res_matched.push(value)
+		}
+	})*/
