@@ -1,5 +1,5 @@
-// angular.module('app.controllers', ['ngMaterial'])
-angular.module('app.controllers', [])
+// angular.module('app.controllers', [])
+angular.module('app.controllers', ['ngMaterial'])
   
 .controller('menuutamaCtrl', function($scope) {
 
@@ -35,7 +35,6 @@ angular.module('app.controllers', [])
 		});
 	}
 	$scope.login = function() {
-		// console.log(window.btoa($scope.data.username))  
 		LoginService.loginUser(window.btoa($scope.data.username),window.btoa($scope.data.pass)).success(function(data) {
 			$state.go('menuutama');
 
@@ -178,26 +177,28 @@ angular.module('app.controllers', [])
 })
    
 .controller('formactivityCtrl', function($scope,$http,$state,$filter) {
-
-            $scope.dates = {};
-            $scope.minDate = new Date();
-            $scope.onlyWeekendsPredicate = function(date) {
-               var day = date.getDay();
-               return day === 1; }
-              $scope.datechange = function() {
-    			$scope.endDate = $filter('date')($scope.dates.myDate,"M/dd/yyyy");
- 			 };
-
-            // $scope.endDate = $scope.dates.myDate;
-            // console.log($scope.endDate);
-            // $scope.myDate.getFullYear(),
-            // $scope.myDate.getMonth(),
-            // $scope.myDate.getDate()+7);
 	 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 
-	
+    $scope.dates = {};
+    $scope.minDate = new Date();
+    $scope.onlyWeekendsPredicate = function(date) {
+       var day = date.getDay();
+       return day === 1; }
+      $scope.datechange = function() {
+
+		var enddate = new Date(
+	      $scope.dates.myDate.getFullYear(),
+	      $scope.dates.myDate.getMonth(),
+	      $scope.dates.myDate.getDate()+7);
+		
+		$scope.endDate = $filter('date')(enddate,"M/dd/yyyy");
+
+		 };
+
+		 
+		
 		$http(
 				{
 					method: 'POST',
@@ -218,9 +219,22 @@ angular.module('app.controllers', [])
 					
 					$scope.user = (response.data['Result'])[0].name
 
-					// var sales_tm = response.data['data'];
+					var pic_request = (response.data['Result'])[0].name;
+					var create_pic = {
+						"pic" : pic_request,
+						'monday-before':[],
+						'monday-after':[],
+						'tuesday-before':[],
+						'tuesday-after':[],
+						'wednesday-before':[],
+						'wednesday-after':[],
+						'thursday-before':[],
+						'thursday-after':[],
+						'friday-before':[],
+						'friday-after':[],
+					};
 					
-					// window.localStorage.setItem( 'sales_tm', JSON.stringify(sales_tm));
+					window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify([create_pic]));
 				},
 				function errorCallback(response){
 					console.log('erroor data kosong');
@@ -228,6 +242,11 @@ angular.module('app.controllers', [])
 					// $state.go('menulogin');
 				}
 			)
+		$scope.sendData = function() {
+
+			var temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
+			console.log(temp_current_data)
+		}
 
 })
    
@@ -2386,12 +2405,133 @@ angular.module('app.controllers', [])
 })
    
 .controller('formdaymondayCtrl', function($scope,$stateParams,$http,$state) {
-
-	$scope.day = $stateParams.day;
-	// $scope.before = {};
+	
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	$scope.day = $stateParams.day;
+	var hari = $stateParams.day;
 
+	// get from localstorage
+	var temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
+	
+	$scope.savedata = function() {  
+
+		if (hari == 'monday') {
+
+			var monday_before = $scope.formBefore;
+			var monday_after = $scope.formAfter;
+
+			for (var mb = 0; mb < monday_before.length; mb++) {
+
+				temp_current_data[0]['monday-before'].push(monday_before[mb])
+
+			};
+			for (var ma = 0; ma < monday_after.length; ma++) {
+
+				temp_current_data[0]['monday-after'].push(monday_after[ma]) 
+
+			};			
+			// rewrite localStorage
+			window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+			window.alert('data telah disimpan')
+			$state.go('formactivity')
+
+		}
+		else if (hari == 'tuesday') {
+
+			var tuesday_before = $scope.formBefore;
+			var tuesday_after = $scope.formAfter;
+			
+			for (var tb = 0; tb < tuesday_before.length; tb++) {
+
+				temp_current_data[0]['tuesday-before'].push(tuesday_before[tb])
+
+			};
+			for (var ta = 0; ta < tuesday_after.length; ta++) {
+
+				temp_current_data[0]['tuesday-after'].push(tuesday_after[ta]) 
+
+			};			
+			// rewrite localStorage
+			window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+			window.alert('data telah disimpan')
+			$state.go('formactivity')
+		}
+		else if (hari == 'wednesday') {
+
+			var wednesday_before = $scope.formBefore;
+			var wednesday_after = $scope.formAfter;
+			
+			for (var wb = 0; wb < wednesday_before.length; wb++) {
+
+				temp_current_data[0]['wednesday-before'].push(wednesday_before[wb])
+
+			};
+			for (var wa = 0; wa < wednesday_after.length; wa++) {
+
+				temp_current_data[0]['wednesday-after'].push(wednesday_after[wa]) 
+
+			};			
+			// rewrite localStorage
+			window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+			window.alert('data telah disimpan')
+			$state.go('formactivity')
+		}
+		else if (hari == 'thursday') {
+
+			var thursday_before = $scope.formBefore;
+			var thursday_after = $scope.formAfter;
+			
+			for (var thb = 0; thb < thursday_before.length; thb++) {
+
+				temp_current_data[0]['thursday-before'].push(thursday_before[thb])
+
+			};
+			for (var tha = 0; tha < thursday_after.length; tha++) {
+
+				temp_current_data[0]['thursday-after'].push(thursday_after[tha]) 
+
+			};			
+			// rewrite localStorage
+			window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+			window.alert('data telah disimpan')
+			$state.go('formactivity')
+		}
+		else if (hari == 'friday') {
+
+			var friday_before = $scope.formBefore;
+			var friday_after = $scope.formAfter;
+			
+			for (var fb = 0; fb < friday_before.length; fb++) {
+
+				temp_current_data[0]['friday-before'].push(friday_before[fb])
+
+			};
+			for (var fa = 0; fa < friday_after.length; fa++) {
+
+				temp_current_data[0]['friday-after'].push(friday_after[fa]) 
+
+			};			
+			// rewrite localStorage
+			window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+			window.alert('data telah disimpan')
+			$state.go('formactivity')
+		}
+
+	}
+
+	//fungsi tambah form
+	$scope.formBefore = [{id: 'before_plan1'}];
+	$scope.formAfter = [{id: 'after_plan1'}];
+
+	$scope.tambahformBefore = function() {
+		var newItemNo = $scope.formBefore.length+1;
+	    $scope.formBefore.push({'id':'before_plan'+newItemNo});
+	};  
+	$scope.tambahformAfter = function() {
+		var newItemNo = $scope.formAfter.length+1;
+	    $scope.formAfter.push({'id':'after_plan'+newItemNo});
+	};
 	// fungsi untuk nyari data
 	$scope.getMatches = function(searchText){
 		var res_matched = [];
@@ -2426,35 +2566,15 @@ angular.module('app.controllers', [])
 		return res_matched
 	}
 
-	//fungsi tambah form
-	$scope.formBefore = [{id: 'before_plan1'}];
-	$scope.formAfter = [{id: 'after_plan1'}];
+})
 
-	$scope.tambahformBefore = function() {
-		var newItemNo = $scope.formBefore.length+1;
-	    $scope.formBefore.push({'id':'before_plan'+newItemNo});
-	};  
-	$scope.tambahformAfter = function() {
-		var newItemNo = $scope.formAfter.length+1;
-	    $scope.formAfter.push({'id':'after_plan'+newItemNo});
-	};
-
-	$scope.savedata = function() {  
-	var simpan = $scope.formBefore;
-		
-	// window.alert($scope.formBefore.length);
-	window.localStorage.setItem('coba',JSON.stringify(simpan));
 	
-	// window.location.reload();
 
-	}
 
 	// $scope.removeChoice = function() {
 	//     var lastItem = $scope.formBefore.length-1;
 	//     $scope.formBefore.splice(lastItem);
 	// };
-
-})
 	
 
 	// contoh kasus untuk autocomplete nyari data static
