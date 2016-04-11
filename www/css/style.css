@@ -52,6 +52,12 @@
 .judul-header{
 	font-size: 10px;
 	color: #F4B350;
+	float: left;
+}
+.judul-before-after{
+	font-size: 10px;
+	float: right;
+	color: #95A5A6;
 }
 .judul-plan{
 	font-size: 10px;
