@@ -106,7 +106,11 @@
     text-align: center;
     top: 7px;
     font-size: 8px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
     transform: rotate(45deg);
+    -o-transform:rotate(45deg);  
+    -moz-transform:rotate(45deg);  
     width: 90px;
 }
 .ok-status{
@@ -135,4 +139,27 @@
 }
 .item-body{
 	font-size: 10px !important;
+}
+
+
+/* Menu Utama*/
+
+.menu-sales{
+	background-color: #F64747;
+	width: 50%;
+	float: left;
+	color: white;
+	text-align: center;
+	height: 100px;
+	display: block;
+	text-decoration: none;
+
+}
+.menu-human{
+	background-color: #F39C12;
+	width: 50%;
+	float: right;
+	color: white;
+	text-align: center;
+	height: 100px;
 }
