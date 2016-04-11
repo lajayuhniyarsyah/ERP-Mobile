@@ -20,7 +20,12 @@
                 </b>
             </p>
         </div>
-        <form style="" class="list">
+        <form style="" class="list" ng-controller="MyCtrl">
+            
+            <ion-content>
+              <ion-google-place placeholder="Your address" ng-model="data.address" required name="address" location-changed="locationChanged"/>
+            </ion-content>
+
             <label style="" name="customer-before-lunch" class="item item-select">
                 <span class="input-label">Customer</span>
                 <select>
