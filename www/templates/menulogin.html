@@ -1,30 +1,27 @@
-<ion-view style="" title="MENU LOGIN">
-    <ion-content class="has-header" overflow-scroll="true" padding="true">
-        <div style="text-align: center;">
-            <img src="img/btsGDDR6QdaV6GjXik1o_company_logo.png" width="50%" height="auto">
+<ion-view title="MENU LOGIN" id="page3" class="bg-login menu-title">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <div style="text-align:center;">
+            <img src="img/btsGDDR6QdaV6GjXik1o_company_logo.png" width="35%" height="auto">
         </div>
-        <form style="" class="list">
-            <div style="width: 284px; height: 24px;" class="spacer"></div>
-            <div style="">
-                <p>
-                </p>
+        <form class="list">
+            <div class="spacer" style="width: 284px; height: 10px;"></div>
+            <div>
                 <center>
-                    <b>ERP-SUPRABAKTI MANDIRI</b>
+                    <b class="jdl-login">ERP-SUPRABAKTI MANDIRI</b>
                 </center>
                 <p></p>
             </div>
-            <ion-list style="">
-                <label style="" name="username" class="item item-input">
-                    <span class="input-label">Username</span>
-                    <input placeholder="Username" type="text" ng-model="data.username">
+                <label class="item item-input radius" name="username">
+                    <span class="button-block icon ion-ios-people custom-icon"></span>
+                    <input type="text" placeholder="Username"/>
                 </label>
-                <label style="" name="password" class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input  ng-model="data.pass" placeholder="Password" type="password">
+                <br/>
+                <label class="item item-input radius" name="password">
+                    <span class="button-block icon ion-locked custom-icon"></span>
+                    <input type="password" placeholder="Password"/>
                 </label>
-            </ion-list>
-            <div style="width: 284px; height: 22px;" class="spacer"></div>
-            <a class="button button-positive  button-block icon ion-log-in" style="font-weight:bold;color:#FFFFFF;" id="menulogin-button2"  ng-click="login()">Log in</a>
+            <div class="spacer" style="width: 284px; height: 22px;"></div>
+            <a ui-sref="mENUUTAMA" id="mENULOGIN-button2" style="font-weight:bold;color:#FFFFFF;" class="button button-positive  button-block icon ion-log-in login-button"> LOGIN</a>
         </form>
     </ion-content>
 </ion-view>
