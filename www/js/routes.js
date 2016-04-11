@@ -85,9 +85,9 @@ angular.module('app.routes', [])
     templateUrl: 'templates/sALESACTIVITYTIMELINE-Template.html',
     controller: 'salestimelineCtrl'
   })  
-  .state('salestimeline2', {
-    url: '/sales-timeline2',
-    templateUrl: 'templates/sALESACTIVITYTIMELINE-Template.html',
+  .state('salestimelineAct', {
+    url: '/salestimeline',
+    templateUrl: 'templates/salestimeline.html',
     controller: 'salestimeline2Ctrl'
   })
 
