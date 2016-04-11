@@ -1,0 +1,73 @@
+<ion-view title="SALES ACTIVITY TIMELINE" id="page11">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-list></ion-list>
+        <div ng-repeat="tm in sales_tm |limitTo:limit" >
+        <div class="list card custom-list" ng-if="!tm.canceled_plan">
+            <div class="item item-divider item-divider-erp">
+                <span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
+                <div class="namasales font-black">{{tm.user}}</div>
+                <div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
+                <div class="status"><span class="ok-status">OK</span></div>
+                <div class="both"></div>
+                <div class="judul-header"><b>{{tm.partner}} - {{tm.location}} </b></div>
+                <div class="judul-before-after"><b>{{tm.daylight}}</b></div>
+            </div>
+                <div class="item item-body">
+                    <div class="both"></div>
+                    <div class="plan">
+                        <div class="isicontent line-silver">
+                            <div class="judul-plan"><b>Planned Go To : {{tm.partner}} - {{tm.location}}</b></div>
+                            {{tm.name}}
+                        </div>
+                    </div>
+                    <div ng-if="tm.actual_result">
+                        <b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}} </b>
+                        <div class="isicontent">
+                         {{tm.actual_result}}
+                    </div>
+                    </div>
+                </div>
+            </div>
+   
+
+           <div class="list card custom-list" ng-if="tm.canceled_plan">
+            <div class="item item-divider item-divider-erp">
+                <span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
+                <div class="namasales font-black">{{tm.user}}</div>
+                <div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
+                <div class="status"><span class="cancel-status">CANCEL</span></div>
+                <div class="both"></div>
+                <div class="judul-header"><b>{{tm.partner}} - {{tm.location}}  </b></div>
+                 <div class="judul-before-after"><b>{{tm.daylight}}</b></div>
+            </div>
+                <div class="item item-body">
+                    <div class="both"></div>
+                    <div class="plan cancel">
+                        <div class="isicontent line-silver">
+                            <div class="judul-plan"><b>Planned Go To :{{tm.partner}} - {{tm.location}}  Was Canceled</b></div>
+                              {{tm.name}}
+                        </div>
+                    </div>
+                    <b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}}</b>
+                    <div class="isicontent">
+                         {{tm.actual_result}}
+                    </div>
+                </div>
+                  
+            </div>
+        </div>
+     
+        <div class="both"></div>
+       
+          
+        <center ng-if="limit < sales_tm.length"><button class="btn" ng-click="loadMore()">Load more</button></center>
+
+
+       <!--  <ion-list></ion-list>
+         <ion-infinite-scroll
+                      icon="ion-loading-c"
+                      on-infinite="loadMore()">
+        </ion-infinite-scroll> -->
+    </ion-content>
+
+</ion-view>
