@@ -1,5 +1,5 @@
-angular.module('app.controllers', [])
-  
+angular.module('app.controllers', ['infinite-scroll'])
+
 .controller('menuutamaCtrl', function($scope) {
 
 })
@@ -43,8 +43,8 @@ angular.module('app.controllers', [])
 		  
 		}).error(function(data) {
 			var alertPopup = $ionicPopup.alert({
-				title: 'Login failed!',
-				template: 'Please check your credentials!2'
+				title: 'Login failed! ',
+				template: 'Please check your credentials!'
 			});
 		});
 	}
@@ -2568,7 +2568,7 @@ $http(
 			).then(
 				function successCallback(response){
 					console.log('success isi storage kosong dari server');
-					console.log(response.data['data'])
+					console.log (['data'])
 					$scope.sales_tm = response.data['data']
 
 					var sales_tm = response.data['data'];
@@ -2663,7 +2663,17 @@ $http(
 		console.log('called')
 		$scope.sales_tm = data
 	}
-
+	var updateSalesTm=function(data){
+		for (var i = 0; i < data.length; i++) {
+			$scope.sales_tm.push(data[i])
+		};
+	}
+	var today = new Date()
+	var yesterday = new Date()
+	yesterday.setDate(yesterday.getDate()-1);
+	today = $filter('date')(today, "yyyy-MM-dd");
+	yesterday = $filter('date')(yesterday, "yyyy-MM-dd");
+	console.log(today,yesterday)
 	$scope.date = new Date();
 
 	
@@ -2671,13 +2681,68 @@ $http(
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	
 
-	$scope.numberOfItemsToDisplay = 2;
+	$scope.limit = 20;
 	// console.log(timeline,"datanya")
+	var limit_data = 0
+	var offset_data = -20
 	$scope.loadMore = function () {
 
-		$scope.numberOfItemsToDisplay += 20;  
+		$scope.limit += 20; 
+		console.log($scope.sales_tm,"ooooooooo")
+		console.log($scope.limit,$scope.sales_tm.length) 
+
+		if ($scope.limit >= $scope.sales_tm.length ){
+			// alert("data habis")
+			limit_data+=20
+			offset_data+=20
+				$http
+				  	(
+						{
+							method: 'POST',
+							url: 'http://10.36.15.51:8000/openerp/salestimeline/GetUpdate/',
+							data: {
+									'usn':name,
+									'pw':pass,
+									"params":{
+										// "fields":'*',
+										// "table":"sales_activity_plan",
+										// 'AndOr':[],
+										'condition':{"the_date__lt":'2015-11-05'},
+										"limit":limit_data,
+										'offset':offset_data,
+										// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+									}
+							},
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							  
+							},
+							
+						
+						}
+						).then(
+							function successCallback(response){
+								console.log('success isi storage kosong dari server');
+								console.log(response)
+								window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+								updateSalesTm(response.data.data)
+
+								$ionicLoading.hide();
+							},
+							function errorCallback(response){
+								$ionicLoading.hide();
+								console.log(response)
+
+								console.log('erroor data kosong');
+						
+							}
+						)
+							
+
+			}
+
 	};
-	$scope.loadMore();
+	// $scope.loadMore();
 	$scope.colortext= {
         "color" : "red",
         
@@ -2697,15 +2762,25 @@ $http(
   	(
 		{
 			method: 'POST',
-			url: 'http://10.36.15.51:8000/openerp/getjason/AllData/',
-			data: {'usn':name,'pw':pass},
+			url: 'http://10.36.15.51:8000/openerp/salestimeline/AllData/',
+			data: {
+					'usn':name,
+					'pw':pass,
+					"params":{
+						// "fields":'*',
+						// "table":"sales_activity_plan",
+						// 'AndOr':[],
+						'condition':{"the_date":['2015-11-05','2015-11-06']},
+						// "limit":100,
+						// 'offset':0,
+						// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+					}
+			},
 			headers: {
 				'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 			  
 			},
-			transformRequest: function(data, headersGetter, status){
-				console.log('tesssssssssssss')
-			}
+			
 		
 		}
 	).then(
