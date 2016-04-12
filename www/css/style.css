@@ -1,3 +1,11 @@
+ion-content{
+	background-image: url("../img/bg.jpg") !important;
+	background-size: 100% 100%;
+	color: white;
+}
+.bar-header{
+	border-bottom: 3px solid white;
+}
 .bg-login{
 	background-image: url("../img/bg.jpg");
 	background-size: 100% 100%;
@@ -84,6 +92,10 @@
 .isicontent{
 	text-align: justify;
 
+}
+.judul-user{
+	font-size: 3.0vw; 
+	margin-top: 40px;
 }
 .judul-header{
 	font-size: 10px;
@@ -177,26 +189,44 @@
 	font-size: 10px !important;
 }
 
-
 /* Menu Utama*/
 
-.menu-sales{
-	background-color: #F64747;
-	width: 50%;
-	float: left;
+.menu-block-left{
+	width: 100%;
 	color: white;
 	text-align: center;
 	height: 100px;
 	display: block;
 	text-decoration: none;
-
 }
-.menu-human{
-	background-color: #F39C12;
-	width: 50%;
-	float: right;
+.menu-block-right{
+	width: 100%;
 	color: white;
 	text-align: center;
 	height: 100px;
 	text-decoration: none;
+}
+.menu-block{
+	width: 100%;
+	/*float: right;*/
+	color: white;
+	text-align: center;
+	height: 100px;
+	text-decoration: none;
+	/*margin-top: 5px;*/
+}
+
+.flat-red{
+	background-color: #F64747 !important;
+}
+.flat-orange{
+	background-color: #F39C12 !important;
+}
+.flat-hijau{
+	background-color: #03C9A9 !important;
+}
+.font-button{
+	font-size: 3.0vw; 
+	/*font-size: 12px;*/
+	display: block;
 }
