@@ -1,6 +1,48 @@
 angular.module('app.controllers', ['infinite-scroll'])
 
-.controller('menuutamaCtrl', function($scope) {
+.controller('menuutamaCtrl', function($scope,$http,$state) {
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	
+	if (name!=null && pass!=null){
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/res.users/search/',
+					data: {'usn':name,
+							'pw':pass ,
+							'domain':[['login','ilike',atob(name)]] ,
+							'fields':['display_name','email']},
+
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					$scope.name = response.data['Result'][0].display_name
+					$scope.email = response.data['Result'][0].email
+				
+
+	   
+				},
+				function errorCallback(response){
+				
+					console.log('erroor data kosong ');
+			
+					
+					$state.go('menulogin');
+				}
+			)
+
+	}
+	else{
+		$state.go('menulogin');
+	}
+
 
 })
    
@@ -34,7 +76,7 @@ angular.module('app.controllers', ['infinite-scroll'])
 		});
 	}
 	$scope.login = function() {
-		console.log(window.btoa($scope.data.username))  
+		// console.log(window.btoa($scope.data.username))  
 		LoginService.loginUser(window.btoa($scope.data.username),window.btoa($scope.data.pass)).success(function(data) {
 			$state.go('menuutama');
 
@@ -2657,7 +2699,16 @@ $http(
 	
 })
 
-.controller('salestimeline2Ctrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup) {
+.controller('salestimeline2Ctrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup,$ionicModal) {
+	$ionicLoading.show(
+		{
+		    content: 'Loading',
+		    animation: 'fade-in',
+		    showBackdrop: true,
+		    maxWidth: 200,
+		    showDelay: 0
+  		}
+  	);
 	var timeline = JSON.parse(window.localStorage.getItem("timeline2")); //data to fetch in view
 	var reloadSalesTm =function(data){
 		console.log('called')
@@ -2679,8 +2730,19 @@ $http(
 	
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
-	
+	$ionicModal.fromTemplateUrl('templates/modal.html', {
+		scope: $scope,
+		hardwareBackButtonClose: false
+	  }).then(function(modal) {
+	  	console.log(modal)
+	    $scope.modal = modal;
+	  });
+	 $scope.openModal = function(tm) {   
+	 	// console.log(tm.the_date,"iniiii")
+          $scope.user = tm;
 
+          $scope.modal.show();
+        };
 	$scope.limit = 20;
 	// console.log(timeline,"datanya")
 	var limit_data = 0
@@ -2707,7 +2769,7 @@ $http(
 										// "fields":'*',
 										// "table":"sales_activity_plan",
 										// 'AndOr':[],
-										'condition':{"the_date__lt":'2015-11-05'},
+										'condition':{"the_date__lt":yesterday},
 										"limit":limit_data,
 										'offset':offset_data,
 										// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
@@ -2747,15 +2809,7 @@ $http(
         "color" : "red",
         
     }
-	$ionicLoading.show(
-		{
-		    content: 'Loading',
-		    animation: 'fade-in',
-		    showBackdrop: true,
-		    maxWidth: 200,
-		    showDelay: 0
-  		}
-  	);
+	
 
 
   	$http
@@ -2770,7 +2824,7 @@ $http(
 						// "fields":'*',
 						// "table":"sales_activity_plan",
 						// 'AndOr':[],
-						'condition':{"the_date":['2015-11-05','2015-11-06']},
+						'condition':{"the_date":[today,yesterday]},
 						// "limit":100,
 						// 'offset':0,
 						// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
@@ -2791,6 +2845,12 @@ $http(
 			reloadSalesTm(response.data.data)
 
 			$ionicLoading.hide();
+			if(response.data.data.length==0){
+				alertPopup = $ionicPopup.alert({
+				title: 'Warning',
+				template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
+			});
+			}
 		},
 		function errorCallback(response){
 			$ionicLoading.hide();

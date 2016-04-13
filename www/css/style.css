@@ -1,21 +1,65 @@
+ion-content{
+	background-image: url("../img/bg.jpg") !important;
+	background-size: 100% 100%;
+	color: white;
+}
+.bar-header{
+	border-bottom: 3px solid white;
+}
+.bg-login{
+	background-image: url("../img/bg.jpg");
+	background-size: 100% 100%;
+	font-size: 25px;
+	font-family: "Verdan";
+}
+.bar-header{
+	background-image: url("../img/bg.jpg") !important;
+	color: white !important;
+}
+.bar-stable .button{
+	color: white !important;
+}
+.bar.bar-stable .title{
+	color: white !important;
+	text-align: center;	
+}
+.ion-ios-lock{
+	display: block;
+}
+.icon-left{
+	text-align: left;
+}
+
+
+.custom-icon{
+	padding-right: 10px;
+}
+.jdl-login{
+	color: white;
+	font-size: 18px;
+}
 /* Empty. Add your own CSS if you like */
 .btn-gantung{
 	float: right;
 }
+.login-button{
+	background-color: #413050 !important;
+	font-family: "Arial";
+}
+.list{
+	padding:10px;
+}
+.radius{
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
 .timeline{
 	border: 1px solid #ccc;
-	/*border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;*/
 	margin-right: 10px;
 }
 .judul-timeline{
-	/*background-color: #9DC2F2;*/
 	width: 100%;
-	/*margin-top: -10px;*/
-/*	border-radius: 10px 10px 0px 0px;
-	-webkit-border-radius: 10px 10px 0px 0px;
-	-moz-border-radius: 10px 10px 0px 0px;*/
 
 }
 .custom-list{
@@ -48,6 +92,10 @@
 .isicontent{
 	text-align: justify;
 
+}
+.judul-user{
+	font-size: 3.0vw; 
+	margin-top: 40px;
 }
 .judul-header{
 	font-size: 10px;
@@ -141,25 +189,47 @@
 	font-size: 10px !important;
 }
 
-
 /* Menu Utama*/
 
-.menu-sales{
-	background-color: #F64747;
-	width: 50%;
-	float: left;
+.menu-block-left{
+	width: 100%;
 	color: white;
 	text-align: center;
 	height: 100px;
 	display: block;
 	text-decoration: none;
-
 }
-.menu-human{
-	background-color: #F39C12;
-	width: 50%;
-	float: right;
+.menu-block-right{
+	width: 100%;
 	color: white;
 	text-align: center;
 	height: 100px;
+	text-decoration: none;
+}
+.menu-block{
+	width: 100%;
+	/*float: right;*/
+	color: white;
+	text-align: center;
+	height: 100px;
+	text-decoration: none;
+	/*margin-top: 5px;*/
+}
+
+.flat-red{
+	background-color: #F64747 !important;
+}
+.flat-orange{
+	background-color: #F39C12 !important;
+}
+.flat-hijau{
+	background-color: #03C9A9 !important;
+}
+.font-button{
+	font-size: 3.0vw; 
+	/*font-size: 12px;*/
+	display: block;
+}
+.font-modal{
+	 font-size: 13px;
 }

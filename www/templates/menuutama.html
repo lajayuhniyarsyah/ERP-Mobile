@@ -1,13 +1,49 @@
-<ion-view style="" title="MENU UTAMA">
-    <ion-content class="has-header" overflow-scroll="true" padding="true">
-        <div style="" class="button-bar">
-            <a class="button button-positive  icon-left ion-grid" id="menuutama-button4" ui-sref="submenusales">SALES</a>
+<ion-view title="MENU UTAMA" id="page2" class="bg-login menu-title">
+<ion-nav-bar></ion-nav-bar>
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+
+        <div style="text-align:left;">
+        		<img src="img/people.png" width="30%" height="auto" style="float:left">
+            	<span class="judul-user">
+            		{{name}}
+            		<br/>{{email}}<br/>
+            		<br/>Welcome TO Mobile App ERP-Suprabakti Mandiri
+            	</span>	
+            
         </div>
-         <div style="" class="button-bar">
-            <a class="button button-positive  icon-left ion-grid" id="menuutama-button5" ui-sref="salestimelineAct">SALES Timeline</a>
-        </div>
-        <button class="button button-positive  button-block icon-left ion-android-person" id="menuutama-button8">HUMAN RESOURCES</button>
-        <button class="button button-positive  button-block icon-left ion-document-text" id="menuutama-button10">REPORTING</button>
-        <ion-list style=""></ion-list>
+
+
+        <div class="row">
+        	<div class="col col-50">
+		        <a ui-sref="submenusales" id="mENUUTAMA-button4" style="font-weight:;" class="button button-positive menu-block-left flat-red">
+		        	<div class="icon-center ion-grid"></div>
+		        	<span class="font-button">SALES</span>
+		        </a>
+		    </div>
+	        
+	        <div class="col col-50">
+		        <a ui-sref="sUBMENUSALES" id="mENUUTAMA-button8" style="font-weight:;" class="button button-positive menu-block-right flat-orange">
+		        	<div class="icon-center ion-android-person"></div>
+		        	<span class="font-button">HUMAN RESOURCES</span>
+		        </a>
+		    </div>
+		</div>
+
+		<div class="row">
+		    <div class="col col-50">
+				<a ui-sref="sUBMENUSALES" id="mENUUTAMA-button9" style="font-weight:;" class="button button-positive menu-block flat-hijau">
+					<div class="icon-center ion-document"></div>
+					<span class="font-button">REPORTING</span>
+				</a>
+			</div>
+			<div class="col col-50">
+				<a ui-sref="sUBMENUSALES" id="mENUUTAMA-button9" style="font-weight:;" class="button button-positive menu-block">
+					<div class="icon-center ion-chatbubble-working"></div>
+					<span class="font-button">MESSAGING</span>
+				</a>
+			</div>
+		</div>
+        <ion-list></ion-list>
+
     </ion-content>
 </ion-view>
