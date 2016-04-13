@@ -10,7 +10,7 @@ angular.module('app.routes', [])
     
   
 
-      .state('menuutama', {
+  .state('menuutama', {
     url: '/menu',
     templateUrl: 'templates/menuutama.html',
     controller: 'menuutamaCtrl'
@@ -56,12 +56,6 @@ angular.module('app.routes', [])
 
   })
 
-  // .state('formreviewactivity', {
-  //   url: '/form-review-activity/:idsact',
-  //   templateUrl: 'templates/formreviewactivity.html',
-  //   controller: 'formreviewactivityCtrl'
-  // })
-
   .state('formupdateactivity', {
     url: '/form-update-activity/?:hari?beforeplan?afterplan?beforeactual?afteractual',
     templateUrl: 'templates/formupdateactivity.html',
@@ -69,30 +63,20 @@ angular.module('app.routes', [])
   })
 
   .state('formdaymonday', {
-    url: '/form-day-monday',
+    url: '/form-day-monday/?:pic?day',
     templateUrl: 'templates/formdaymonday.html',
     controller: 'formdaymondayCtrl'
   })
-
-  .state('salesactivitytimeline', {
-    url: '/sales-activity-timeline',
-    templateUrl: 'templates/salesactivitytimeline.html',
-    controller: 'salesactivitytimelineCtrl'
-  })
-
-  .state('salestimeline', {
-    url: '/sales-timeline',
-    templateUrl: 'templates/sALESACTIVITYTIMELINE-Template.html',
-    controller: 'salestimelineCtrl'
-  })  
   .state('salestimelineAct', {
     url: '/salestimeline',
     templateUrl: 'templates/salestimeline.html',
-    controller: 'salestimeline2Ctrl'
+    controller: 'salestimelineCtrl'
   })
-
-$urlRouterProvider.otherwise('/login')
-
-  
+  .state('previewcreateplan', {
+    url: '/preview-create-plan',
+    templateUrl: 'templates/previewcreateplan.html',
+    controller: 'previewcreateplanCtrl'
+  })
+  $urlRouterProvider.otherwise('/login')  
 
 });

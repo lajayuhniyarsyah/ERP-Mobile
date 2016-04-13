@@ -6,6 +6,9 @@
   },
   "dependencies": {
     "angular-local-storage": "^0.2.5",
-    "angular-xmlrpc": "^1.0.1"
+    "angular-xmlrpc": "^1.0.1",
+    "angular-material": "^1.0.7",
+    "angular-animate": "^1.5.3",
+    "angucomplete-alt": "^2.2.0"
   }
 }

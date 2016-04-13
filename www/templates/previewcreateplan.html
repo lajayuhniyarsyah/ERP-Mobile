@@ -1,0 +1,193 @@
+<ion-view style="" title="PREVIEW CREATE PLAN">
+    <ion-content class="has-header" overflow-scroll="true" padding="true">
+        <div style="">
+            <p>
+
+                <b>PIC : {{pic}}
+
+                </b>
+                <br>Date :
+                <u>
+                    {{begin|date:"MM/dd/yyyy"}} - {{end|date:"MM/dd/yyyy"}}
+                </u>
+            </p>
+            <hr>
+        </div>
+        <ion-list style=""></ion-list>
+        <ion-list style=""></ion-list>
+        <div style="width: 284px; height: 12px;" class="spacer"></div>
+        <div style="" >
+            <b>
+                <p>
+                    <u>MONDAY</u>
+                </p>
+            </b>
+
+
+            <u>BEFORE LUNCH</u>
+            <br>
+            <div ng-repeat="bppsenin in bpp_senin">
+            <b>Customer:</b>{{bppsenin.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{bppsenin.location}}
+            <br>
+            <b>Objectives:</b>{{bppsenin.objective}}
+            
+            <br>
+            <br>
+            </div>
+            <u>AFTER LUNCH</u>
+            <br>
+            <div ng-repeat="appsenin in app_senin">
+            <b>Customer:</b>{{appsenin.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{appsenin.location}}
+            <br>
+            <b>Objectives:</b>{{appsenin.objective}}
+
+            <br>
+            <br>
+            </div> 
+        </div>
+        <div style="width: 284px; height: 43px;" class="spacer"></div>
+        <div style="">
+            <b>
+                <p>
+                    <u>TUESDAY</u>
+                </p>
+            </b>
+
+
+            <u>BEFORE LUNCH</u>
+            <br>
+            <div ng-repeat="bppselasa in bpp_selasa">
+            <b>Customer:</b>{{bppselasa.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{bppselasa.location}}
+            <br>
+            <b>Objectives:</b>{{bppselasa.objective}}
+            
+            <br>
+            <br>
+            </div>
+            <u>AFTER LUNCH</u>
+            <br>
+            <div ng-repeat="appselasa in app_selasa">
+            <b>Customer:</b>{{appselasa.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{appselasa.location}}
+            <br>
+            <b>Objectives:</b>{{appselasa.objective}}
+
+            <br>
+            <br>
+            </div>        
+        </div>
+        <div style="width: 284px; height: 43px;" class="spacer"></div>
+        <div style="">
+            <b>
+                <p>
+                    <u>WEDNESDAY</u>
+                </p>
+            </b>
+
+
+            <u>BEFORE LUNCH</u>
+            <br>
+            <div ng-repeat="bpprabu in bpp_rabu">
+            <b>Customer:</b>{{bpprabu.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{bpprabu.location}}
+            <br>
+            <b>Objectives:</b>{{bpprabu.objective}}
+            
+            <br>
+            <br>
+            </div>
+            <u>AFTER LUNCH</u>
+            <br>
+            <div ng-repeat="apprabu in app_rabu">
+            <b>Customer:</b>{{apprabu.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{apprabu.location}}
+            <br>
+            <b>Objectives:</b>{{apprabu.objective}}
+
+            <br>
+            <br>
+            </div>
+        </div>
+        <div style="width: 284px; height: 43px;" class="spacer"></div>
+        <div style="">
+            <b>
+                <p>
+                    <u>THURSDAY</u>
+                </p>
+            </b>
+
+
+            <u>BEFORE LUNCH</u>
+            <br>
+            <div ng-repeat="bppkamis in bpp_kamis">
+            <b>Customer:</b>{{bppkamis.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{bppkamis.location}}
+            <br>
+            <b>Objectives:</b>{{bppkamis.objective}}
+            
+            <br>
+            <br>
+            </div>
+            <u>AFTER LUNCH</u>
+            <br>
+            <div ng-repeat="appkamis in app_kamis">
+            <b>Customer:</b>{{appkamis.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{appkamis.location}}
+            <br>
+            <b>Objectives:</b>{{appkamis.objective}}
+
+            <br>
+            <br>
+            </div>
+        </div>
+        <div style="width: 284px; height: 43px;" class="spacer"></div>
+        <div style="">
+            <b>
+                <p>
+                    <u>FRIDAY</u>
+                </p>
+            </b>
+
+
+            <u>BEFORE LUNCH</u>
+            <br>
+            <div ng-repeat="bppjumat in bpp_jumat">
+            <b>Customer:</b>{{bppjumat.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{bppjumat.location}}
+            <br>
+            <b>Objectives:</b>{{bppjumat.objective}}
+            
+            <br>
+            <br>
+            </div>
+            <u>AFTER LUNCH</u>
+            <br>
+            <div ng-repeat="appjumat in app_jumat">
+            <b>Customer:</b>{{appjumat.customer['display_name']}}
+            <br>
+            <b>Location:</b>{{appjumat.location}}
+            <br>
+            <b>Objectives:</b>{{appjumat.objective}}
+
+            <br>
+            <br>
+            </div>
+        </div>
+        <div style="width: 284px; height: 43px;" class="spacer"></div>
+        <button class="button button-positive  button-block icon-left ion-android-add-circle" style="border-radius:22px 22px 22px 22px;" id="previewcreateplan-button1" ng-click="sendData()">SAVE</button>
+        <ion-list style=""></ion-list>
+        <ion-list style=""></ion-list>
+    </ion-content>
+</ion-view>
