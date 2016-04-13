@@ -7,8 +7,6 @@ angular.module('app.controllers', ['ngMaterial'])
    
 .controller('menuloginCtrl', function($scope, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike) {
 
-	// $http.get("http://10.36.15.51:8000/custom/get/?format=json")
-	// jsonp('http://10.36.15.51:8000/custom/get/?format=json');
 	if (! localStorage.reload) {
 		localStorage.setItem("reload","true");
 		window.location.reload();
@@ -186,12 +184,10 @@ angular.module('app.controllers', ['ngMaterial'])
 		// console.log('call setLs key',key)
 		// console.log('call setLs val',val)
 		window.localStorage.setItem(key, JSON.stringify(val)); //set
-
+		
 		//refresh
 		temp_current_data = getLs(key);
 		// console.log('Temp Updated')
-		// console.log(temp_current_data)
-		// console.log(JSON.parse(window.localStorage.getItem(key)))
 	}
 	
 	var create_pic = temp_current_data
@@ -205,7 +201,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			'tuesday_before':[],
 			'tuesday_after':[],
 			'wednesday_before':[],
-			'wednesday_after':[],
+	 		'wednesday_after':[],
 			'thursday_before':[],
 			'thursday_after':[],
 			'friday_before':[],
@@ -231,7 +227,6 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(
 			function successCallback(response){
-				console.log(response.data['Result'],'ini hasil dari request pertama')
 
 				$scope.user = (response.data['Result'])[0].name
 
@@ -254,7 +249,10 @@ angular.module('app.controllers', ['ngMaterial'])
     $scope.onlyWeekendsPredicate = function(date) {
        var day = date.getDay();
        return day === 1; }
+	
 	$scope.datechange = function() {
+
+	temp_current_data = getLs('temporary_data_create_plan')
 
 	   var begindate = new Date(
 	      $scope.dates.myDate.getFullYear(),
@@ -266,13 +264,45 @@ angular.module('app.controllers', ['ngMaterial'])
 	      $scope.dates.myDate.getDate()+6);
 		  $scope.beginDate = $filter('date')(begindate,"yyyy-MM-dd");
 		  $scope.endDate = $filter('date')(enddate,"yyyy-MM-dd");
-		 
-		 //tambah field
-		 temp_current_data[0]['begin']=$scope.beginDate;
-		 temp_current_data[0]['end']=$scope.endDate;
 
-		 // window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
-		 setLs('temporary_data_create_plan',temp_current_data)
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/sales.activity/search/',
+				data: {
+					'domain':[
+								['user_id','=',temp_current_data[0].pic],
+								['begin','=',$scope.beginDate],
+								['end','=',$scope.endDate],
+							],
+					'usn':name,'pw':pass,'fields':['begin']},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+
+				},
+			}
+		).then(
+			function successCallback(response){
+				
+				if (!response.data['Result'][0]){
+				 alert('waw')
+				 //tambah field
+				 temp_current_data[0]['begin']=$scope.beginDate;
+				 temp_current_data[0]['end']=$scope.endDate;
+
+				 // window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+				 setLs('temporary_data_create_plan',temp_current_data)
+				}
+				else{
+					alert('Aktivitas untuk tanggal ini telah dibuat, silahkan ganti dengan tanggal yang lain')
+					
+				}
+			},
+			function errorCallback(response){
+				alert("Jaringan anda tidak tersedia")
+			}
+	)		 
+
 	};
 
 	$scope.previewData = function() {
