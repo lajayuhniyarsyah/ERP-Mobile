@@ -1,14 +1,17 @@
 <ion-view title="MENU UTAMA" id="page2" class="bg-login menu-title">
+<ion-nav-bar></ion-nav-bar>
     <ion-content overflow-scroll="true" padding="true" class="has-header">
+
         <div style="text-align:left;">
         		<img src="img/people.png" width="30%" height="auto" style="float:left">
             	<span class="judul-user">
-            		EKA CHANDRA SETIAWAN
-            		<br/>chandra@beltcare.com<br/>
+            		{{name}}
+            		<br/>{{email}}<br/>
             		<br/>Welcome TO Mobile App ERP-Suprabakti Mandiri
             	</span>	
             
         </div>
+
 
         <div class="row">
         	<div class="col col-50">
@@ -41,5 +44,6 @@
 			</div>
 		</div>
         <ion-list></ion-list>
+
     </ion-content>
 </ion-view>

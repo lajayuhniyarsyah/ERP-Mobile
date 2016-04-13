@@ -1,6 +1,48 @@
-angular.module('app.controllers', [])
-  
-.controller('menuutamaCtrl', function($scope) {
+angular.module('app.controllers', ['infinite-scroll'])
+
+.controller('menuutamaCtrl', function($scope,$http,$state) {
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	
+	if (name!=null && pass!=null){
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/res.users/search/',
+					data: {'usn':name,
+							'pw':pass ,
+							'domain':[['login','ilike',atob(name)]] ,
+							'fields':['display_name','email']},
+
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					$scope.name = response.data['Result'][0].display_name
+					$scope.email = response.data['Result'][0].email
+				
+
+	   
+				},
+				function errorCallback(response){
+				
+					console.log('erroor data kosong ');
+			
+					
+					$state.go('menulogin');
+				}
+			)
+
+	}
+	else{
+		$state.go('menulogin');
+	}
+
 
 })
    
@@ -34,7 +76,7 @@ angular.module('app.controllers', [])
 		});
 	}
 	$scope.login = function() {
-		console.log(window.btoa($scope.data.username))  
+		// console.log(window.btoa($scope.data.username))  
 		LoginService.loginUser(window.btoa($scope.data.username),window.btoa($scope.data.pass)).success(function(data) {
 			$state.go('menuutama');
 
@@ -43,8 +85,8 @@ angular.module('app.controllers', [])
 		  
 		}).error(function(data) {
 			var alertPopup = $ionicPopup.alert({
-				title: 'Login failed!',
-				template: 'Please check your credentials!2'
+				title: 'Login failed! ',
+				template: 'Please check your credentials!'
 			});
 		});
 	}
@@ -2568,7 +2610,7 @@ $http(
 			).then(
 				function successCallback(response){
 					console.log('success isi storage kosong dari server');
-					console.log(response.data['data'])
+					console.log (['data'])
 					$scope.sales_tm = response.data['data']
 
 					var sales_tm = response.data['data'];
@@ -2656,13 +2698,179 @@ $http(
 	}
 	
 })
-.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window) {
+
+.controller('salestimeline2Ctrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup,$ionicModal) {
+	$ionicLoading.show(
+		{
+		    content: 'Loading',
+		    animation: 'fade-in',
+		    showBackdrop: true,
+		    maxWidth: 200,
+		    showDelay: 0
+  		}
+  	);
+	var timeline = JSON.parse(window.localStorage.getItem("timeline2")); //data to fetch in view
+	var reloadSalesTm =function(data){
+		console.log('called')
+		$scope.sales_tm = data
+	}
+	var updateSalesTm=function(data){
+		for (var i = 0; i < data.length; i++) {
+			$scope.sales_tm.push(data[i])
+		};
+	}
+	var today = new Date()
+	var yesterday = new Date()
+	yesterday.setDate(yesterday.getDate()-1);
+	today = $filter('date')(today, "yyyy-MM-dd");
+	yesterday = $filter('date')(yesterday, "yyyy-MM-dd");
+	console.log(today,yesterday)
+	$scope.date = new Date();
+
+	
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	$ionicModal.fromTemplateUrl('templates/modal.html', {
+		scope: $scope,
+		hardwareBackButtonClose: false
+	  }).then(function(modal) {
+	  	console.log(modal)
+	    $scope.modal = modal;
+	  });
+	 $scope.openModal = function(tm) {   
+	 	// console.log(tm.the_date,"iniiii")
+          $scope.user = tm;
+
+          $scope.modal.show();
+        };
+	$scope.limit = 20;
+	// console.log(timeline,"datanya")
+	var limit_data = 0
+	var offset_data = -20
+	$scope.loadMore = function () {
+
+		$scope.limit += 20; 
+		console.log($scope.sales_tm,"ooooooooo")
+		console.log($scope.limit,$scope.sales_tm.length) 
+
+		if ($scope.limit >= $scope.sales_tm.length ){
+			// alert("data habis")
+			limit_data+=20
+			offset_data+=20
+				$http
+				  	(
+						{
+							method: 'POST',
+							url: 'http://10.36.15.51:8000/openerp/salestimeline/GetUpdate/',
+							data: {
+									'usn':name,
+									'pw':pass,
+									"params":{
+										// "fields":'*',
+										// "table":"sales_activity_plan",
+										// 'AndOr':[],
+										'condition':{"the_date__lt":yesterday},
+										"limit":limit_data,
+										'offset':offset_data,
+										// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+									}
+							},
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							  
+							},
+							
+						
+						}
+						).then(
+							function successCallback(response){
+								console.log('success isi storage kosong dari server');
+								console.log(response)
+								window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+								updateSalesTm(response.data.data)
+
+								$ionicLoading.hide();
+							},
+							function errorCallback(response){
+								$ionicLoading.hide();
+								console.log(response)
+
+								console.log('erroor data kosong');
+						
+							}
+						)
+							
+
+			}
+
+	};
+	// $scope.loadMore();
+	$scope.colortext= {
+        "color" : "red",
+        
+    }
+	
+
+
+  	$http
+  	(
+		{
+			method: 'POST',
+			url: 'http://10.36.15.51:8000/openerp/salestimeline/AllData/',
+			data: {
+					'usn':name,
+					'pw':pass,
+					"params":{
+						// "fields":'*',
+						// "table":"sales_activity_plan",
+						// 'AndOr':[],
+						'condition':{"the_date":[today,yesterday]},
+						// "limit":100,
+						// 'offset':0,
+						// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+					}
+			},
+			headers: {
+				'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+			  
+			},
+			
+		
+		}
+	).then(
+		function successCallback(response){
+			console.log('success isi storage kosong dari server');
+			console.log(response)
+			window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+			reloadSalesTm(response.data.data)
+
+			$ionicLoading.hide();
+			if(response.data.data.length==0){
+				alertPopup = $ionicPopup.alert({
+				title: 'Warning',
+				template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
+			});
+			}
+		},
+		function errorCallback(response){
+			$ionicLoading.hide();
+			console.log(response)
+
+			console.log('erroor data kosong');
+	
+		}
+	)
+
+	reloadSalesTm(timeline)
+})
+
+.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup) {
 	$scope.date = new Date();
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
 	$scope.numberOfItemsToDisplay = 200;
-	console.log(timeline,"datanya")
+	// console.log(timeline,"datanya")
 	$scope.loadMore = function () {
 		  $scope.numberOfItemsToDisplay += 20;  
 		};
@@ -2716,6 +2924,17 @@ $http(
 	else{
 		// console.log(timeline[0].daylight_num)
 
+		console.log(timeline[0].daylight_num)
+		myJson = timeline.filter(function(jsonObject) {
+    				return jsonObject.the_date === "2015-12-11";
+						});
+		timeline = timeline.filter(function(jsonObject) {
+    				return jsonObject.the_date !== "2015-12-11";
+						});
+		window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline));
+		window.localStorage.setItem('sales_tm_sementara', JSON.stringify(myJson));
+		
+		// console.log(myJson)
 		$http(
 				{
 					method: 'POST',
@@ -2733,10 +2952,6 @@ $http(
 
 					timeline_update = response.data['data']
 					timeline_update.reverse()
-					// $scope.sales_tm = response.data['data']
-				
-					// var sales_tm = response.data['data'];
-					console.log(timeline_update)
 					
 					for (index =0 ; index < timeline_update.length; index++) {
 						timeline.unshift(timeline_update[index])
@@ -2763,7 +2978,26 @@ $http(
 				},
 				function errorCallback(response){
 					$ionicLoading.hide();
-					console.log('erroor data kosong 2');
+					var timeline_sementara =JSON.parse(window.localStorage.getItem("sales_tm_sementara"));
+					timeline_sementara.reverse()
+					$ionicPopup.alert({
+							title:"Errorrr",
+							template:"Ada kesalahan di koneksi"
+						});
+					for (index =0 ; index < timeline_sementara.length; index++) {
+						timeline.unshift(timeline_sementara[index])
+				
+						window.localStorage.setItem( 'sales_tm', JSON.stringify(timeline));
+						
+					
+						
+						}
+					var Update_timeline =JSON.parse(window.localStorage.getItem("sales_tm"));
+				
+					$scope.sales_tm = Update_timeline
+			
+					console.log('erroor data kosong',timeline_sementara);
+
 					// $window.localStorage.clear();
 					// $state.go('menulogin');
 			

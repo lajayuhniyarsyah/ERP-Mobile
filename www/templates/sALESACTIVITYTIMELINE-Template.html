@@ -20,8 +20,8 @@
                             Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
                         </div>
                     </div>
-
-        <div ng-repeat="sls in sales_tm |limitTo:numberOfItemsToDisplay">
+                </div>
+            </div>
    
 
            <div class="list card custom-list">
@@ -47,27 +47,7 @@
                         Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt
                     </div>
                 </div>
-                <div class="isitimeline">
-                    <div class="list card">
-                    <div class="item item-divider before-lunch">{{sls.daylight}}</div>
-                        <div class="item item-body">
-                            <div class="list card">
-                                <div class="item item-divider">PLAN</div>
-
-                                    <div class="item item-body" >
-                                        <div ng-repeat='plan in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="Before Lunch / Break"'>
-                                            <b>Customer:</b>{{plan.partner}} 
-                                            <br>
-                                            <b>Location:</b>{{plan.location}}
-                                            <br>
-                                            <div class="isicontent">
-                                                <b>Objectives:</b>
-                                                {{plan.name}}
-                                            </div>
-                                            <br/>
-                                        </div>
-                                    </div>
-                            </div>
+            </div>
 
         <div class="both"></div>
         <div class="list card custom-list">
@@ -90,26 +70,7 @@
                     </div>
                         
                     </div>
-                  <div class="list card">
-                    <div class="item item-divider after-lunch">AFTER LUNCH</div>
-                    <div class="item item-body">
-                            <div class="list card">
-                                <div class="item item-divider">PLAN</div>
-                                    <div class="item item-body">
-                                        <div ng-repeat='plan in sales_tm|filter:user=sls.user|filter:the_date=sls.the_date|filter:daylight="After Lunch / Break"'>
-                                            <b>Customer:</b>{{plan.partner}} 
-                                            <br>
-                                            <b>Location:</b>{{plan.location}}
-                                            <br>
-                                            <div class="isicontent">
-                                                <b>Objectives:</b>
-                                                {{plan.name}}
-                                            </div>
-                                            <br/>
-                                        </div>
-                                    </div>
-                            </div>
-
+                
            <div class="list card custom-list">
             <div class="item item-divider item-divider-erp">
                 <span class="inisia-name">RKD</span>

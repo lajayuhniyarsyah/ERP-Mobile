@@ -39,6 +39,7 @@ angular.module('app.services', [])
                 function errorCallback(response){
                     console.log('erroor',"aaaaaaaaaaaaaaaaaaaaaaaaa");
                     console.log(response);
+                    // alert(response.status,response.headers)
                     deferred.reject('Wrong credentials.');
                 }
             )
