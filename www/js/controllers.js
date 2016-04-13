@@ -5,11 +5,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 })
    
-
 .controller('menuloginCtrl', function($scope, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike) {
-
-
-	
 
 	// $http.get("http://10.36.15.51:8000/custom/get/?format=json")
 	// jsonp('http://10.36.15.51:8000/custom/get/?format=json');
@@ -58,7 +54,6 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	}
 })
-
    
 .controller('submenusalesCtrl', function($scope) {
 
@@ -181,73 +176,133 @@ angular.module('app.controllers', ['ngMaterial'])
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 
+	var getLs = function(key){
+		return JSON.parse(window.localStorage.getItem(key));
+	}
+	// var temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
+	var temp_current_data = getLs('temporary_data_create_plan')
+
+	var setLs =function(key,val){
+		// console.log('call setLs key',key)
+		// console.log('call setLs val',val)
+		window.localStorage.setItem(key, JSON.stringify(val)); //set
+
+		//refresh
+		temp_current_data = getLs(key);
+		// console.log('Temp Updated')
+		// console.log(temp_current_data)
+		// console.log(JSON.parse(window.localStorage.getItem(key)))
+	}
+	
+	var create_pic = temp_current_data
+
+	if(!temp_current_data){
+		// preparation
+		create_pic = {
+			'pic' : false,
+			'monday_before':[],
+			'monday_after':[],
+			'tuesday_before':[],
+			'tuesday_after':[],
+			'wednesday_before':[],
+			'wednesday_after':[],
+			'thursday_before':[],
+			'thursday_after':[],
+			'friday_before':[],
+			'friday_after':[],
+		};
+
+		setLs('temporary_data_create_plan',[create_pic])
+	}
+	
+	$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/res.users/search/',
+				data: {
+					'domain':[
+								['login','ilike',window.atob(name)],
+							],
+					'usn':name,'pw':pass,'fields':['name']},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+
+				},
+			}
+		).then(
+			function successCallback(response){
+				console.log(response.data['Result'],'ini hasil dari request pertama')
+
+				$scope.user = (response.data['Result'])[0].name
+
+				var pic_request = (response.data['Result'])[0].id;
+				
+				temp_current_data[0]['pic'] = pic_request
+
+				// window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+				setLs('temporary_data_create_plan',temp_current_data)
+
+			},
+			function errorCallback(response){
+				console.log('erroor data kosong');
+				// $window.localStorage.clear();
+				// $state.go('menulogin');
+			}
+	)
     $scope.dates = {};
     $scope.minDate = new Date();
     $scope.onlyWeekendsPredicate = function(date) {
        var day = date.getDay();
        return day === 1; }
-      $scope.datechange = function() {
+	$scope.datechange = function() {
 
-		var enddate = new Date(
+	   var begindate = new Date(
 	      $scope.dates.myDate.getFullYear(),
 	      $scope.dates.myDate.getMonth(),
-	      $scope.dates.myDate.getDate()+7);
-		
-		$scope.endDate = $filter('date')(enddate,"M/dd/yyyy");
-
-		 };
-
+	      $scope.dates.myDate.getDate());
+	   var enddate = new Date(
+	      $scope.dates.myDate.getFullYear(),
+	      $scope.dates.myDate.getMonth(),
+	      $scope.dates.myDate.getDate()+6);
+		  $scope.beginDate = $filter('date')(begindate,"yyyy-MM-dd");
+		  $scope.endDate = $filter('date')(enddate,"yyyy-MM-dd");
 		 
-		
-		$http(
-				{
-					method: 'POST',
-					url: 'http://10.36.15.51:8000/openerp/res.users/search/',
-					data: {
-						'domain':[
-									['login','ilike',window.atob(name)],
-								],
-						'usn':name,'pw':pass,'fields':['name']},
-					headers: {
-						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-					  
-					},
-				
-				}
-			).then(
-				function successCallback(response){
-					
-					$scope.user = (response.data['Result'])[0].name
+		 //tambah field
+		 temp_current_data[0]['begin']=$scope.beginDate;
+		 temp_current_data[0]['end']=$scope.endDate;
 
-					var pic_request = (response.data['Result'])[0].name;
-					var create_pic = {
-						"pic" : pic_request,
-						'monday-before':[],
-						'monday-after':[],
-						'tuesday-before':[],
-						'tuesday-after':[],
-						'wednesday-before':[],
-						'wednesday-after':[],
-						'thursday-before':[],
-						'thursday-after':[],
-						'friday-before':[],
-						'friday-after':[],
-					};
-					
-					window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify([create_pic]));
-				},
-				function errorCallback(response){
-					console.log('erroor data kosong');
-					// $window.localStorage.clear();
-					// $state.go('menulogin');
-				}
-			)
-		$scope.sendData = function() {
+		 // window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
+		 setLs('temporary_data_create_plan',temp_current_data)
+	};
 
-			var temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
-			console.log(temp_current_data)
+	$scope.previewData = function() {
+		console.log('clicked')
+		temp_current_data = getLs('temporary_data_create_plan')
+		// validasi
+		if (temp_current_data[0].begin==null){
+			window.alert('Tanggal Belum Diisi')
 		}
-
+		else if (temp_current_data[0]['monday_before'].length == 0 || temp_current_data[0]['monday_after'].length == 0) {
+			alert("Form Monday Belum Diisi")
+		}
+		else if (temp_current_data[0]['tuesday_before'].length == 0 || temp_current_data[0]['tuesday_after'].length == 0){
+			window.alert('Form Tuesday Belum Diisi')
+		}
+		else if (temp_current_data[0]['wednesday_before'].length == 0 || temp_current_data[0]['wednesday_after'].length == 0){
+			window.alert('Form Wednesday Belum Diisi')
+		}
+		else if (temp_current_data[0]['thursday_before'].length == 0 || temp_current_data[0]['thursday_after'].length == 0){
+			window.alert('Form Thusrday Belum Diisi')
+		}
+		else if (temp_current_data[0]['friday_before'].length == 0 || temp_current_data[0]['friday_after'].length == 0){
+			window.alert('Form Friday Belum Diisi')
+		}
+		else {
+			
+			window.alert('Data telah lengkap')
+			$state.go('previewcreateplan')
+		}			
+	}
 })
    
 .controller('previewplanactivityCtrl', function($scope,$stateParams,$state,$http,$timeout,$ionicLoading) {
@@ -2410,10 +2465,71 @@ angular.module('app.controllers', ['ngMaterial'])
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	$scope.day = $stateParams.day;
 	var hari = $stateParams.day;
-
+	
 	// get from localstorage
 	var temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
+
+	//tampilin data yang sudah ada dan fungsi hapus data
+	if (hari=='monday' && (temp_current_data[0]['monday_before'].length != 0 || temp_current_data[0]['monday_after'].length != 0)) {
+		$scope.before_prev = temp_current_data[0]['monday_before']
+		$scope.after_prev = temp_current_data[0]['monday_after']
+    	
+    	$scope.removeBefore = function(index) {
+    	$scope.before_prev.splice(index, 1);
+		};
+    	$scope.removeAfter = function(index) {
+    	$scope.after_prev.splice(index, 1);
+		};
+
+	}  
+	else if (hari=='tuesday' && (temp_current_data[0]['tuesday_before'].length != 0 || temp_current_data[0]['tuesday_after'].length != 0)) {
+		$scope.before_prev = temp_current_data[0]['tuesday_before']
+		$scope.after_prev = temp_current_data[0]['tuesday_after']
 	
+    	$scope.removeBefore = function(index) {
+    	$scope.before_prev.splice(index, 1);
+		};
+    	$scope.removeAfter = function(index) {
+    	$scope.after_prev.splice(index, 1);
+		};
+
+	}  
+	else if (hari=='wednesday' && (temp_current_data[0]['wednesday_before'].length != 0 || temp_current_data[0]['wednesday_after'].length != 0)) {
+		$scope.before_prev = temp_current_data[0]['wednesday_before']
+		$scope.after_prev = temp_current_data[0]['wednesday_after']
+	
+    	$scope.removeBefore = function(index) {
+    	$scope.before_prev.splice(index, 1);
+		};
+    	$scope.removeAfter = function(index) {
+    	$scope.after_prev.splice(index, 1);
+		};
+
+	} 
+	else if (hari=='thursday' && (temp_current_data[0]['thursday_before'].length != 0 || temp_current_data[0]['thursday_after'].length != 0)) {
+		$scope.before_prev = temp_current_data[0]['thursday_before']
+		$scope.after_prev = temp_current_data[0]['thursday_after']
+
+    	$scope.removeBefore = function(index) {
+    	$scope.before_prev.splice(index, 1);
+		};
+    	$scope.removeAfter = function(index) {
+    	$scope.after_prev.splice(index, 1);
+		};	
+
+	} 
+	else if (hari=='friday' && (temp_current_data[0]['friday_before'].length != 0 || temp_current_data[0]['friday_after'].length != 0)) {
+		$scope.before_prev = temp_current_data[0]['friday_before']
+		$scope.after_prev = temp_current_data[0]['friday_after']
+	
+    	$scope.removeBefore = function(index) {
+    	$scope.before_prev.splice(index, 1);
+		};
+    	$scope.removeAfter = function(index) {
+    	$scope.after_prev.splice(index, 1);
+		};
+	} 
+	//simpan data ke local storage
 	$scope.savedata = function() {  
 
 		if (hari == 'monday') {
@@ -2423,12 +2539,12 @@ angular.module('app.controllers', ['ngMaterial'])
 
 			for (var mb = 0; mb < monday_before.length; mb++) {
 
-				temp_current_data[0]['monday-before'].push(monday_before[mb])
+				temp_current_data[0]['monday_before'].push(monday_before[mb])
 
 			};
 			for (var ma = 0; ma < monday_after.length; ma++) {
 
-				temp_current_data[0]['monday-after'].push(monday_after[ma]) 
+				temp_current_data[0]['monday_after'].push(monday_after[ma]) 
 
 			};			
 			// rewrite localStorage
@@ -2444,12 +2560,12 @@ angular.module('app.controllers', ['ngMaterial'])
 			
 			for (var tb = 0; tb < tuesday_before.length; tb++) {
 
-				temp_current_data[0]['tuesday-before'].push(tuesday_before[tb])
+				temp_current_data[0]['tuesday_before'].push(tuesday_before[tb])
 
 			};
 			for (var ta = 0; ta < tuesday_after.length; ta++) {
 
-				temp_current_data[0]['tuesday-after'].push(tuesday_after[ta]) 
+				temp_current_data[0]['tuesday_after'].push(tuesday_after[ta]) 
 
 			};			
 			// rewrite localStorage
@@ -2464,12 +2580,12 @@ angular.module('app.controllers', ['ngMaterial'])
 			
 			for (var wb = 0; wb < wednesday_before.length; wb++) {
 
-				temp_current_data[0]['wednesday-before'].push(wednesday_before[wb])
+				temp_current_data[0]['wednesday_before'].push(wednesday_before[wb])
 
 			};
 			for (var wa = 0; wa < wednesday_after.length; wa++) {
 
-				temp_current_data[0]['wednesday-after'].push(wednesday_after[wa]) 
+				temp_current_data[0]['wednesday_after'].push(wednesday_after[wa]) 
 
 			};			
 			// rewrite localStorage
@@ -2484,12 +2600,12 @@ angular.module('app.controllers', ['ngMaterial'])
 			
 			for (var thb = 0; thb < thursday_before.length; thb++) {
 
-				temp_current_data[0]['thursday-before'].push(thursday_before[thb])
+				temp_current_data[0]['thursday_before'].push(thursday_before[thb])
 
 			};
 			for (var tha = 0; tha < thursday_after.length; tha++) {
 
-				temp_current_data[0]['thursday-after'].push(thursday_after[tha]) 
+				temp_current_data[0]['thursday_after'].push(thursday_after[tha]) 
 
 			};			
 			// rewrite localStorage
@@ -2504,12 +2620,12 @@ angular.module('app.controllers', ['ngMaterial'])
 			
 			for (var fb = 0; fb < friday_before.length; fb++) {
 
-				temp_current_data[0]['friday-before'].push(friday_before[fb])
+				temp_current_data[0]['friday_before'].push(friday_before[fb])
 
 			};
 			for (var fa = 0; fa < friday_after.length; fa++) {
 
-				temp_current_data[0]['friday-after'].push(friday_after[fa]) 
+				temp_current_data[0]['friday_after'].push(friday_after[fa]) 
 
 			};			
 			// rewrite localStorage
@@ -2521,8 +2637,8 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 
 	//fungsi tambah form
-	$scope.formBefore = [{id: 'before_plan1'}];
-	$scope.formAfter = [{id: 'after_plan1'}];
+	$scope.formBefore = [];
+	$scope.formAfter = [];
 
 	$scope.tambahformBefore = function() {
 		var newItemNo = $scope.formBefore.length+1;
@@ -2535,7 +2651,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	// fungsi untuk nyari data
 	$scope.getMatches = function(searchText){
 		var res_matched = [];
-
+		
 		// cari via ajax
 		res_matched = $http
 	  	(
@@ -2556,7 +2672,6 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(function(response){
 			// if success
-			console.log(response.data.Result)
 			return response.data.Result
 		},
 		function(response){
@@ -2565,17 +2680,136 @@ angular.module('app.controllers', ['ngMaterial'])
 		
 		return res_matched
 	}
-
 })
 
+.controller('previewcreateplanCtrl', function($scope,$http,$state) {
+
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
+
+	$scope.pic = temp_current_data[0].pic;
+	$scope.begin = temp_current_data[0].begin;
+	$scope.end = temp_current_data[0].end;
+	$scope.bpp_senin = temp_current_data[0].monday_before;
+	$scope.app_senin = temp_current_data[0].monday_after;
+	$scope.bpp_selasa = temp_current_data[0].tuesday_before;
+	$scope.app_selasa = temp_current_data[0].tuesday_after;
+	$scope.bpp_rabu = temp_current_data[0].wednesday_before;
+	$scope.app_rabu = temp_current_data[0].wednesday_after;
+	$scope.bpp_kamis = temp_current_data[0].thursday_before;
+	$scope.app_kamis = temp_current_data[0].thursday_after;
+	$scope.bpp_jumat = temp_current_data[0].friday_before;
+	$scope.app_jumat = temp_current_data[0].friday_after;
 	
+	$scope.sendData = function() {
+		console.log('clicked')
+		temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
+
+		var send_data = [{
+							'user_id' : temp_current_data[0].pic,
+							'begin': temp_current_data[0].begin,
+							'end' : temp_current_data[0].end,
+							'beforeplansenin':[],
+							'afterplansenin':[],
+							'beforeplanselasa':[],
+							'afterplanselasa':[],
+							'beforeplanrabu':[],
+							'afterplanrabu':[],
+							'beforeplankamis':[],
+							'afterplankamis':[],
+							'beforeplanjumat':[],
+							'afterplanjumat':[],
+						}];
+
+		for (var tmb = 0; tmb < (temp_current_data[0].monday_before).length; tmb++) {
+
+					send_data[0]['beforeplansenin'].push([0,0,{'partner_id':(temp_current_data[0].monday_before)[tmb].customer.id,
+						'location':(temp_current_data[0].monday_before)[tmb].location,
+						'name':(temp_current_data[0].monday_before)[tmb].objective}])
+		};
+		for (var tma = 0; tma < (temp_current_data[0].monday_after).length; tma++) {
+
+					send_data[0]['afterplansenin'].push([0,0,{'partner_id':(temp_current_data[0].monday_after)[tma].customer.id,
+						'location':(temp_current_data[0].monday_after)[tma].location,
+						'name':(temp_current_data[0].monday_after)[tma].objective}])
+		};
+		for (var ttb = 0; ttb < (temp_current_data[0].tuesday_before).length; ttb++) {
+
+					send_data[0]['beforeplanselasa'].push([0,0,{'partner_id':(temp_current_data[0].tuesday_before)[ttb].customer.id,
+						'location':(temp_current_data[0].tuesday_before)[ttb].location,
+						'name':(temp_current_data[0].tuesday_before)[ttb].objective}])
+		};
+		for (var tta = 0; tta < (temp_current_data[0].tuesday_after).length; tta++) {
+
+					send_data[0]['afterplanselasa'].push([0,0,{'partner_id':(temp_current_data[0].tuesday_after)[tta].customer.id,
+						'location':(temp_current_data[0].tuesday_after)[tta].location,
+						'name':(temp_current_data[0].tuesday_after)[tta].objective}])
+		};
+		for (var twb = 0; twb < (temp_current_data[0].wednesday_before).length; twb++) {
+
+					send_data[0]['beforeplanrabu'].push([0,0,{'partner_id':(temp_current_data[0].wednesday_before)[twb].customer.id,
+						'location':(temp_current_data[0].wednesday_before)[twb].location,
+						'name':(temp_current_data[0].wednesday_before)[twb].objective}])
+		};
+		for (var twa = 0; twa < (temp_current_data[0].wednesday_after).length; twa++) {
+
+					send_data[0]['afterplanrabu'].push([0,0,{'partner_id':(temp_current_data[0].wednesday_after)[twa].customer.id,
+						'location':(temp_current_data[0].wednesday_after)[twa].location,
+						'name':(temp_current_data[0].wednesday_after)[twa].objective}])
+		};
+		for (var tthb = 0; tthb < (temp_current_data[0].thursday_before).length; tthb++) {
+
+					send_data[0]['beforeplankamis'].push([0,0,{'partner_id':(temp_current_data[0].thursday_before)[tthb].customer.id,
+						'location':(temp_current_data[0].thursday_before)[tthb].location,
+						'name':(temp_current_data[0].thursday_before)[tthb].objective}])
+		};
+		for (var ttha = 0; ttha < (temp_current_data[0].thursday_after).length; ttha++) {
+
+					send_data[0]['afterplankamis'].push([0,0,{'partner_id':(temp_current_data[0].thursday_after)[ttha].customer.id,
+						'location':(temp_current_data[0].thursday_after)[ttha].location,
+						'name':(temp_current_data[0].thursday_after)[ttha].objective}])
+		};
+		for (var tfb = 0; tfb < (temp_current_data[0].friday_before).length; tfb++) {
+
+					send_data[0]['beforeplanjumat'].push([0,0,{'partner_id':(temp_current_data[0].friday_before)[tfb].customer.id,
+						'location':(temp_current_data[0].friday_before)[tfb].location,
+						'name':(temp_current_data[0].friday_before)[tfb].objective}])
+		};
+		for (var tfa = 0; tfa < (temp_current_data[0].friday_after).length; tfa++) {
+
+					send_data[0]['afterplanjumat'].push([0,0,{'partner_id':(temp_current_data[0].friday_after)[tfa].customer.id,
+						'location':(temp_current_data[0].friday_after)[tfa].location,
+						'name':(temp_current_data[0].friday_after)[tfa].objective}])
+		};
+
+		console.log(send_data,'ini datanya')
+
+		$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/createsalesplan/',
+				data: {
+					'usn':name,'pw':pass ,'vals':send_data[0]},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},		
+			}
+		).then(
+			function successCallback(response){
+			alert("sukses")
+			$state.go('menuactivity')
+			},
+			function errorCallback(response){
+				alert("gagal")
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)			
+	}
 
 
-	// $scope.removeChoice = function() {
-	//     var lastItem = $scope.formBefore.length-1;
-	//     $scope.formBefore.splice(lastItem);
-	// };
-	
+})
 
 	// contoh kasus untuk autocomplete nyari data static
 	// $scope.items = [
