@@ -3,32 +3,35 @@
         <h4 style="">Create Plan Activity</h4>
         <div style="width: 284px; height: 25px;" class="spacer"></div>
         <form style="" class="list">
-            <label style="" name="pic" class="item item-select">
+            <label style="" name="pic" class="item item-input">
                 <span class="input-label">PIC</span>
-                <select>
-                    
-                    <option>{{user}}</option>
-                  
-                </select>
+                <h2>{{user}}</h2>
             </label>
             <label style="" name="data-begin" class="item item-input">
                 <span class="input-label">Begin</span>
-                <input placeholder="Date Begin" type="date" ng-model="data.begin">
+            <md-datepicker 
+               ng-model="dates.myDate" 
+               ng-change="datechange()"
+               md-placeholder="Enter date"
+               md-min-date="minDate"
+               type="text" 
+               md-date-filter="onlyWeekendsPredicate"></md-datepicker>                    
             </label>
             <label style="" name="data-end" class="item item-input">
                 <span class="input-label">End</span>
-                <input placeholder="Date End" value="" type="date">
+            <input placeholder="End Date" type="text" ng-model="endDate" value="endDate" readonly>
             </label>
         </form>
         <div style="" class="button-bar">
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button14" ui-sref="formdaymonday">Monday</a>
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button16" ui-sref="formdaymonday">Tuesday</a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button14" ui-sref="formdaymonday({pic: user, day: 'monday'})">Monday</a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button16" ui-sref="formdaymonday({pic: user, day: 'tuesday'})">Tuesday</a>
         </div>
         <div style="" class="button-bar">
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button21" ui-sref="formdaymonday">Wednesday</a>
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button23" ui-sref="formdaymonday">Thursday</a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button21" ui-sref="formdaymonday({pic: user, day: 'wednesday'})">Wednesday</a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button23" ui-sref="formdaymonday({pic: user, day: 'thursday'})">Thursday</a>
         </div>
-        <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button24" ui-sref="formdaymonday">Friday</a>
-        <a class="button button-positive  button-block" style="border-radius:15px 15px 15px 15px;" id="formactivity-button25" ui-sref="previewplanactivity">Preview &amp; Save</a>
+        <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button24" ui-sref="formdaymonday({pic: user, day: 'friday'})">Friday</a>
+        <a class="button button-positive  button-block" style="border-radius:15px 15px 15px 15px;" id="formactivity-button25" ng-click="previewData()">Preview &amp; Save</a>
     </ion-content>
 </ion-view>
+
