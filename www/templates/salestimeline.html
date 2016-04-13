@@ -1,73 +1,141 @@
 <ion-view title="SALES ACTIVITY TIMELINE" id="page11">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <ion-list></ion-list>
-        <div ng-repeat="tm in sales_tm |limitTo:limit" >
-        <div class="list card custom-list" ng-if="!tm.canceled_plan">
-            <div class="item item-divider item-divider-erp">
-                <span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
-                <div class="namasales font-black">{{tm.user}}</div>
-                <div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
-                <div class="status"><span class="ok-status">OK</span></div>
-                <div class="both"></div>
-                <div class="judul-header"><b>{{tm.partner}} - {{tm.location}} </b></div>
-                <div class="judul-before-after"><b>{{tm.daylight}}</b></div>
-            </div>
-                <div class="item item-body">
-                    <div class="both"></div>
-                    <div class="plan">
-                        <div class="isicontent line-silver">
-                            <div class="judul-plan"><b>Planned Go To : {{tm.partner}} - {{tm.location}}</b></div>
-                            {{tm.name}}
-                        </div>
-                    </div>
-                    <div ng-if="tm.actual_result">
-                        <b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}} </b>
-                        <div class="isicontent">
-                         {{tm.actual_result}}
-                    </div>
-                    </div>
-                </div>
-            </div>
+	<ion-content overflow-scroll="true" padding="true" class="has-header">
+		<ion-list></ion-list>
+		<div ng-repeat="tm in sales_tm |limitTo:limit" >
+		<div class="list card custom-list" ng-if="!tm.canceled_plan" ng-click="openModal(tm)">
+
+			<div class="item item-divider item-divider-erp">
+				<span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
+				<div class="namasales font-black">{{tm.user}}</div>
+				<div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
+				<div class="status"><span class="ok-status">OK</span></div>
+				<div class="both"></div>
+				<div class="judul-header"><b>{{tm.partner}} - {{tm.location}} </b></div>
+				<div class="judul-before-after"><b>{{tm.daylight}}</b></div>
+			</div>
+				<div class="item item-body">
+					<div class="both"></div>
+					<div class="plan">
+						<div class="isicontent line-silver">
+							<div class="judul-plan"><b>Planned Go To : {{tm.partner}} - {{tm.location}}</b></div>
+							 <pre> {{tm.name}} </pre>
+						</div>
+					</div>
+					<div ng-if="tm.actual_result">
+						<b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}} </b>
+						<div class="isicontent">
+						 <pre>{{tm.actual_result}}</pre>
+					</div>
+					</div>
+				</div>
+			</div>
    
 
-           <div class="list card custom-list" ng-if="tm.canceled_plan">
-            <div class="item item-divider item-divider-erp">
-                <span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
-                <div class="namasales font-black">{{tm.user}}</div>
-                <div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
-                <div class="status"><span class="cancel-status">CANCEL</span></div>
-                <div class="both"></div>
-                <div class="judul-header"><b>{{tm.partner}} - {{tm.location}}  </b></div>
-                 <div class="judul-before-after"><b>{{tm.daylight}}</b></div>
-            </div>
-                <div class="item item-body">
-                    <div class="both"></div>
-                    <div class="plan cancel">
-                        <div class="isicontent line-silver">
-                            <div class="judul-plan"><b>Planned Go To :{{tm.partner}} - {{tm.location}}  Was Canceled</b></div>
-                              {{tm.name}}
-                        </div>
-                    </div>
-                    <b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}}</b>
-                    <div class="isicontent">
-                         {{tm.actual_result}}
-                    </div>
-                </div>
-                  
-            </div>
-        </div>
-     
-        <div class="both"></div>
-       
-          
-        <center ng-if="limit < sales_tm.length"><button class="btn" ng-click="loadMore()">Load more</button></center>
+		   <div class="list card custom-list" ng-if="tm.canceled_plan" ng-click="openModal(tm)">
+			<div class="item item-divider item-divider-erp">
+				<span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
+				<div class="namasales font-black">{{tm.user}}</div>
+				<div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
+				<div class="status"><span class="cancel-status">CANCEL</span></div>
+				<div class="both"></div>
+				<div class="judul-header"><b>{{tm.partner}} - {{tm.location}}  </b></div>
+				 <div class="judul-before-after"><b>{{tm.daylight}}</b></div>
+			</div>
+				<div class="item item-body">
+					<div class="both"></div>
+					<div class="plan cancel">
+						<div class="isicontent line-silver">
+							<div class="judul-plan"><b>Planned Go To :{{tm.partner}} - {{tm.location}}  Was Canceled</b></div>
+							 <pre> {{tm.name}} </pre>
+						</div>
+					</div>
+					<b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}}</b>
+					<div class="isicontent">
+						<pre>{{tm.actual_result}}</pre>
+					</div>
+				</div>
+				  
+			</div>
+		</div>
+	 	<script id="templates/modal.html" type="text/ng-template">
+			<ion-modal-view >
+				<ion-header-bar class="bar bar-header bar-positive">
+					<h1 class="title">{{user.user}}</h1>
+					<button class="button button-clear button-primary" ng-click="modal.hide()">Exit</button>
+				</ion-header-bar>
+				<ion-content class="padding">
+					<div class="list card custom-list" ng-if="!user.canceled_plan">
+
+					<div class="item item-divider item-divider-erp">
+						<span ng-if="user.initial" class="inisia-name">{{user.initial}}</span>
+						<div class="namasales font-black">{{user.user}}</div>
+						<div class="datesales font-black">{{user.the_date|date:"EEEE" }} {{user.the_date|date:"dd/MM/yyyy" }}</div>
+						<div class="status"><span class="ok-status">OK</span></div>
+						<div class="both"></div>
+						<div class="judul-header"><b>{{user.partner}} - {{user.location}} </b></div>
+						<div class="judul-before-after"><b>{{user.daylight}}</b></div>
+					</div>
+						<div class="item item-body">
+							<div class="both"></div>
+							<div class="plan">
+								<div class="isicontent line-silver">
+									<div class="judul-plan font-modal"><b>Planned Go To : {{user.partner}} - {{user.location}}</b></div>
+									 <span class="font-modal"><pre> {{user.name}} </pre></span>
+								</div>
+							</div>
+							<div ng-if="user.actual_result">
+								<span class="font-modal"><b>Actual Result Went To : {{user.actual_result_partner}} - {{user.actual_result_location}} </b></span>
+								<div class="isicontent font-modal">
+								 <pre>{{user.actual_result}}</pre>
+							</div>
+							</div>
+						</div>
+					</div>
+
+					 <div class="list card custom-list" ng-if="user.canceled_plan" >
+						<div class="item item-divider item-divider-erp">
+							<span ng-if="user.initial" class="inisia-name">{{user.initial}}</span>
+							<div class="namasales font-black">{{user.user}}</div>
+							<div class="datesales font-black">{{user.the_date|date:"EEEE" }} {{user.the_date|date:"dd/MM/yyyy" }}</div>
+							<div class="status"><span class="cancel-status">CANCEL</span></div>
+							<div class="both"></div>
+							<div class="judul-header"><b>{{user.partner}} - {{user.location}}  </b></div>
+							 <div class="judul-before-after"><b>{{user.daylight}}</b></div>
+						</div>
+							<div class="item item-body">
+								<div class="both"></div>
+								<div class="plan cancel">
+									<div class="isicontent line-silver">
+										<div class="judul-plan font-modal"><b>Planned Go To :{{user.partner}} - {{user.location}}  Was Canceled</b></div>
+										 <pre class="font-modal"> {{user.name}} </pre>
+									</div>
+								</div>
+								<div><span class="font-modal"><b>Actual Result Went To : {{user.actual_result_partner}} - {{user.actual_result_location}} </b></span></div>
+								<div class="isicontent font-modal">
+									<pre>{{user.actual_result}}</pre>
+								</div>
+							</div>
+				  
+					</div>
 
 
-       <!--  <ion-list></ion-list>
-         <ion-infinite-scroll
-                      icon="ion-loading-c"
-                      on-infinite="loadMore()">
-        </ion-infinite-scroll> -->
-    </ion-content>
+   
+				</ion-content>
+			</ion-modal-view>
+		</script>
+		<div class="both"></div>
+	   
+		  
+		<center><button class="button button-full" ng-click="loadMore()">Load</button></center>
+
+
+	   <!--  <ion-list></ion-list>
+		 <ion-infinite-scroll
+					  icon="ion-loading-c"
+					  on-infinite="loadMore()">
+		</ion-infinite-scroll> -->
+		
+	</ion-content>
 
 </ion-view>
+
