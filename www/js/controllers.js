@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['infinite-scroll'])
+angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 
 .controller('menuutamaCtrl', function($scope,$http,$state) {
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
