@@ -39,19 +39,10 @@ angular.module('app.services', [])
                 function errorCallback(response){
                     console.log('erroor',"aaaaaaaaaaaaaaaaaaaaaaaaa");
                     console.log(response);
+                    // alert(response.status,response.headers)
                     deferred.reject('Wrong credentials.');
                 }
             )
-
-          
-            // var config=  headers: {
-            //             'Authorization': 'Basic ' + window.btoa('reza'+':'+'suprabakti')
-            //         },
-            // var data = "aaa"
-            // $http.post('http://10.36.15.51:8000/custom/get/', data, config).then(successCallback, errorCallback);
-           
-            // console.log(response.status);
-          
             promise.success = function(fn) {
                 promise.then(fn);
                 return promise;

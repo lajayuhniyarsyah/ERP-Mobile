@@ -1,4 +1,235 @@
+ion-content{
+	background-image: url("../img/bg.jpg") !important;
+	background-size: 100% 100%;
+	color: white;
+}
+.bar-header{
+	border-bottom: 3px solid white;
+}
+.bg-login{
+	background-image: url("../img/bg.jpg");
+	background-size: 100% 100%;
+	font-size: 25px;
+	font-family: "Verdan";
+}
+.bar-header{
+	background-image: url("../img/bg.jpg") !important;
+	color: white !important;
+}
+.bar-stable .button{
+	color: white !important;
+}
+.bar.bar-stable .title{
+	color: white !important;
+	text-align: center;	
+}
+.ion-ios-lock{
+	display: block;
+}
+.icon-left{
+	text-align: left;
+}
+
+
+.custom-icon{
+	padding-right: 10px;
+}
+.jdl-login{
+	color: white;
+	font-size: 18px;
+}
 /* Empty. Add your own CSS if you like */
 .btn-gantung{
 	float: right;
+}
+.login-button{
+	background-color: #413050 !important;
+	font-family: "Arial";
+}
+.list{
+	padding:10px;
+}
+.radius{
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+.timeline{
+	border: 1px solid #ccc;
+	margin-right: 10px;
+}
+.judul-timeline{
+	width: 100%;
+
+}
+.custom-list{
+	margin-top: 0px !important;	 
+	margin-bottom: 0px !important;
+}
+.item-divider-erp{
+	min-height: 0px !important;
+}
+.isitimeline{
+	padding: 5px;
+}
+.namasales{
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	color: white;
+	float: left;
+	width: 50%;
+}
+.font-black{
+	 color: black !important;
+}
+.datesales{
+	color: white;
+    float: right;
+    font-size: 10px;
+    margin-right: 33px;
+}
+.isicontent{
+	text-align: justify;
+
+}
+.judul-user{
+	font-size: 3.0vw; 
+	margin-top: 40px;
+}
+.judul-header{
+	font-size: 10px;
+	color: #F4B350;
+	float: left;
+}
+.judul-before-after{
+	font-size: 10px;
+	float: right;
+	color: #95A5A6;
+}
+.judul-plan{
+	font-size: 10px;
+}
+.line{
+	border-bottom: 2px solid #03C9A9;
+	padding-bottom: 5px;
+}
+.line-silver{
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 5px;	
+}
+.cancel-area{
+	background-color: #E3C1BF;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	padding: 5px;
+}
+.inisia-name{
+	 float: left;
+	 background-color: #36D7B7 !important;
+	border-radius: 50%;
+	-wbekit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-right: 5px;	
+	color: white;
+	font-size: 9px;
+}
+
+.status {
+    overflow: hidden;
+    width: 100px;
+}
+.status span {
+    color: #fff;
+    display: inline-block;
+    padding: 2px 0;
+    position: absolute;
+    right: -24px;
+    text-align: center;
+    top: 7px;
+    font-size: 8px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+    -o-transform:rotate(45deg);  
+    -moz-transform:rotate(45deg);  
+    width: 90px;
+}
+.ok-status{
+	background: #19B5FE none repeat scroll 0 0;
+}
+.cancel-status{
+	background: #ec2f2f none repeat scroll 0 0;
+}
+.cancel{
+	color: red !important;
+}
+.both{
+	clear: both;
+}
+.head-name{
+	background-color: #36D7B7 !important;
+}
+.line{
+	border-color: 1px solid #03C9A9;
+}
+.before-lunch{
+	background-color: #D5D7F2 !important;
+}
+.after-lunch{
+	background-color: #D0F2DB !important;	
+}
+.item-body{
+	font-size: 10px !important;
+}
+
+/* Menu Utama*/
+
+.menu-block-left{
+	width: 100%;
+	color: white;
+	text-align: center;
+	height: 100px;
+	display: block;
+	text-decoration: none;
+}
+.menu-block-right{
+	width: 100%;
+	color: white;
+	text-align: center;
+	height: 100px;
+	text-decoration: none;
+}
+.menu-block{
+	width: 100%;
+	/*float: right;*/
+	color: white;
+	text-align: center;
+	height: 100px;
+	text-decoration: none;
+	/*margin-top: 5px;*/
+}
+
+.flat-red{
+	background-color: #F64747 !important;
+}
+.flat-orange{
+	background-color: #F39C12 !important;
+}
+.flat-hijau{
+	background-color: #03C9A9 !important;
+}
+.font-button{
+	font-size: 3.0vw; 
+	/*font-size: 12px;*/
+	display: block;
+}
+.font-modal{
+	 font-size: 13px;
 }

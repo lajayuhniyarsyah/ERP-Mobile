@@ -63,13 +63,16 @@ angular.module('app.routes', [])
     templateUrl: 'templates/formdaymonday.html',
     controller: 'formdaymondayCtrl'
   })
-
+  .state('salestimelineAct', {
+    url: '/salestimeline',
+    templateUrl: 'templates/salestimeline.html',
+    controller: 'salestimelineCtrl'
+  })
   .state('previewcreateplan', {
     url: '/preview-create-plan',
     templateUrl: 'templates/previewcreateplan.html',
     controller: 'previewcreateplanCtrl'
   })
-
-$urlRouterProvider.otherwise('/login')  
+  $urlRouterProvider.otherwise('/login')  
 
 });

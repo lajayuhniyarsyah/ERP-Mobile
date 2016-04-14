@@ -36,15 +36,13 @@ angular.module('app.controllers', ['ngMaterial'])
 		LoginService.loginUser(window.btoa($scope.data.username),window.btoa($scope.data.pass)).success(function(data) {
 			$state.go('menuutama');
 
-		 
-		   
 			window.localStorage.setItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd",window.btoa($scope.data.username))
 			window.localStorage.setItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug",window.btoa($scope.data.pass))
 		  
 		}).error(function(data) {
 			var alertPopup = $ionicPopup.alert({
-				title: 'Login failed!',
-				template: 'Please check your credentials!2'
+				title: 'Login failed! ',
+				template: 'Please check your credentials!'
 			});
 		});
 	}
@@ -66,6 +64,7 @@ angular.module('app.controllers', ['ngMaterial'])
 })
    
 .controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,$timeout) {
+
    
 	  $ionicLoading.show({
 	    content: 'Loading',
@@ -83,6 +82,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var sales_data_activity = (window.localStorage.getItem('sales_data_activity'));
 
+
 	 if (sales_data_activity==null) {
 			
 		$http(
@@ -90,6 +90,7 @@ angular.module('app.controllers', ['ngMaterial'])
 					method: 'POST',
 					url: 'http://10.36.15.51:8000/openerp/sales.activity/',
 					data: {'usn':name,'pw':pass , 'fields':[]},
+
 					headers: {
 						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 					  
@@ -102,15 +103,18 @@ angular.module('app.controllers', ['ngMaterial'])
 					$scope.sda = response.data['Result']
 
 					var sda = response.data['Result'];
-					
+
 					window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sda));
 				
+
 	   
 				},
 				function errorCallback(response){
-					console.log('erroor data kosong');
+					$ionicLoading.hide();
+					console.log('erroor data kosong 1');
 					$window.localStorage.clear();
-					$state.go('menulogin');
+					
+					// $state.go('menulogin');
 				}
 			)          
 	 }
@@ -171,6 +175,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	 
 	 }
 	 }, 1000);    
+
 })
    
 .controller('formactivityCtrl', function($scope,$http,$state,$filter) {
@@ -338,9 +343,9 @@ angular.module('app.controllers', ['ngMaterial'])
 		}			
 	}
 })
+
    
 .controller('previewplanactivityCtrl', function($scope,$stateParams,$state,$http,$timeout,$ionicLoading) {
-
 	 $ionicLoading.show({
 	    content: 'Loading',
 	    animation: 'fade-in',
@@ -362,8 +367,12 @@ angular.module('app.controllers', ['ngMaterial'])
 	var current_local = JSON.parse(window.localStorage.getItem('current_activity_id'));
 	// console.log(current_local)
 	
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 0a81babb993151c280a9f2826472803bf6ceadb7
 	if(current_local==null){
-		
 	$http(
 			{
 				method: 'POST',
@@ -736,7 +745,6 @@ angular.module('app.controllers', ['ngMaterial'])
 				console.log('sukses isi storage kosong after plan kamis dari server')
 				$scope.ap_kamis = response.data['Result'];
 				var ap_update_kamis = response.data['Result'];
-
 				window.localStorage.setItem( 'sales_activity_after_plan_kamis', JSON.stringify(ap_update_kamis));
 			},
 			function errorCallback(response){
@@ -2397,10 +2405,8 @@ angular.module('app.controllers', ['ngMaterial'])
 			 
 			$scope.aa_minggu = aaminggu;
 	}
-
 	},1000);
 })
-   
 .controller('formupdateactivityCtrl', function($scope,$stateParams,$http) {
 		
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
@@ -2415,11 +2421,14 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	if (salesactbefore == null) {
 
+
 		$http(
 				{
 					method: 'POST',
+
 					url: 'http://10.36.15.51:8000/openerp/before.plan.'+hari+'/ids/',
 					data: {'usn':name,'pw':pass , 'fields':['partner_id','location','name',],'ids':bplan},
+
 					headers: {
 						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 					  
@@ -2428,6 +2437,7 @@ angular.module('app.controllers', ['ngMaterial'])
 				}
 			).then(
 				function successCallback(response){
+
 					console.log('success before');
 					$scope.bplan = response.data['Result']
 					// console.log($scope.bplan)
@@ -2439,6 +2449,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	   
 				},
 				function errorCallback(response){
+
 					console.log('erroor data kosong');
 					// $window.localStorage.clear();
 					// $state.go('formreviewactivity');
@@ -2843,19 +2854,171 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 
 
+
 })
 
-	// contoh kasus untuk autocomplete nyari data static
-	// $scope.items = [
-	// 	{'display_name':'Indocement Test, PT'},
-	// 	{'display_name':'Adaro Test, PT'},
-	// ]
-	// looping dari static data
-	/*angular.forEach($scope.items, function(value,key){
+.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup,$ionicModal) {
+	$ionicLoading.show(
+		{
+		    content: 'Loading',
+		    animation: 'fade-in',
+		    showBackdrop: true,
+		    maxWidth: 200,
+		    showDelay: 0
+  		}
+  	);
+	var timeline = JSON.parse(window.localStorage.getItem("timeline2")); //data to fetch in view
+	var reloadSalesTm =function(data){
+		console.log('called')
+		$scope.sales_tm = data
+	}
+	var updateSalesTm=function(data){
+		for (var i = 0; i < data.length; i++) {
+			$scope.sales_tm.push(data[i])
+		};
+	}
+	var today = new Date()
+	var yesterday = new Date()
+	yesterday.setDate(yesterday.getDate()-1);
+	today = $filter('date')(today, "yyyy-MM-dd");
+	yesterday = $filter('date')(yesterday, "yyyy-MM-dd");
+	console.log(today,yesterday)
+	$scope.date = new Date();
 
-		regex = new RegExp(searchText,"gi")
+	
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	$ionicModal.fromTemplateUrl('templates/modal.html', {
+		scope: $scope,
+		hardwareBackButtonClose: false
+	  }).then(function(modal) {
+	  	console.log(modal)
+	    $scope.modal = modal;
+	  });
+	 $scope.openModal = function(tm) {   
+	 	// console.log(tm.the_date,"iniiii")
+          $scope.user = tm;
 
-		if(value.display_name.match(regex)){
-			res_matched.push(value)
+          $scope.modal.show();
+        };
+	$scope.limit = 20;
+	// console.log(timeline,"datanya")
+	var limit_data = 0
+	var offset_data = -20
+	$scope.loadMore = function () {
+
+		$scope.limit += 20; 
+		console.log($scope.sales_tm,"ooooooooo")
+		console.log($scope.limit,$scope.sales_tm.length) 
+
+		if ($scope.limit >= $scope.sales_tm.length ){
+			// alert("data habis")
+			limit_data+=20
+			offset_data+=20
+				$http
+				  	(
+						{
+							method: 'POST',
+							url: 'http://10.36.15.51:8000/openerp/salestimeline/GetUpdate/',
+							data: {
+									'usn':name,
+									'pw':pass,
+									"params":{
+										// "fields":'*',
+										// "table":"sales_activity_plan",
+										// 'AndOr':[],
+										'condition':{"the_date__lt":yesterday},
+										"limit":limit_data,
+										'offset':offset_data,
+										// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+									}
+							},
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							  
+							},
+							
+						
+						}
+						).then(
+							function successCallback(response){
+								console.log('success isi storage kosong dari server');
+								console.log(response)
+								window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+								updateSalesTm(response.data.data)
+
+								$ionicLoading.hide();
+							},
+							function errorCallback(response){
+								$ionicLoading.hide();
+								console.log(response)
+
+								console.log('erroor data kosong');
+						
+							}
+						)
+							
+
+			}
+
+	};
+	// $scope.loadMore();
+	$scope.colortext= {
+        "color" : "red",
+        
+    }
+	
+
+
+  	$http
+  	(
+		{
+			method: 'POST',
+			url: 'http://10.36.15.51:8000/openerp/salestimeline/AllData/',
+			data: {
+					'usn':name,
+					'pw':pass,
+					"params":{
+						// "fields":'*',
+						// "table":"sales_activity_plan",
+						// 'AndOr':[],
+						'condition':{"the_date":[today,yesterday]},
+						// "limit":100,
+						// 'offset':0,
+						// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+					}
+			},
+			headers: {
+				'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+			  
+			},
+			
+		
 		}
-	})*/
+	).then(
+		function successCallback(response){
+			console.log('success isi storage kosong dari server');
+			console.log(response)
+			window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+			reloadSalesTm(response.data.data)
+
+			$ionicLoading.hide();
+			if(response.data.data.length==0){
+				alertPopup = $ionicPopup.alert({
+				title: 'Warning',
+				template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
+			});
+			}
+		},
+		function errorCallback(response){
+			$ionicLoading.hide();
+			console.log(response)
+
+			console.log('erroor data kosong');
+	
+		}
+	)
+
+	reloadSalesTm(timeline)
+})
+
