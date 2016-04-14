@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
+angular.module('app.controllers', [])
 
 .controller('menuutamaCtrl', function($scope,$http,$state) {
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
@@ -8,7 +8,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 		$http(
 				{
 					method: 'POST',
-					url: 'http://10.36.15.51:8000/openerp/res.users/search/',
+					url: 'http://192.168.9.26:8000/openerp/res.users/search/',
 					data: {'usn':name,
 							'pw':pass ,
 							'domain':[['login','ilike',atob(name)]] ,
@@ -124,7 +124,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 		$http(
 				{
 					method: 'POST',
-					url: 'http://10.36.15.51:8000/openerp/sales.activity/',
+					url: 'http://192.168.9.26:8000/openerp/sales.activity/',
 					data: {'usn':name,'pw':pass , 'fields':[]},
 
 					headers: {
@@ -164,7 +164,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 		$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/sales.activity/getupdate/',
+				url: 'http://192.168.9.26:8000/openerp/sales.activity/getupdate/',
 				data: {'usn':name,'pw':pass , 'fields':[],'ids':ids},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
@@ -259,7 +259,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/res.users/search/',
+				url: 'http://192.168.9.26:8000/openerp/res.users/search/',
 				data: {
 					'domain':[
 								['login','ilike',window.atob(name)],
@@ -313,7 +313,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/sales.activity/search/',
+				url: 'http://192.168.9.26:8000/openerp/sales.activity/search/',
 				data: {
 					'domain':[
 								['user_id','=',temp_current_data[0].pic],
@@ -409,7 +409,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.senin/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.plan.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -436,7 +436,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.plan.senin/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.plan.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -463,7 +463,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.actual.senin/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.actual.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -490,7 +490,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.actual.senin/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.actual.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -518,7 +518,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.plan.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -545,7 +545,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.plan.selasa/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.plan.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -572,7 +572,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.actual.selasa/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.actual.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -599,7 +599,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.actual.selasa/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.actual.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -627,7 +627,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.plan.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -654,7 +654,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.plan.rabu/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.plan.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -681,7 +681,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.actual.rabu/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.actual.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -708,7 +708,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.actual.rabu/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.actual.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -736,7 +736,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.plan.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -763,7 +763,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.plan.kamis/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.plan.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -789,7 +789,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.actual.kamis/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.actual.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -816,7 +816,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.actual.kamis/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.actual.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -844,7 +844,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.plan.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -871,7 +871,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.plan.jumat/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.plan.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -898,7 +898,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.actual.jumat/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.actual.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -925,7 +925,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.actual.jumat/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.actual.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -953,7 +953,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.sabtu/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.plan.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -980,7 +980,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.plan.sabtu/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.plan.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1007,7 +1007,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.actual.sabtu/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.actual.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1034,7 +1034,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.actual.sabtu/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.actual.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1062,7 +1062,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.plan.ahad/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.plan.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1089,7 +1089,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.plan.ahad/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.plan.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1116,7 +1116,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/before.actual.ahad/search/',
+				url: 'http://192.168.9.26:8000/openerp/before.actual.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1143,7 +1143,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/after.actual.ahad/search/',
+				url: 'http://192.168.9.26:8000/openerp/after.actual.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1192,7 +1192,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.plan.senin/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.plan.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1225,7 +1225,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.senin/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1258,7 +1258,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.actual.senin/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.actual.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1291,7 +1291,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.actual.senin/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.actual.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1325,7 +1325,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.plan.selasa/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.plan.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1358,7 +1358,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.selasa/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1391,7 +1391,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.actual.selasa/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.actual.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1424,7 +1424,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.actual.selasa/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.actual.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1458,7 +1458,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.plan.rabu/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.plan.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1491,7 +1491,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.rabu/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1524,7 +1524,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.actual.rabu/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.actual.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1557,7 +1557,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.actual.rabu/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.actual.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1591,7 +1591,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.plan.kamis/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.plan.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1624,7 +1624,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.kamis/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1657,7 +1657,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.actual.kamis/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.actual.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1690,7 +1690,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.actual.kamis/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.actual.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1724,7 +1724,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.plan.jumat/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.plan.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1757,7 +1757,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.jumat/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1790,7 +1790,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.actual.jumat/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.actual.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1823,7 +1823,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.actual.jumat/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.actual.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1857,7 +1857,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.plan.sabtu/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.plan.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1890,7 +1890,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.sabtu/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1923,7 +1923,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.actual.sabtu/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.actual.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1956,7 +1956,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.actual.sabtu/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.actual.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1990,7 +1990,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.plan.ahad/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.plan.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2023,7 +2023,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.ahad/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2056,7 +2056,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/before.actual.ahad/search/',
+						url: 'http://192.168.9.26:8000/openerp/before.actual.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2089,7 +2089,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.actual.ahad/search/',
+						url: 'http://192.168.9.26:8000/openerp/after.actual.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2459,7 +2459,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 				{
 					method: 'POST',
 
-					url: 'http://10.36.15.51:8000/openerp/before.plan.'+hari+'/ids/',
+					url: 'http://192.168.9.26:8000/openerp/before.plan.'+hari+'/ids/',
 					data: {'usn':name,'pw':pass , 'fields':['partner_id','location','name',],'ids':bplan},
 
 					headers: {
@@ -2500,7 +2500,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.'+hari+'/ids/',
+						url: 'http://192.168.9.26:8000/openerp/after.plan.'+hari+'/ids/',
 						data: {'usn':name,'pw':pass , 'fields':['partner_id','location','name',],'ids':aplan},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
@@ -2734,7 +2734,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 	  	(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/res.partner/search/',
+				url: 'http://192.168.9.26:8000/openerp/res.partner/search/',
 				data: {
 				'domain':[
 							['is_company','=','false'],
@@ -2865,7 +2865,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 		$http(
 			{
 				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/createsalesplan/',
+				url: 'http://192.168.9.26:8000/openerp/createsalesplan/',
 				data: {
 					'usn':name,'pw':pass ,'vals':send_data[0]},
 				headers: {
@@ -2951,7 +2951,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
 				  	(
 						{
 							method: 'POST',
-							url: 'http://10.36.15.51:8000/openerp/salestimeline/GetUpdate/',
+							url: 'http://192.168.9.26:8000/openerp/salestimeline/GetUpdate/',
 							data: {
 									'usn':name,
 									'pw':pass,
@@ -3006,7 +3006,7 @@ angular.module('app.controllers', ['infinite-scroll','ngMaterial'])
   	(
 		{
 			method: 'POST',
-			url: 'http://10.36.15.51:8000/openerp/salestimeline/AllData/',
+			url: 'http://192.168.9.26:8000/openerp/salestimeline/AllData/',
 			data: {
 					'usn':name,
 					'pw':pass,
