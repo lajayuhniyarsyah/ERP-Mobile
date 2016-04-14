@@ -1,5 +1,9 @@
 // angular.module('app.controllers', [])
 angular.module('app.controllers', ['ngMaterial'])
+
+.config(function( $mdGestureProvider ) {
+  $mdGestureProvider.skipClickHijack();
+})
   
 .controller('menuutamaCtrl', function($scope) {
 
@@ -358,7 +362,6 @@ angular.module('app.controllers', ['ngMaterial'])
 	var current_local = JSON.parse(window.localStorage.getItem('current_activity_id'));
 	// console.log(current_local)
 	
-
 	if(current_local==null){
 		
 	$http(
