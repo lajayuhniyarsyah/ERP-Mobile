@@ -8,15 +8,11 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
     
-  
-
   .state('menuutama', {
     url: '/menu',
     templateUrl: 'templates/menuutama.html',
     controller: 'menuutamaCtrl'
   })
-
-
 
   .state('menulogin', {
     url: '/login',
