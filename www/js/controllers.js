@@ -1,47 +1,12 @@
-angular.module('app.controllers', [])
 
-.controller('menuutamaCtrl', function($scope,$http,$state) {
-	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
-	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
-	
-	if (name!=null && pass!=null){
-		$http(
-				{
-					method: 'POST',
-					url: 'http://192.168.9.26:8000/openerp/res.users/search/',
-					data: {'usn':name,
-							'pw':pass ,
-							'domain':[['login','ilike',atob(name)]] ,
-							'fields':['display_name','email']},
+// angular.module('app.controllers', [])
+angular.module('app.controllers', ['ngMaterial'])
 
-					headers: {
-						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-					  
-					},
-				
-				}
-			).then(
-				function successCallback(response){
-					console.log('success isi storage kosong dari server');
-					$scope.name = response.data['Result'][0].display_name
-					$scope.email = response.data['Result'][0].email
-				
-
-	   
-				},
-				function errorCallback(response){
-				
-					console.log('erroor data kosong ');
-			
-					
-					$state.go('menulogin');
-				}
-			)
-
-	}
-	else{
-		$state.go('menulogin');
-	}
+.config(function( $mdGestureProvider ) {
+  $mdGestureProvider.skipClickHijack();
+})
+  
+.controller('menuutamaCtrl', function($scope) {
 
 })
    
@@ -403,7 +368,6 @@ angular.module('app.controllers', [])
 	var current_local = JSON.parse(window.localStorage.getItem('current_activity_id'));
 	// console.log(current_local)
 	
-
 
 	if(current_local==null){
 	$http(
