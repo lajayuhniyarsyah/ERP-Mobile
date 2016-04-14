@@ -2831,6 +2831,7 @@ angular.module('app.controllers', ['ngMaterial'])
 		).then(
 			function successCallback(response){
 			alert("sukses")
+			window.localStorage.removeItem('temporary_data_create_plan');
 			$state.go('menuactivity')
 			},
 			function errorCallback(response){

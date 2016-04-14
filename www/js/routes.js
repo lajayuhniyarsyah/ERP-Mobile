@@ -53,7 +53,7 @@ angular.module('app.routes', [])
   })
 
   .state('formupdateactivity', {
-    url: '/form-update-activity/?:hari?beforeplan?afterplan?beforeactual?afteractual',
+    url: '/form-update-activity',
     templateUrl: 'templates/formupdateactivity.html',
     controller: 'formupdateactivityCtrl'
   })
