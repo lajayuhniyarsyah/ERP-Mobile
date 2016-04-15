@@ -8,7 +8,7 @@ angular.module('app.services', [])
 
 }])
 
-.service('LoginService', function($q,$http) {
+.service('LoginService', function($q,$http,$ionicPopup) {
     return {
 
         loginUser: function(name, pw) {
@@ -17,16 +17,18 @@ angular.module('app.services', [])
             var today = new Date();
             var timeInMs = today.getDate();
             // console.log(timeInMs+'ini waktunya');
-          
+            var startTime = new Date().getTime();
             $http(
                 {
                     method: 'POST',
-                    url: 'http://10.36.15.51:8000/openerp-login/',
+                    url: 'http://192.168.9.26:8000/openerp-login/',
                     data: {'usn':name,'pw':pw},
                     headers: {
                         'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
                       
                     },
+                    // timeout : 1000, 
+                    timeout : 10000, 
                     // para
                 }
             ).then(
@@ -37,8 +39,22 @@ angular.module('app.services', [])
                     deferred.resolve('Welcome ' + name + '!');
                 },
                 function errorCallback(response){
+                    var respTime = new Date().getTime() - startTime;
+                    if(respTime >= response.config.timeout){
+                        //time out handeling
+                        var alertPopup = $ionicPopup.alert({
+                        title: 'Login failed! ',
+                        template: 'Timeout, Check your internet connection !'});
+                    } else{
+                        //other error hanndling
+                        var alertPopup = $ionicPopup.alert({
+                        title: 'Login failed! ',
+                        template: 'Please check your credentials!'
+                    });
+                    }
+
                     console.log('erroor',"aaaaaaaaaaaaaaaaaaaaaaaaa");
-                    console.log(response);
+                    console.log(response.config);
                     // alert(response.status,response.headers)
                     deferred.reject('Wrong credentials.');
                 }
