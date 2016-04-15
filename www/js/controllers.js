@@ -6,7 +6,7 @@ angular.module('app.controllers', ['ngMaterial'])
   $mdGestureProvider.skipClickHijack();
 })
   
-.controller('menuutamaCtrl', function($scope,$http,$state) {
+.controller('menuutamaCtrl', function($scope,$http,$state,config) {
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	
@@ -14,7 +14,7 @@ angular.module('app.controllers', ['ngMaterial'])
 		$http(
 				{
 					method: 'POST',
-					url: 'http://192.168.9.26:8000/openerp/res.users/search/',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/res.users/search/',
 					data: {'usn':name,
 							'pw':pass ,
 							'domain':[['login','ilike',atob(name)]] ,
@@ -50,8 +50,8 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
    
-.controller('menuloginCtrl', function($scope, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike) {
-
+.controller('menuloginCtrl', function($scope,config, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike,config) {
+	console.log('http://'+config['host']+':'+config['port']+'/openerp-login/','ini bosss')
 	if (! localStorage.reload) {
 		localStorage.setItem("reload","true");
 		window.location.reload();
@@ -90,15 +90,15 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
    
-.controller('submenusalesCtrl', function($scope) {
+.controller('submenusalesCtrl', function($scope,config) {
 
 })
    
-.controller('menuactivityCtrl', function($scope) {
+.controller('menuactivityCtrl', function($scope,config) {
 
 })
    
-.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,$timeout) {
+.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,$timeout,config) {
 
    
 	  $ionicLoading.show({
@@ -123,7 +123,7 @@ angular.module('app.controllers', ['ngMaterial'])
 		$http(
 				{
 					method: 'POST',
-					url: 'http://192.168.9.26:8000/openerp/sales.activity/',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/sales.activity/',
 					data: {'usn':name,'pw':pass , 'fields':[]},
 
 					headers: {
@@ -163,7 +163,7 @@ angular.module('app.controllers', ['ngMaterial'])
 		$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/sales.activity/getupdate/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/sales.activity/getupdate/',
 				data: {'usn':name,'pw':pass , 'fields':[],'ids':ids},
 				headers: {
 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
@@ -213,7 +213,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 })
    
-.controller('formactivityCtrl', function($scope,$http,$state,$filter) {
+.controller('formactivityCtrl', function($scope,$http,$state,$filter,config) {
 	 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -258,7 +258,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/res.users/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/res.users/search/',
 				data: {
 					'domain':[
 								['login','ilike',window.atob(name)],
@@ -312,7 +312,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/sales.activity/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/sales.activity/search/',
 				data: {
 					'domain':[
 								['user_id','=',temp_current_data[0].pic],
@@ -380,7 +380,7 @@ angular.module('app.controllers', ['ngMaterial'])
 })
 
    
-.controller('previewplanactivityCtrl', function($scope,$stateParams,$state,$http,$timeout,$ionicLoading) {
+.controller('previewplanactivityCtrl', function($scope,$stateParams,$state,$http,$timeout,$ionicLoading,config) {
 	 $ionicLoading.show({
 	    content: 'Loading',
 	    animation: 'fade-in',
@@ -407,7 +407,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.plan.senin/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -434,7 +434,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.plan.senin/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -461,7 +461,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.actual.senin/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -488,7 +488,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.actual.senin/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.senin/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -516,7 +516,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.plan.selasa/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -543,7 +543,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.plan.selasa/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -570,7 +570,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.actual.selasa/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -597,7 +597,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.actual.selasa/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.selasa/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -625,7 +625,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.plan.rabu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -652,7 +652,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.plan.rabu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -679,7 +679,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.actual.rabu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -706,7 +706,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.actual.rabu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.rabu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -734,7 +734,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.plan.kamis/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -761,7 +761,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.plan.kamis/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -787,7 +787,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.actual.kamis/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -814,7 +814,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.actual.kamis/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.kamis/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -842,7 +842,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.plan.jumat/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -869,7 +869,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.plan.jumat/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -896,7 +896,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.actual.jumat/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -923,7 +923,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.actual.jumat/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.jumat/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -951,7 +951,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.plan.sabtu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -978,7 +978,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.plan.sabtu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1005,7 +1005,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.actual.sabtu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1032,7 +1032,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.actual.sabtu/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.sabtu/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1060,7 +1060,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.plan.ahad/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1087,7 +1087,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.plan.ahad/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1114,7 +1114,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/before.actual.ahad/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1141,7 +1141,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/after.actual.ahad/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.ahad/search/',
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1190,7 +1190,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.plan.senin/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1223,7 +1223,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.senin/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1256,7 +1256,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.actual.senin/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1289,7 +1289,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.actual.senin/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.senin/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1323,7 +1323,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.plan.selasa/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1356,7 +1356,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.selasa/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1389,7 +1389,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.actual.selasa/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1422,7 +1422,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.actual.selasa/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.selasa/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1456,7 +1456,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.plan.rabu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1489,7 +1489,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.rabu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1522,7 +1522,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.actual.rabu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1555,7 +1555,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.actual.rabu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.rabu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1589,7 +1589,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.plan.kamis/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1622,7 +1622,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.kamis/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1655,7 +1655,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.actual.kamis/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1688,7 +1688,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.actual.kamis/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.kamis/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1722,7 +1722,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.plan.jumat/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1755,7 +1755,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.jumat/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1788,7 +1788,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.actual.jumat/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1821,7 +1821,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.actual.jumat/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.jumat/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1855,7 +1855,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.plan.sabtu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1888,7 +1888,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.sabtu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1921,7 +1921,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.actual.sabtu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1954,7 +1954,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.actual.sabtu/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.sabtu/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -1988,7 +1988,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.plan.ahad/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2021,7 +2021,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.ahad/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2054,7 +2054,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/before.actual.ahad/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2087,7 +2087,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.actual.ahad/search/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.ahad/search/',
 						data: {
 							'domain':[
 										['activity_id','=',parseInt(id)],
@@ -2438,7 +2438,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 	},1000);
 })
-.controller('formupdateactivityCtrl', function($scope,$stateParams,$http) {
+.controller('formupdateactivityCtrl', function($scope,$stateParams,$http,config) {
 		
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -2457,7 +2457,7 @@ angular.module('app.controllers', ['ngMaterial'])
 				{
 					method: 'POST',
 
-					url: 'http://192.168.9.26:8000/openerp/before.plan.'+hari+'/ids/',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.'+hari+'/ids/',
 					data: {'usn':name,'pw':pass , 'fields':['partner_id','location','name',],'ids':bplan},
 
 					headers: {
@@ -2498,7 +2498,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$http(
 					{
 						method: 'POST',
-						url: 'http://192.168.9.26:8000/openerp/after.plan.'+hari+'/ids/',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.'+hari+'/ids/',
 						data: {'usn':name,'pw':pass , 'fields':['partner_id','location','name',],'ids':aplan},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
@@ -2534,7 +2534,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 })
    
-.controller('formdaymondayCtrl', function($scope,$stateParams,$http,$state) {
+.controller('formdaymondayCtrl', function($scope,$stateParams,$http,$state,config) {
 	
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -2732,7 +2732,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	  	(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/res.partner/search/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/res.partner/search/',
 				data: {
 				'domain':[
 							['is_company','=','false'],
@@ -2757,7 +2757,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
 
-.controller('previewcreateplanCtrl', function($scope,$http,$state) {
+.controller('previewcreateplanCtrl', function($scope,$http,$state,config) {
 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -2863,7 +2863,7 @@ angular.module('app.controllers', ['ngMaterial'])
 		$http(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/createsalesplan/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/createsalesplan/',
 				data: {
 					'usn':name,'pw':pass ,'vals':send_data[0]},
 				headers: {
@@ -2887,7 +2887,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 })
 
-.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup,$ionicModal) {
+.controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup,$ionicModal,config) {
 	$ionicLoading.show(
 		{	 
 		    content: 'Loading',
@@ -2940,7 +2940,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	  	(
 			{
 				method: 'POST',
-				url: 'http://192.168.9.26:8000/openerp/salestimeline/AllData/',
+				url: 'http://'+config['host']+':'+config['port']+'/openerp/salestimeline/AllData/',
 				data: {
 						'usn':name,
 						'pw':pass,
@@ -3006,7 +3006,7 @@ angular.module('app.controllers', ['ngMaterial'])
 				  	(
 						{
 							method: 'POST',
-							url: 'http://192.168.9.26:8000/openerp/salestimeline/GetUpdate/',
+							url: 'http://'+config['host']+':'+config['port']+'/openerp/salestimeline/GetUpdate/',
 							data: {
 									'usn':name,
 									'pw':pass,
@@ -3062,7 +3062,7 @@ angular.module('app.controllers', ['ngMaterial'])
   	(
 		{
 			method: 'POST',
-			url: 'http://192.168.9.26:8000/openerp/salestimeline/AllData/',
+			url: 'http://'+config['host']+':'+config['port']+'/openerp/salestimeline/AllData/',
 			data: {
 					'usn':name,
 					'pw':pass,
