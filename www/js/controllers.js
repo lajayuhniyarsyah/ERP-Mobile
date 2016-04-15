@@ -6,8 +6,48 @@ angular.module('app.controllers', ['ngMaterial'])
   $mdGestureProvider.skipClickHijack();
 })
   
-.controller('menuutamaCtrl', function($scope) {
+.controller('menuutamaCtrl', function($scope,$http,$state) {
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	
+	if (name!=null && pass!=null){
+		$http(
+				{
+					method: 'POST',
+					url: 'http://192.168.9.26:8000/openerp/res.users/search/',
+					data: {'usn':name,
+							'pw':pass ,
+							'domain':[['login','ilike',atob(name)]] ,
+							'fields':['display_name','email']},
 
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					$scope.name = response.data['Result'][0].display_name
+					$scope.email = response.data['Result'][0].email
+				
+
+	   
+				},
+				function errorCallback(response){
+				
+					console.log('erroor data kosong ');
+			
+					
+					$state.go('menulogin');
+				}
+			)
+
+	}
+	else{
+		$state.go('menulogin');
+	}
 })
    
 .controller('menuloginCtrl', function($scope, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike) {
@@ -27,10 +67,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$state.go('menuutama');
 		
 		}).error(function(data) {
-			var alertPopup = $ionicPopup.alert({
-				title: 'Login failed!',
-				template: 'Please check your credentials!1'
-			});
+		
 		});
 	}
 	$scope.login = function() {
@@ -41,10 +78,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			window.localStorage.setItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug",window.btoa($scope.data.pass))
 		  
 		}).error(function(data) {
-			var alertPopup = $ionicPopup.alert({
-				title: 'Login failed! ',
-				template: 'Please check your credentials!'
-			});
+			
 		});
 	}
 	$scope.test_service = function() {
@@ -295,7 +329,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			function successCallback(response){
 				
 				if (!response.data['Result'][0]){
-				 alert('waw')
+			
 				 //tambah field
 				 temp_current_data[0]['begin']=$scope.beginDate;
 				 temp_current_data[0]['end']=$scope.endDate;
@@ -2855,14 +2889,17 @@ angular.module('app.controllers', ['ngMaterial'])
 
 .controller('salestimelineCtrl', function($scope,$http,$state,$ionicLoading,$window,$filter,$ionicPopup,$ionicModal) {
 	$ionicLoading.show(
-		{
+		{	 
 		    content: 'Loading',
 		    animation: 'fade-in',
 		    showBackdrop: true,
 		    maxWidth: 200,
 		    showDelay: 0
+
   		}
   	);
+
+
 	var timeline = JSON.parse(window.localStorage.getItem("timeline2")); //data to fetch in view
 	var reloadSalesTm =function(data){
 		console.log('called')
@@ -2897,6 +2934,60 @@ angular.module('app.controllers', ['ngMaterial'])
 
           $scope.modal.show();
         };
+    $scope.doRefresh = function(){
+    
+    	$http
+	  	(
+			{
+				method: 'POST',
+				url: 'http://192.168.9.26:8000/openerp/salestimeline/AllData/',
+				data: {
+						'usn':name,
+						'pw':pass,
+						"params":{
+							// "fields":'*',
+							// "table":"sales_activity_plan",
+							// 'AndOr':[],
+							'condition':{"the_date":[today,yesterday]},
+							// "limit":100,
+							// 'offset':0,
+							// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+						}
+				},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				  
+				},
+				
+			
+			}
+		).then(
+			function successCallback(response){
+				console.log('success isi storage kosong dari server');
+				console.log(response)
+				window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+				reloadSalesTm(response.data.data)
+
+				// $ionicLoading.hide();
+				$scope.$broadcast('scroll.refreshComplete');
+				if(response.data.data.length==0){
+					alertPopup = $ionicPopup.alert({
+					title: 'Warning',
+					template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
+				});
+				}
+			},
+			function errorCallback(response){
+				// $ionicLoading.hide();
+				console.log(response)
+
+				console.log('erroor data kosong');
+		
+			}
+
+	)
+
+    }
 	$scope.limit = 20;
 	// console.log(timeline,"datanya")
 	var limit_data = 0
@@ -2947,10 +3038,11 @@ angular.module('app.controllers', ['ngMaterial'])
 							},
 							function errorCallback(response){
 								$ionicLoading.hide();
-								console.log(response)
-
-								console.log('erroor data kosong');
-						
+								alertPopup = $ionicPopup.alert({
+								title: 'Warning',
+								template: 'Tidak ada koneksi internet!!'
+							});
+								
 							}
 						)
 							
