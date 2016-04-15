@@ -8,7 +8,7 @@ angular.module('app.services', [])
 
 }])
 
-.service('LoginService', function($q,$http,$ionicPopup) {
+.service('LoginService', function($q,$http,$ionicPopup,config) {
     return {
 
         loginUser: function(name, pw) {
@@ -21,10 +21,10 @@ angular.module('app.services', [])
             $http(
                 {
                     method: 'POST',
-                    url: 'http://192.168.9.26:8000/openerp-login/',
+                    url: 'http://'+config['host']+':'+config['port']+'/openerp-login/',
                     data: {'usn':name,'pw':pw},
                     headers: {
-                        'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+                        'Authorization': 'Basic ' + config['secret'],
                       
                     },
                     // timeout : 1000, 
@@ -74,4 +74,6 @@ angular.module('app.services', [])
 
 
 // .service('ErpService',)
-;
+.service('config', function($q,$http) {
+    return {"host":"10.36.15.51","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
+})
