@@ -41,6 +41,9 @@ ion-content{
 /* Empty. Add your own CSS if you like */
 .btn-gantung{
 	float: right;
+	margin-bottom: 20px;
+	clear: both;
+	display: block;
 }
 .login-button{
 	background-color: #413050 !important;
@@ -60,7 +63,7 @@ ion-content{
 }
 .judul-timeline{
 	width: 100%;
-
+	
 }
 .custom-list{
 	margin-top: 0px !important;	 
@@ -96,19 +99,23 @@ ion-content{
 .judul-user{
 	font-size: 3.0vw; 
 	margin-top: 40px;
+	
 }
 .judul-header{
 	font-size: 10px;
 	color: #F4B350;
 	float: left;
+	
 }
 .judul-before-after{
 	font-size: 10px;
 	float: right;
 	color: #95A5A6;
+	
 }
 .judul-plan{
 	font-size: 10px;
+	
 }
 .line{
 	border-bottom: 2px solid #03C9A9;
@@ -229,7 +236,77 @@ ion-content{
 	font-size: 3.0vw; 
 	/*font-size: 12px;*/
 	display: block;
+
 }
-.font-modal{
-	 font-size: 13px;
+
+
+.contect-transparant{
+    background-color: rgba(255, 255, 255, 0.4);
+    /*color:#000;*/
+    margin:0 auto;
+    color: #000;
+    font-size: 13px;
+    border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	text-align: justify;
+	margin: 5px;
+
+}
+.pic-review{
+	background-color: #D2D7D3;
+	 border-radius: 5px 5px 0px 0px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 5px;
+	text-transform: uppercase;
+	text-align: center;
+
+}
+.content-preview{
+	padding: 10px;
+}
+.spacing{
+	letter-spacing: 2px;
+}
+.lunch{
+	text-align: right;
+	font-weight: bold;
+	color: #F4B350;
+	padding-top: 5px;
+	display: block;
+}
+.font-location{
+	text-transform: uppercase;
+	font-size: 11px;
+}
+.judul-cus-view{
+	margin-top: 10px;
+	font-weight: bold;
+	display: block;
+	padding-left: 5px;
+}
+.form-update{
+	 background-color: rgba(212, 197, 187, 0.5);
+}
+.form-black{
+	
+ background-color: rgba(35, 24, 64, 0.1);
+}
+.input-label{
+		vertical-align: top !important;
+}
+.form-update .list{
+	margin-bottom: 0px !important;
+}
+
+.contect-transparant .button {
+    font-size: 12px;
+    line-height: 40px;
+    margin: 0;
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0 5px;
+    margin-top: -25px;
+    margin-right: -10px;
 }
