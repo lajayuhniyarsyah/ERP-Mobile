@@ -53,7 +53,7 @@ angular.module('app.routes', [])
   })
 
   .state('formupdateactivity', {
-    url: '/form-update-activity',
+    url: '/form-update-activity/?:id?pic?begin?end',
     templateUrl: 'templates/formupdateactivity.html',
     controller: 'formupdateactivityCtrl'
   })

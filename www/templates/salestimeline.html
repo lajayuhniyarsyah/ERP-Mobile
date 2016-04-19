@@ -1,5 +1,7 @@
 <ion-view title="SALES ACTIVITY TIMELINE" id="page11">
+	
 	<ion-content overflow-scroll="true" padding="true" class="has-header">
+	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
 		<ion-list></ion-list>
 		<div ng-repeat="tm in sales_tm |limitTo:limit" >
 		<div class="list card custom-list" ng-if="!tm.canceled_plan" ng-click="openModal(tm)">
@@ -16,15 +18,19 @@
 				<div class="item item-body">
 					<div class="both"></div>
 					<div class="plan">
-						<div class="isicontent line-silver">
+						<div class="isicontent line-silver" ng-if="(tm.actual_result).length!=1">
+							<div class="judul-plan"><b>Planned Go To : {{tm.partner}} - {{tm.location}}</b></div>
+							 <pre> {{tm.name}} </pre>
+						</div>
+						<div class="isicontent" ng-if="(tm.actual_result).length==1">
 							<div class="judul-plan"><b>Planned Go To : {{tm.partner}} - {{tm.location}}</b></div>
 							 <pre> {{tm.name}} </pre>
 						</div>
 					</div>
-					<div ng-if="tm.actual_result">
+					<div ng-if="(tm.actual_result).length!=1">
 						<b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}} </b>
 						<div class="isicontent">
-						 <pre>{{tm.actual_result}}</pre>
+						 <pre>{{(tm.actual_result)}}</pre>
 					</div>
 					</div>
 				</div>
@@ -44,15 +50,21 @@
 				<div class="item item-body">
 					<div class="both"></div>
 					<div class="plan cancel">
-						<div class="isicontent line-silver">
+						<div class="isicontent line-silver" ng-if="(tm.actual_result).length!=1">
+							<div class="judul-plan"><b>Planned Go To :{{tm.partner}} - {{tm.location}}  Was Canceled</b></div>
+							 <pre> {{tm.name}} </pre>
+						</div>
+						<div class="isicontent" ng-if="(tm.actual_result).length==1">
 							<div class="judul-plan"><b>Planned Go To :{{tm.partner}} - {{tm.location}}  Was Canceled</b></div>
 							 <pre> {{tm.name}} </pre>
 						</div>
 					</div>
+					<div ng-if="(tm.actual_result).length!=1">
 					<b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}}</b>
 					<div class="isicontent">
 						<pre>{{tm.actual_result}}</pre>
 					</div>
+				</div>
 				</div>
 				  
 			</div>

@@ -3,67 +3,79 @@
         <div style="">
             <p>
 
-                <b>PIC : Ricky Djendakang
+                <b>PIC : {{username_update}}
 
                 </b>
                 <br>Date :
                 <u>
-                    02/22/2016 - 02/28/2016
+                    {{date_cur|date:"MM/dd/yyyy"}}
                 </u>
             </p>
             <hr>
         </div>
         <ion-list style=""></ion-list>
-        <ion-list style=""></ion-list>
-        <div style="width: 284px; height: 12px;" class="spacer"></div>
+        
         <div style="">
-            <b>
-                <p>
-                    <u>Activity</u>
-                </p>
-            </b>
-
-
-            <u>BEFORE LUNCH PLAN</u>
-
-            <br>
-            <b>Customer:</b>{{bplan.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bplan.location}}
-            <br>
-            <b>Objectives:</b>{{bplan.name}}
-
+            <p>
+                <b>
+                    <u>BEFORE LUNCH</u>
+                </b>
+            </p>
         </div>
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <form style="" class="list">
-            <ion-toggle style="" name="cancel-plan-before-lunch" toggle-class="toggle-assertive">CANCEL PLANING</ion-toggle>
-        </form>
-        <form style="" class="list">
+
+            <div ng-repeat="cbp in current_beforeplan">
+            <b>Customer : </b>{{cbp.partner_id[1]}}
+            <br>
+            <b>Location : </b>{{cbp.location}}
+            <br>
+            <b>Objectives : </b>{{cbp.name}}
+            <br>
+            <br>
+            <ion-toggle style="" name="cancel-plan-before-lunch" toggle-class="toggle-assertive" ng-model="cbp.checked" ng-checked="cbp.checked">CANCEL PLANING</ion-toggle>
+            <br>
             <label style="" name="results-plan-before-lunch" class="item item-input">
-                <span class="input-label">Results :</span><textarea placeholder=""> </textarea>
+                <span class="input-label">Results :</span>
+                <input placeholder="Results" type="text" ng-model="cbp.results">
             </label>
-        </form>
-        <form style="" class="list"></form>
-        <div style="">
-            <u>AFTER LUNCH PLAN</u>
-
             <br>
-            <b>Customer:</b>{{aplan.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aplan.location}}
-            <br>
-            <b>Objectives:</b>{{aplan.name}}
+            </div>
+        <div>
+         {{ current_beforeplan }}
         </div>
-        <form style="" class="list"></form>
-        <form style="" class="list">
-            <ion-toggle style="" toggle-class="toggle-assertive">CANCEL PLANING</ion-toggle>
-        </form>
-        <form style="" class="list">
+
+        <div style="width: 284px; height: 50px;" class="spacer"></div>
+        
+        <div style="">
+            <p>
+                <b>
+                    <u>AFTER LUNCH</u>
+                </b>
+            </p>
+        </div>
+
+            <div ng-repeat="cap in current_afterplan">
+            <b>Customer : </b>{{cap.partner_id[1]}}
+            <br>
+            <b>Location : </b>{{cap.location}}
+            <br>
+            <b>Objectives : </b>{{cap.name}}
+            <br>
+            <br>
+            <ion-toggle style="" toggle-class="toggle-assertive" ng-model="cap.checked" ng-checked="cap.checked">CANCEL PLANING</ion-toggle>
+            <br>
             <label style="" name="results-plan-after-lunch" class="item item-input">
-                <span class="input-label">Results:</span><textarea placeholder=""> </textarea>
+                <span class="input-label">Results :</span>
+                <input placeholder="Results" type="text" ng-model="cap.results">
             </label>
-        </form>
-        <button class="button button-positive  button-block icon-left ion-android-add-circle" style="border-radius:22px 22px 22px 22px;" id="formupdateactivity-button15">UPDATE ACTIVITY</button>
+            <br>
+            </div>
+        <div>
+         {{ current_afterplan }}
+        </div>
+
+        <div style="width: 284px; height: 50px;" class="spacer"></div>
+
+        <button class="button button-positive  button-block icon-left ion-android-add-circle" style="border-radius:22px 22px 22px 22px;" id="formupdateactivity-button01" ng-click="update()">UPDATE ACTIVITY</button>
         <ion-list style=""></ion-list>
         <ion-list style=""></ion-list>
     </ion-content>
