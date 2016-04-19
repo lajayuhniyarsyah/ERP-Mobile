@@ -5,8 +5,47 @@ angular.module('app.controllers', ['ngMaterial'])
   $mdGestureProvider.skipClickHijack();
 })
   
-.controller('menuutamaCtrl', function($scope) {
+.controller('menuutamaCtrl', function($scope,$http,$state) {
 
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	
+	if (name!=null && pass!=null){
+		$http(
+				{
+					method: 'POST',
+					url: 'http://10.36.15.51:8000/openerp/res.users/search/',
+					data: {'usn':name,
+						   'pw':pass,
+						   'domain':[['login','ilike',atob(name)]] ,
+						   'fields':['display_name','email']},
+
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					$scope.name = response.data['Result'][0].display_name
+					var login_username = response.data['Result'][0].display_name
+					var login_userid = response.data['Result'][0].id
+					$scope.email = response.data['Result'][0].email
+				
+					window.localStorage.setItem('login_user',JSON.stringify([login_username,login_userid]));
+	   
+				},
+				function errorCallback(response){
+					console.log('Data login kosong');
+					$state.go('menulogin');
+				}
+			)
+	}
+	else{
+		$state.go('menulogin');
+	}
 })
    
 .controller('menuloginCtrl', function($scope, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike) {
@@ -63,8 +102,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 })
    
-.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,$timeout) {
-
+.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window) {
    
 	  $ionicLoading.show({
 	    content: 'Loading',
@@ -74,14 +112,9 @@ angular.module('app.controllers', ['ngMaterial'])
 	    showDelay: 0
 	  });
 
-
-
-	$timeout(function () {
-    $ionicLoading.hide();  
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var sales_data_activity = (window.localStorage.getItem('sales_data_activity'));
-
 
 	 if (sales_data_activity==null) {
 			
@@ -90,39 +123,31 @@ angular.module('app.controllers', ['ngMaterial'])
 					method: 'POST',
 					url: 'http://10.36.15.51:8000/openerp/sales.activity/',
 					data: {'usn':name,'pw':pass , 'fields':[]},
-
 					headers: {
-						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-					  
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",  
 					},
-				
 				}
 			).then(
 				function successCallback(response){
 					console.log('success isi storage kosong dari server');
+					
 					$scope.sda = response.data['Result']
-
+					$ionicLoading.hide();
 					var sda = response.data['Result'];
 
-					window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sda));
-				
-
-	   
+					window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sda));	   
 				},
 				function errorCallback(response){
 					$ionicLoading.hide();
-					console.log('erroor data kosong 1');
+					console.log('erroor data kosong');
 					$window.localStorage.clear();
-					
-					// $state.go('menulogin');
+					$state.go('menulogin');
 				}
 			)          
 	 }
 	 else {
 
 		 var get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
-		 console.log(get_sales_data_activity.length,"belajar mencari")
-
 		 var ids = get_sales_data_activity[0].id;         
 
 		$http(
@@ -131,10 +156,8 @@ angular.module('app.controllers', ['ngMaterial'])
 				url: 'http://10.36.15.51:8000/openerp/sales.activity/getupdate/',
 				data: {'usn':name,'pw':pass , 'fields':[],'ids':ids},
 				headers: {
-					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-				  
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp", 
 				},
-			
 			}
 		).then(
 			function successCallback(response){
@@ -160,13 +183,13 @@ angular.module('app.controllers', ['ngMaterial'])
 						window.localStorage.setItem('sales_data_activity',JSON.stringify(currentObj));
 					};
 								
-				
 				var get_sales_data_activity = JSON.parse(window.localStorage.getItem('sales_data_activity'));
 
 				$scope.sda = get_sales_data_activity;
-
+				$ionicLoading.hide();
 			},
 			function errorCallback(response){
+				$ionicLoading.hide();
 				console.log('gagal cek update dari server');
 				$window.localStorage.clear();
 				$state.go('menulogin');
@@ -174,8 +197,24 @@ angular.module('app.controllers', ['ngMaterial'])
 		) 
 	 
 	 }
-	 }, 1000);    
 
+	 $scope.updatedata = function () {
+		get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
+		data_login = JSON.parse( window.localStorage.getItem('login_user'));
+		tes = get_sales_data_activity.filter(function(jsonObject){
+			return jsonObject.user_id[0] === data_login[1]
+		}) 	
+		if (new Date >= new Date (tes[0]['begin']) && new Date <= new Date (tes[0]['end']) ){
+			var activity_id_update = tes[0]['id'];
+			window.localStorage.setItem('activity_id_update',JSON.stringify([activity_id_update]));
+			$state.go('formupdateactivity')
+		}
+		else {
+			alert('Tidak ada rencana aktivitas untuk hari ini')
+			// console.log(tes[0]['id'],"eksperimen kami")
+		}
+		
+	 } 
 })
    
 .controller('formactivityCtrl', function($scope,$http,$state,$filter) {
@@ -187,11 +226,11 @@ angular.module('app.controllers', ['ngMaterial'])
 		return JSON.parse(window.localStorage.getItem(key));
 	}
 	// var temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
-	var temp_current_data = getLs('temporary_data_create_plan')
+	var temp_current_data = getLs('temporary_data_create_plan');
+	var data_login = getLs('login_user');
 
 	var setLs =function(key,val){
-		// console.log('call setLs key',key)
-		// console.log('call setLs val',val)
+		// console.log('call setLs key',key); // console.log('call setLs val',val);
 		window.localStorage.setItem(key, JSON.stringify(val)); //set
 		
 		//refresh
@@ -204,7 +243,8 @@ angular.module('app.controllers', ['ngMaterial'])
 	if(!temp_current_data){
 		// preparation
 		create_pic = {
-			'pic' : false,
+			'pic' : data_login[0],
+			'id_user' : data_login[1],
 			'monday_before':[],
 			'monday_after':[],
 			'tuesday_before':[],
@@ -219,40 +259,10 @@ angular.module('app.controllers', ['ngMaterial'])
 
 		setLs('temporary_data_create_plan',[create_pic])
 	}
+	//nama user yang akan dikirim ke view
+	$scope.user = data_login[0];
 	
-	$http(
-			{
-				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/res.users/search/',
-				data: {
-					'domain':[
-								['login','ilike',window.atob(name)],
-							],
-					'usn':name,'pw':pass,'fields':['name']},
-				headers: {
-					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-
-				},
-			}
-		).then(
-			function successCallback(response){
-
-				$scope.user = (response.data['Result'])[0].name
-
-				var pic_request = (response.data['Result'])[0].id;
-				
-				temp_current_data[0]['pic'] = pic_request
-
-				// window.localStorage.setItem( 'temporary_data_create_plan', JSON.stringify(temp_current_data));
-				setLs('temporary_data_create_plan',temp_current_data)
-
-			},
-			function errorCallback(response){
-				console.log('erroor data kosong');
-				// $window.localStorage.clear();
-				// $state.go('menulogin');
-			}
-	)
+	// setting date
     $scope.dates = {};
     $scope.minDate = new Date();
     $scope.onlyWeekendsPredicate = function(date) {
@@ -346,7 +356,8 @@ angular.module('app.controllers', ['ngMaterial'])
 
    
 .controller('previewplanactivityCtrl', function($scope,$stateParams,$state,$http,$timeout,$ionicLoading) {
-	 $ionicLoading.show({
+
+	$ionicLoading.show({
 	    content: 'Loading',
 	    animation: 'fade-in',
 	    showBackdrop: true,
@@ -367,11 +378,6 @@ angular.module('app.controllers', ['ngMaterial'])
 	var current_local = JSON.parse(window.localStorage.getItem('current_activity_id'));
 	// console.log(current_local)
 	
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 0a81babb993151c280a9f2826472803bf6ceadb7
 	if(current_local==null){
 	$http(
 			{
@@ -2409,97 +2415,184 @@ angular.module('app.controllers', ['ngMaterial'])
 })
 .controller('formupdateactivityCtrl', function($scope,$stateParams,$http) {
 		
-	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
-	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
-	var hari = $stateParams.hari;
-	var bplan = $stateParams.beforeplan;
-	var aplan = $stateParams.afterplan;
-	var bactual = $stateParams.beforeactual;
-	var aactual = $stateParams.afteractual;
-	var salesactbefore = (window.localStorage.getItem('salesactbefore'+hari+bplan)); 
-	var salesactafter = (window.localStorage.getItem('salesactafter'+hari+aplan));  
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd"));
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug"));
 
-	if (salesactbefore == null) {
+	id_activity_update = JSON.parse( window.localStorage.getItem('activity_id_update')); // ambil activity id yanga akan diupdate
+	data_login = JSON.parse( window.localStorage.getItem('login_user'));
+	$scope.username_update = data_login[0];
+	
+	var day = ['ahad','senin','selasa','rabu','kamis','jumat','sabtu'];
+	var date_current = new Date();
+	$scope.date_cur = date_current;
+	var get_day = day[date_current.getDay()];
+	// console.log(id_activity_update[0],'ini datanya'+get_day)
 
-
-		$http(
+			$http(
 				{
 					method: 'POST',
 
-					url: 'http://10.36.15.51:8000/openerp/before.plan.'+hari+'/ids/',
-					data: {'usn':name,'pw':pass , 'fields':['partner_id','location','name',],'ids':bplan},
+					url: 'http://10.36.15.51:8000/openerp/before.actual.'+get_day+'/search/',
+					data: {'usn':name,'pw':pass , 
+						   'fields':['id'],
+						   'domain':[
+										['activity_id','=',id_activity_update],
+									],
+						},
 
 					headers: {
 						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 					  
 					},
-				
 				}
 			).then(
 				function successCallback(response){
 
-					console.log('success before');
-					$scope.bplan = response.data['Result']
-					// console.log($scope.bplan)
 
-					var beforeplan = response.data['Result'];
-					
-					window.localStorage.setItem( 'salesactbefore'+hari+bplan, JSON.stringify(beforeplan));
-				
-	   
+
+					var beforeupdateid = response.data['Result'];	
+					window.localStorage.setItem( 'beforeupdateid', JSON.stringify(beforeupdateid));	   
 				},
 				function errorCallback(response){
-
 					console.log('erroor data kosong');
 					// $window.localStorage.clear();
 					// $state.go('formreviewactivity');
 				}
-			)
-	}
-
-	else {
-		var beforeplan = JSON.parse(window.localStorage.getItem( 'salesactbefore'+hari+bplan ));
-		$scope.bplan = beforeplan;
-	}
-
-	if (salesactafter == null) {
-			
+			)			
 			$http(
 					{
 						method: 'POST',
-						url: 'http://10.36.15.51:8000/openerp/after.plan.'+hari+'/ids/',
-						data: {'usn':name,'pw':pass , 'fields':['partner_id','location','name',],'ids':aplan},
+						url: 'http://10.36.15.51:8000/openerp/after.actual.'+get_day+'/search/',
+						data: {'usn':name,'pw':pass , 
+							   'fields':['id'],
+   							   'domain':[
+											['activity_id','=',id_activity_update],
+										],
+
+					},
 						headers: {
 							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-						  
 						},
 					
 					}
 				).then(
 					function successCallback(response){
-						console.log('success after');
-						$scope.aplan = response.data['Result']
-						// console.log($scope.aplan)
 
-						var afterplan = response.data['Result'];
-						
-						window.localStorage.setItem( 'salesactafter'+hari+aplan, JSON.stringify(afterplan));
-					
-		   
+						var afterupdateid = response.data['Result'];
+						window.localStorage.setItem( 'afterupdateid', JSON.stringify(afterupdateid));
 					},
 					function errorCallback(response){
 						console.log('erroor data kosong');
 						// $window.localStorage.clear();
 						// $state.go('formreviewactivity');
 					}
-				)  
-	}  
-	else {
-		var afterplan = JSON.parse( window.localStorage.getItem( 'salesactafter'+hari+aplan ));
-		$scope.aplan = afterplan; 
-	}      
+				)
+		
+		$http(
+				{
+					method: 'POST',
 
-			
+					url: 'http://10.36.15.51:8000/openerp/before.plan.'+get_day+'/search/',
+					data: {'usn':name,'pw':pass , 
+						   'fields':['partner_id','location','name'],
+						   'domain':[
+										['activity_id','=',id_activity_update],
+									],
+						},
+
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				}
+			).then(
+				function successCallback(response){
+
+					$scope.current_beforeplan = response.data['Result']	   
+				},
+				function errorCallback(response){
+					console.log('erroor data kosong');
+					// $window.localStorage.clear();
+					// $state.go('formreviewactivity');
+				}
+			)			
+			$http(
+					{
+						method: 'POST',
+						url: 'http://10.36.15.51:8000/openerp/after.plan.'+get_day+'/search/',
+						data: {'usn':name,'pw':pass , 
+							   'fields':['partner_id','location','name',],
+   							   'domain':[
+											['activity_id','=',id_activity_update],
+										],
+
+					},
+						headers: {
+							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+						},
+					
+					}
+				).then(
+					function successCallback(response){
+
+						$scope.current_afterplan = response.data['Result']
+					},
+					function errorCallback(response){
+						console.log('erroor data kosong');
+						// $window.localStorage.clear();
+						// $state.go('formreviewactivity');
+					}
+				)
+
+	$scope.update = function() {
+		var data1 = 'beforeactual'+get_day;
+		var data2 = 'afteractual'+get_day;
+		id_actualbefore = JSON.parse (window.localStorage.getItem( 'beforeupdateid'));
+		id_actualafter = JSON.parse (window.localStorage.getItem( 'afterupdateid'));
+		
+		var data_before = $scope.current_beforeplan;
+		var data_after = $scope.current_afterplan;
+
+		var isi_update={}
+		isi_update[data1]=[];
+		isi_update[data2]=[];
+
+		for (dbu = 0; dbu < data_before.length; dbu++) {
+						isi_update[data1].push([1,id_actualbefore[dbu]['id'],{'name':data_before[dbu].results,
+						'batal': data_before[dbu].checked }])
+		}
+		for (dau = 0; dau < data_after.length; dau++) {
+						isi_update[data2].push([1,id_actualafter[dau]['id'],{'name':data_after[dau].results,
+						'batal': data_after[dau].checked }])
+		}
+
+$http(
+			{
+				method: 'POST',
+				url: 'http://10.36.15.51:8000/openerp/update/sales.activity/',
+				data: {
+					'usn':name,'pw':pass ,'ids':id_activity_update[0],'vals':isi_update
+				},
+				headers: {
+					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				},		
+			}
+		).then(
+			function successCallback(response){
+			alert("sukses")
+			// window.localStorage.removeItem('temporary_data_create_plan');
+			// $state.go('menuactivity')
+			},
+			function errorCallback(response){
+				alert("gagal")
+				// $window.localStorage.clear();
+				// $state.go('formreviewactivity');
+			}
+		)			
+	}
+
+
+	
 
 })
    
@@ -2751,7 +2844,7 @@ angular.module('app.controllers', ['ngMaterial'])
 		temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
 
 		var send_data = [{
-							'user_id' : temp_current_data[0].pic,
+							'user_id' : temp_current_data[0].id_user,
 							'begin': temp_current_data[0].begin,
 							'end' : temp_current_data[0].end,
 							'beforeplansenin':[],
