@@ -110,12 +110,16 @@ ion-content{
 .judul-before-after{
 	font-size: 10px;
 	float: right;
+	margin-right: 20px;
 	color: #95A5A6;
 	
 }
 .judul-plan{
 	font-size: 10px;
 	
+}
+.judul-plan-preview{
+	font-size: 12px;
 }
 .line{
 	border-bottom: 2px solid #03C9A9;
@@ -276,6 +280,14 @@ ion-content{
 	padding-top: 5px;
 	display: block;
 }
+.lunch-view{
+	text-align: right;
+	font-weight: bold;
+	color: #F4B350;
+	padding-top: 5px;
+	display: block;
+	font-size: 12px;
+}
 .font-location{
 	text-transform: uppercase;
 	font-size: 11px;
@@ -310,3 +322,6 @@ ion-content{
     margin-top: -25px;
     margin-right: -10px;
 }
+
+
+
