@@ -1,381 +1,378 @@
-<ion-view style="" title="PREVIEW PLAN ACTIVITY">
-    <ion-content class="has-header" overflow-scroll="true" padding="true">
-        <div style="">
-            <p>
-
-                <b>PIC : {{pic}}
-
-                </b>
-                <br>Date :
-                <u>
-                    {{begin|date:"MM/dd/yyyy"}} - {{end|date:"MM/dd/yyyy"}}
-                </u>
-            </p>
-            <hr>
-        </div>
-        <ion-list style=""></ion-list>
-        <ion-list style=""></ion-list>
-        <div style="width: 284px; height: 12px;" class="spacer"></div>
-        <div style="" >
-            <b>
+<ion-view title="PREVIEW PLAN ACTUAL ACTIVITY" id="page8">
+   
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+       <div class="contect-transparant">
+             <div class="pic-review">
+                <i class="icon ion-clipboard"></i>
                 <p>
-                    <u>MONDAY</u>
+
+                    <b>
+                    {{pic}}
+                    
+                    </b>
+                    <br>
+                    <u class="spacing">
+                        {{begin|date:"MM/dd/yyyy"}} - {{end|date:"MM/dd/yyyy"}}
+                    </u>
                 </p>
-            </b>
-
-
-            <u>BEFORE LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{bp_senin.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bp_senin.location}}
-            <br>
-            <b>Objectives:</b>{{bp_senin.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{ap_senin.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ap_senin.location}}
-            <br>
-            <b>Objectives:</b>{{ap_senin.name}}
-
-            <br>
-            <br>
-            <u>BEFORE LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{ba_senin.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ba_senin.location}}
-            <br>
-            <b>Objectives:</b>{{ba_senin.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{aa_senin.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aa_senin.location}}
-            <br>
-            <b>Objectives:</b>{{aa_senin.name}}
-        </div>
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <div style="">
-            <b>
-                <p>
-                    <u>TUESDAY</u>
-                </p>
-            </b>
-
-
-            <u>BEFORE LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{bp_selasa.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bp_selasa.location}}
-            <br>
-            <b>Objectives:</b>{{bp_selasa.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{ap_selasa.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ap_selasa.location}}
-            <br>
-            <b>Objectives:</b>{{ap_selasa.name}}
-
-            <br>
-            <br>
-            <u>BEFORE LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{ba_selasa.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ba_selasa.location}}
-            <br>
-            <b>Objectives:</b>{{ba_selasa.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{aa_selasa.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aa_selasa.location}}
-            <br>
-            <b>Objectives:</b>{{aa_selasa.name}}
-        </div>
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <div style="">
-            <b>
-                <p>
-                    <u>WEDNESDAY</u>
-                </p>
-            </b>
-
-
-            <u>BEFORE LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{bp_rabu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bp_rabu.location}}
-            <br>
-            <b>Objectives:</b>{{bp_rabu.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{ap_rabu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ap_rabu.location}}
-            <br>
-            <b>Objectives:</b>{{ap_rabu.name}}
-
-            <br>
-            <br>
-            <u>BEFORE LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{ba_rabu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ba_rabu.location}}
-            <br>
-            <b>Objectives:</b>{{ba_rabu.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{aa_rabu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aa_rabu.location}}
-            <br>
-            <b>Objectives:</b>{{aa_rabu.name}}
-        </div>
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <div style="">
-            <b>
-                <p>
-                    <u>THURSDAY</u>
-                </p>
-            </b>
-
-
-            <u>BEFORE LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{bp_kamis.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bp_kamis.location}}
-            <br>
-            <b>Objectives:</b>{{bp_kamis.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{ap_kamis.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ap_kamis.location}}
-            <br>
-            <b>Objectives:</b>{{ap_kamis.name}}
-
-            <br>
-            <br>
-            <u>BEFORE LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{ba_kamis.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ba_kamis.location}}
-            <br>
-            <b>Objectives:</b>{{ba_kamis.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{aa_kamis.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aa_kamis.location}}
-            <br>
-            <b>Objectives:</b>{{aa_kamis.name}}
-        </div>
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <div style="">
-            <b>
-                <p>
-                    <u>FRIDAY</u>
-                </p>
-            </b>
-
-
-            <u>BEFORE LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{bp_jumat.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bp_jumat.location}}
-            <br>
-            <b>Objectives:</b>{{bp_jumat.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{ap_jumat.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ap_jumat.location}}
-            <br>
-            <b>Objectives:</b>{{ap_jumat.name}}
-
-            <br>
-            <br>
-            <u>BEFORE LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{ba_jumat.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ba_jumat.location}}
-            <br>
-            <b>Objectives:</b>{{ba_jumat.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{aa_jumat.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aa_jumat.location}}
-            <br>
-            <b>Objectives:</b>{{aa_jumat.name}}
-        </div>
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <div style="">
-            <b>
-                <p>
-                    <u>SATURDAY</u>
-                </p>
-            </b>
-
-
-            <u>BEFORE LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{bp_sabtu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bp_sabtu.location}}
-            <br>
-            <b>Objectives:</b>{{bp_sabtu.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{ap_sabtu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ap_sabtu.location}}
-            <br>
-            <b>Objectives:</b>{{ap_sabtu.name}}
-
-            <br>
-            <br>
-            <u>BEFORE LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{ba_sabtu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ba_sabtu.location}}
-            <br>
-            <b>Objectives:</b>{{ba_sabtu.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{aa_sabtu.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aa_sabtu.location}}
-            <br>
-            <b>Objectives:</b>{{aa_sabtu.name}}
-        </div>
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <div style="">
-            <b>
-                <p>
-                    <u>SUNDAY</u>
-                </p>
-            </b>
-
-
-            <u>BEFORE LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{bp_ahad.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{bp_ahad.location}}
-            <br>
-            <b>Objectives:</b>{{bp_ahad.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH</u>
-
-            <br>
-            <b>Customer:</b>{{ap_ahad.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ap_ahad.location}}
-            <br>
-            <b>Objectives:</b>{{ap_ahad.name}}
-
-            <br>
-            <br>
-            <u>BEFORE LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{ba_ahad.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{ba_ahad.location}}
-            <br>
-            <b>Objectives:</b>{{ba_ahad.name}}
-
-            <br>
-            <br>
-            <u>AFTER LUNCH ACTUAL</u>
-
-            <br>
-            <b>Customer:</b>{{aa_ahad.partner_id[1]}}
-            <br>
-            <b>Location:</b>{{aa_ahad.location}}
-            <br>
-            <b>Objectives:</b>{{aa_ahad.name}}
-        </div>
-
-        <div style="width: 284px; height: 43px;" class="spacer"></div>
-        <button class="button button-positive  button-block icon-left ion-android-add-circle" style="border-radius:22px 22px 22px 22px;" id="previewplanactivity-button9">SAVE ACTIVITY</button>
-        <ion-list style=""></ion-list>
-        <ion-list style=""></ion-list>
+            </div>
+
+            <div class="content-preview">
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>MONDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+                <span class="lunch-view">PLAN BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bpsenin in bp_senin">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpsenin.partner_id[1]}} - {{bpsenin.location}}</b></div>
+                    <b>Objectives : </b>{{bpsenin.name}}
+                </div>
+                <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="basenin in ba_senin">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!basenin.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="basenin.batal" class="cancel-status-preview ion-close-circled"> Cancel</span>
+                    <span ng-if="basenin.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{basenin.partner_id[1]}} - {{basenin.location}}</b></div>
+                    <b>Objectives : </b>{{basenin.name}}
+                </div>
+            </div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>MONDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL AFTER LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="apsenin in ap_senin">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apsenin.partner_id[1]}} - {{apsenin.location}}</b></div>
+                    <b>Objectives : </b>{{apsenin.name}}
+                </div>
+                <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="aasenin in aa_senin">
+                    <div class="judul-plan-preview">
+                        <b>
+                            <span ng-if="!aasenin.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                            <span ng-if="aasenin.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                            <span ng-if="aasenin.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                            Actual Result Went To : {{aasenin.partner_id[1]}} - {{aasenin.location}}
+                        </b>
+                    </div>
+                    <b>Objectives : </b>{{aasenin.name}}
+                </div>
+            </div>
+            
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>TUESDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bpselasa in bp_selasa">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpselasa.partner_id[1]}} - {{bpselasa.location}}</b></div>
+                    <b>Objectives : </b>{{bpselasa.name}}
+                </div>
+                <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="baselasa in ba_selasa">
+                    <div class="judul-plan-preview">
+
+                    <b>
+                    <span ng-if="!baselasa.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="baselasa.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="baselasa.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{baselasa.partner_id[1]}} - {{baselasa.location}}</b></div>
+                    <b>Objectives : </b>{{baselasa.name}}
+                </div>
+            </div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>TUESDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL AFTER LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="apselasa in ap_selasa">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apselasa.partner_id[1]}} - {{apselasa.location}}</b></div>
+                    <b>Objectives : </b>{{apselasa.name}}
+                </div>
+                <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="aaselasa in aa_selasa">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!aaselasa.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="aaselasa.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="aaselasa.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{aaselasa.partner_id[1]}} - {{aaselasa.location}}</b></div>
+                    <b>Objectives : </b>{{aaselasa.name}}
+                </div>
+            </div>
+
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>WEDNESDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bprabu in bp_rabu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bprabu.partner_id[1]}} - {{bprabu.location}}</b></div>
+                    <b>Objectives : </b>{{bprabu.name}}
+                </div>
+                <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="barabu in ba_rabu">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!barabu.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="barabu.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="barabu.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{barabu.partner_id[1]}} - {{barabu.location}}</b></div>
+                    <b>Objectives : </b>{{barabu.name}}
+                </div>
+            </div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>WEDNESDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL AFTER LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="aprabu in ap_rabu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{aprabu.partner_id[1]}} - {{aprabu.location}}</b></div>
+                    <b>Objectives : </b>{{aprabu.name}}
+                </div>
+                <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="aarabu in aa_rabu">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!aarabu.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="aarabu.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="aarabu.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{aarabu.partner_id[1]}} - {{aarabu.location}}</b></div>
+                    <b>Objectives : </b>{{aarabu.name}}
+                </div>
+            </div>
+
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>THURSDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bpkamis in bp_kamis">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpkamis.partner_id[1]}} - {{bpkamis.location}}</b></div>
+                    <b>Objectives : </b>{{bpkamis.name}}
+                </div>
+                <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bakamis in ba_kamis">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!bakamis.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="bakamis.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="bakamis.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{bakamis.partner_id[1]}} - {{bakamis.location}}</b></div>
+                    <b>Objectives : </b>{{bakamis.name}}
+                </div>
+            </div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>THURSDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL AFTER LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="apkamis in ap_kamis">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apkamis.partner_id[1]}} - {{apkamis.location}}</b></div>
+                    <b>Objectives : </b>{{apkamis.name}}
+                </div>
+                <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="aakamis in aa_kamis">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!aakamis.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="aakamis.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="aakamis.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{aakamis.partner_id[1]}} - {{aakamis.location}}</b></div>
+                    <b>Objectives : </b>{{aakamis.name}}
+                </div>
+            </div>
+
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>FRIDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bpjumat in bp_jumat">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpjumat.partner_id[1]}} - {{bpjumat.location}}</b></div>
+                    <b>Objectives : </b>{{bpjumat.name}}
+                </div>
+                <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bajumat in ba_jumat">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!bajumat.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="bajumat.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="bajumat.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{bajumat.partner_id[1]}} - {{bajumat.location}}</b></div>
+                    <b>Objectives : </b>{{bajumat.name}}
+                </div>
+            </div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>FRIDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL AFTER LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>Friday 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="apjumat in ap_jumat">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apjumat.partner_id[1]}} - {{apjumat.location}}</b></div>
+                    <b>Objectives : </b>{{apjumat.name}}
+                </div>
+                <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="aajumat in aa_jumat">
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!aajumat.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="aajumat.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    <span ng-if="aajumat.name==false" class="cancel-status-preview ion-close-circled"> No Results</span>
+                    Actual Result Went To : {{aajumat.partner_id[1]}} - {{aajumat.location}}</b></div>
+                    <b>Objectives : </b>{{aajumat.name}}
+                </div>
+            </div>
+
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>SATURDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>SATURDAY 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bpsabtu in bp_sabtu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpsabtu.partner_id[1]}} - {{bpsabtu.location}}</b></div>
+                    <b>Objectives : </b>{{bpsabtu.name}}
+                </div>
+                <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="basabtu in ba_sabtu">
+                    <div class="judul-plan-preview"><b>Actual Result Went To : {{basabtu.partner_id[1]}} - {{basabtu.location}}</b></div>
+                    <b>Objectives : </b>{{basabtu.name}}
+                </div>
+            </div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>SATURDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL AFTER LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>SATURDAY 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="apsabtu in ap_sabtu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apsabtu.partner_id[1]}} - {{apsabtu.location}}</b></div>
+                    <b>Objectives : </b>{{apsabtu.name}}
+                </div>
+                <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="aasabtu in aa_sabtu">
+                    <div class="judul-plan-preview"><b>Actual Result Went To : {{aasabtu.partner_id[1]}} - {{aasabtu.location}}</b></div>
+                    <b>Objectives : </b>{{aasabtu.name}}
+                </div>
+            </div>
+
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>SUNDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>SUNDAY 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN BEFORE LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="bpahad in bp_ahad">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpahad.partner_id[1]}} - {{bpahad.location}}</b></div>
+                    <b>Objectives : </b>{{bpahad.name}}
+                </div>
+                <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+                <div class="isicontent" ng-repeat="baahad in ba_ahad">
+                    <div class="judul-plan-preview"><b>Actual Result Went To : {{baahad.partner_id[1]}} - {{baahad.location}}</b></div>
+                    <b>Objectives : </b>{{baahad.name}}
+                </div>
+            </div>
+            
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp">
+                    <div class="namasales font-black ion-calendar"> <b>SUNDAY</b></div>
+                    <!-- <div class="status"><span class="ok-status">OK</span></div> -->
+                    <div class="both"></div>
+                    <div class="judul-header"><b>PLAN ACTUAL AFTER LUNCH</b></div>
+                    <!-- <div class="judul-before-after"><b>SUNDAY 04/08/2016</b></div> -->
+                </div>
+
+                <span class="lunch-view">PLAN AFTER LUNCH</span>
+                <div class="isicontent line-silver" ng-repeat="apahad in ap_ahad">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apahad.partner_id[1]}} - {{apahad.location}}</b></div>
+                    <b>Objectives : </b>{{apahad.name}}
+                </div>
+                <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+                <div class="isicontent" ng-repeat="aaahad in aa_ahad">
+                    <div class="judul-plan-preview"><b>Actual Result Went To : {{aaahad.partner_id[1]}} - {{aaahad.location}}</b></div>
+                    <b>Objectives : </b>{{aaahad.name}}
+                </div>
+            </div>
+            
+            
+            </div>
+            
+       </div>
     </ion-content>
 </ion-view>
