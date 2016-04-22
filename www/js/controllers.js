@@ -1,14 +1,20 @@
+
 angular.module('app.controllers', [])
   
 .controller('menuutamaCtrl', function($scope) {
 
 })
-   
+  
+.controller('salesactivitytimelineCtrl', function($scope,$ionicSideMenuDelegate) {
+		$scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    }; 
+}) 
 
-.controller('menuloginCtrl', function($scope, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike) {
-
-
-	
+.controller('menuloginCtrl', function($scope, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike,$ionicSideMenuDelegate) {
+	$scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    }; 
 
 	// $http.get("http://10.36.15.51:8000/custom/get/?format=json")
 	// jsonp('http://10.36.15.51:8000/custom/get/?format=json');
@@ -58,100 +64,18 @@ angular.module('app.controllers', [])
 })
 
    
-.controller('submenusalesCtrl', function($scope) {
-
+.controller('submenusalesCtrl', function($scope,$ionicSideMenuDelegate) {
+	$scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    }; 
 })
    
-.controller('menuactivityCtrl', function($scope) {
-
+.controller('menuactivityCtrl', function($scope,$ionicSideMenuDelegate) {
+	$scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    }; 
 })
    
-<<<<<<< HEAD
-.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window) {
-   
-	  // $scope.loadingIndicator = $ionicLoading.show({
-	  //       template: '<ion-spinner icon="spiral"></ion-spinner>'
-	  //   });
-	
-	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
-	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
-	var salesdata = (window.localStorage.getItem('salesdata'));
-
-	 if (salesdata==null) {
-			
-			$http(
-				{
-					method: 'POST',
-					url: 'http://10.36.15.51:8000/openerp/sales.activity/',
-					data: {'usn':name,'pw':pass , 'fields':['user_id','begin','end','write_date']},
-					headers: {
-						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-					  
-					},
-				
-				}
-			).then(
-				function successCallback(response){
-					console.log('success isi storage kosong dari server');
-					$scope.sales = response.data['Result']
-
-					var sd = response.data['Result'];
-					
-					window.localStorage.setItem( 'salesdata', JSON.stringify(sd));
-				
-	   
-				},
-				function errorCallback(response){
-					console.log('erroor data kosong');
-					$window.localStorage.clear();
-					$state.go('menulogin');
-				}
-			)
-			// $scope.loadingstop = $ionicLoading.hide();          
-	 }
-	 else {
-
-		 var ambilsales = JSON.parse( window.localStorage.getItem( 'salesdata' ));
-		 
-		 $scope.sales = ambilsales;
-
-		 var ids = ambilsales[0].id;         
-
-		$http(
-			{
-				method: 'POST',
-				url: 'http://10.36.15.51:8000/openerp/sales.activity/getupdate/',
-				data: {'usn':name,'pw':pass , 'fields':['user_id','begin','end','write_date'],'ids':ids},
-				headers: {
-					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-				  
-				},
-			
-			}
-		).then(
-			function successCallback(response){
-				console.log('success tembak server');
-				$scope.sales = response.data['Result']
-
-				// // window.localStorage.setItem('salesvalue',$scope.sales );
-				// var sd = {
-				//     'sdat':response.data['Result']
-				// };
-				// window.localStorage.setItem( 'salesdata', JSON.stringify(sd));
-			
-   
-			},
-			function errorCallback(response){
-				console.log('erroor tembak reza');
-				$window.localStorage.clear();
-				$state.go('menulogin');
-			}
-		)
-   
-	 
-	 } 
-	 $scope.loadingstop = $ionicLoading.hide();    
-=======
 .controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,$timeout) {
    
 	  $ionicLoading.show({
@@ -261,7 +185,7 @@ angular.module('app.controllers', [])
 	 
 	 }
 	 }, 1000);    
->>>>>>> 4f9d476ff095492fd822e8916590d37ce4383e49
+
 })
    
 .controller('formactivityCtrl', function($scope) {

@@ -6,6 +6,9 @@ ion-content{
 .bar-header{
 	border-bottom: 3px solid white;
 }
+.has-header{
+	top: 0px !important;
+}
 .bg-login{
 	background-image: url("../img/bg.jpg");
 	background-size: 100% 100%;
@@ -201,6 +204,20 @@ ion-content{
 }
 
 /* Menu Utama*/
+.menu-toggle{
+	background-image: url("../img/bg.jpg") !important;
+    border-bottom: 1px solid #BDC3C7;
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    height: 47px;
+    line-height: 45px;
+    text-align: center;
+    width: 100%;
+}
+.menu .list{
+	padding: 0px !important;
+}
 
 .menu-block-left{
 	width: 100%;
@@ -243,7 +260,11 @@ ion-content{
 	
 }
 
-
+.menu{
+		 /*background-color: rgba(212, 197, 187, 0.5);*/
+		 background-color: rgba(185, 212, 227, 0.2);
+	
+}
 .contect-transparant{
     background-color: rgba(255, 255, 255, 0.4);
     /*color:#000;*/
