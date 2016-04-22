@@ -6,6 +6,9 @@ ion-content{
 .bar-header{
 	border-bottom: 3px solid white;
 }
+.has-header{
+	top: 0px !important;
+}
 .bg-login{
 	background-image: url("../img/bg.jpg");
 	background-size: 100% 100%;
@@ -110,12 +113,16 @@ ion-content{
 .judul-before-after{
 	font-size: 10px;
 	float: right;
+	margin-right: 20px;
 	color: #95A5A6;
 	
 }
 .judul-plan{
 	font-size: 10px;
 	
+}
+.judul-plan-preview{
+	font-size: 12px;
 }
 .line{
 	border-bottom: 2px solid #03C9A9;
@@ -197,6 +204,20 @@ ion-content{
 }
 
 /* Menu Utama*/
+.menu-toggle{
+	background-image: url("../img/bg.jpg") !important;
+    border-bottom: 1px solid #BDC3C7;
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    height: 47px;
+    line-height: 45px;
+    text-align: center;
+    width: 100%;
+}
+.menu .list{
+	padding: 0px !important;
+}
 
 .menu-block-left{
 	width: 100%;
@@ -239,7 +260,11 @@ ion-content{
 
 }
 
-
+.menu{
+		 /*background-color: rgba(212, 197, 187, 0.5);*/
+		 background-color: rgba(185, 212, 227, 0.2);
+	
+}
 .contect-transparant{
     background-color: rgba(255, 255, 255, 0.4);
     /*color:#000;*/
@@ -276,6 +301,14 @@ ion-content{
 	padding-top: 5px;
 	display: block;
 }
+.lunch-view{
+	text-align: right;
+	font-weight: bold;
+	color: #F4B350;
+	padding-top: 5px;
+	display: block;
+	font-size: 12px;
+}
 .font-location{
 	text-transform: uppercase;
 	font-size: 11px;
@@ -310,3 +343,6 @@ ion-content{
     margin-top: -25px;
     margin-right: -10px;
 }
+
+
+

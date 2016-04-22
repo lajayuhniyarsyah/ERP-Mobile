@@ -1,17 +1,7 @@
-<ion-view style="" title="SALES ACTIVITY TIMELINE" >
-    <!-- <pane ng-controller="salesactivitytimelineCtrl"> -->
-        <ion-content class="has-header" overflow-scroll="true" padding="true"   >
-            <form style="" class="list" >
-               
-                <ion-list ng-controller="salesactivitytimelineCtrl">
-                    <!-- <ion-item style="" ui-sref="formreviewactivity({idsact: sls.id})" class="item" ng-repeat="sls in sales_tm">
-                       <h>{{sls.user}}</h><br/>
-                        <a><b>{{sls.the_date|date:"EEEE" }} {{sls.the_date|date:"MM/dd/yyyy" }}</b></a>
-                        <br/>
-                        <p><b>Planned Go To {{sls.partner}} / {{sls.location}}<b/></p>
-                        <a>{{sls.name}}<a/>
-                     
-                    </ion-item> -->
+<ion-view title="SALES ACTIVITY TIMELINE" id="page11">
+<ion-nav-buttons side="right"><button  menu-toggle = "right" class = "button button-icon icon ion-navicon" ng-click = "toggleLeft()"></button></ion-nav-buttons> 
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-list></ion-list>
 
                     <div ng-repeat="sls in sales_tm |limitTo:numberOfItemsToDisplay"  >
                        <div class="col">

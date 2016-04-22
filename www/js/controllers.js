@@ -1,5 +1,3 @@
-
-// angular.module('app.controllers', [])
 angular.module('app.controllers', ['ngMaterial'])
 
 .config(function( $mdGestureProvider ) {
@@ -89,7 +87,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	}
 })
-   
+
 .controller('submenusalesCtrl', function($scope,config) {
 
 })
@@ -99,7 +97,6 @@ angular.module('app.controllers', ['ngMaterial'])
 })
    
 .controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,$timeout,config) {
-
    
 	  $ionicLoading.show({
 	    content: 'Loading',
@@ -210,6 +207,9 @@ angular.module('app.controllers', ['ngMaterial'])
 	 
 	 }
 	 }, 1000);    
+})
+   
+.controller('formactivityCtrl', function($scope) {
 
 })
    
@@ -3109,4 +3109,3 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	reloadSalesTm(timeline)
 })
-
