@@ -2,16 +2,24 @@ angular.module('app.controllers', ['ngMaterial'])
 
 // angular.module('app.controllers', ['ngMaterial'])
 
-// .config(function( $mdGestureProvider ) {
-//   $mdGestureProvider.skipClickHijack();
-// })
-.controller('AppController', function($scope, $ionicSideMenuDelegate) {
+
+.config(function( $mdGestureProvider ) {
+  $mdGestureProvider.skipClickHijack();
+})
+  
+
+.controller('AppController', function($scope, $ionicSideMenuDelegate,$ionicHistory) {
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
+  };
+
+   $scope.myGoBack = function() {
+    $ionicHistory.goBack();
   };
 })
 
 .controller('menuutamaCtrl', function($scope,$http,$state,config) {
+
 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -219,8 +227,11 @@ angular.module('app.controllers', ['ngMaterial'])
 	 } 
 })
    
-.controller('formactivityCtrl', function($scope,$http,$state,$filter,config) {
+.controller('formactivityCtrl', function($scope,$http,$state,$filter,config,$ionicHistory) {
 	 
+	$scope.myGoBack = function() {
+	    $ionicHistory.goBack();
+	};
 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -2567,6 +2578,11 @@ angular.module('app.controllers', ['ngMaterial'])
     $scope.fAUpdate.splice(lastItem);
   	};
 
+
+  	$scope.backsalesactivity = function() {
+  		$state.go('salesactivity');
+  	}
+
 	$scope.update = function() {
 		var data1 = 'beforeactual'+get_day;
 		var data2 = 'afteractual'+get_day;
@@ -2662,6 +2678,11 @@ angular.module('app.controllers', ['ngMaterial'])
 		};
 	} 
 	//simpan data ke local storage
+
+	$scope.backformactivity = function(){
+		$state.go('formactivity');
+	}
+
 	$scope.savedata = function() {  
 
 		if (hari == 'monday') {

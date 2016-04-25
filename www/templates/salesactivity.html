@@ -1,13 +1,21 @@
 <ion-view style="" title="SALES ACTIVITY" >
+<!-- Menu Back Dan Slide Menu -->
+<ion-nav-bar ng-controller="AppController">
+  <ion-nav-back-button class="button-clear"
+    ng-click="myGoBack()">
+    <i class="ion-arrow-left-c white-button"></i> 
+  </ion-nav-back-button>
+</ion-nav-bar>
+
+<ion-nav-buttons side="right"><button  menu-toggle = "right" class = "button button-icon icon ion-navicon white-button" ng-click = "toggleLeft()"></button></ion-nav-buttons>
+
     <ion-content class="has-header" overflow-scroll="true" padding="true" >
         <form style="" class="list" >
-            <!-- <label style="" name="search-activity" class="item item-input">
-                <i class="icon ion-search placeholder-icon"></i>
-                <input placeholder="Search Activity" type="search">
-            </label> -->
-        <a class="button button-positive  icon-right ion-android-add-circle" id="salesactivity-button1" ng-click="updatedata()">Update Current day Activity</a>
+        
             <ion-list ng-controller="salesactivityCtrl" >
-
+            <a class="button button-positive  icon-left ion-edit button-update-activity" id="salesactivity-button1" ng-click="updatedata()">
+                <center>Update Current day Activity</center>
+            </a>
                 <ion-item style="" ui-sref="previewplanactivity({id: sls.id, pic: sls.user_id[1], begin: sls.begin, end: sls.end})" class="item-thumbnail-left" ng-repeat="sls in sda"> 
 
                     <img>

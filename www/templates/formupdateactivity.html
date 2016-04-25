@@ -1,4 +1,7 @@
 <ion-view title="FORM UPDATE ACTIVITY" id="page10">
+<ion-nav-bar ng-controller="AppController">
+
+</ion-nav-bar>
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <div class="contect-transparant">
              <div class="pic-review">
@@ -21,13 +24,13 @@
                <div class="item item-divider item-divider-erp ion-clock">
                     <b>BEFORE LUNCH</b>
 
-                       <button id="fORMDAYMONDAY-button18" style="font-weight:bolder;color:#FFFFFF;border-radius:5px 5px 5px 5px;" class="button button-positive  icon-right ion-android-add-circle btn-gantung" ng-click="tambahformBeforeUp()">Add</button>
+                       <button id="fORMDAYMONDAY-button18" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformBeforeUp()"> Add Actual</button>
                 </div>
 <!-- tampilin plan dari before launch -->
                 <div ng-repeat="cba in current_beforeactual">
                 <span class="lunch">PLANING BEFORE LUNCH</span>
 
-                <span class="judul-cus-view ion-person">{{cba.partner_id[1]}}</span>
+                <span class="judul-cus-view">{{cba.partner_id[1]}}</span>
                 <b class="font-location">{{cba.location}}</b>
                 <br>
                 <br>
@@ -35,8 +38,9 @@
                 <br>
                 <span class="lunch">ACTUAL BEFORE LUNCH</span>
                 <div class="form-update">
-                    <form class="list">
-                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.checked" ng-checked="cbp.checked">CANCEL</ion-toggle>
+                    <form class="list cancel-form">
+                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.checked" ng-checked="cbp.checked"
+                        >CANCEL</ion-toggle>
                     </form>
                     <form class="list">
                         <label class="item item-input" name="results-plan-before-lunch">
@@ -49,7 +53,7 @@
             </div>
         
         <div>
-         {{ current_beforeactual }}
+         <!-- {{ current_beforeactual }} -->
         </div>
 
 <!-- Add Actual before-->
@@ -94,13 +98,13 @@
                 <div class="item item-divider item-divider-erp ion-clock">
                     <b>AFTER LUNCH</b>
 
-                     <button id="fORMDAYMONDAY-button18" style="font-weight:bolder;color:#FFFFFF;border-radius:5px 5px 5px 5px;" class="button button-positive  icon-right ion-android-add-circle btn-gantung" ng-click="tambahformAfterUp()">Add</button>
+                     <button id="fORMDAYMONDAY-button18" style="font-weight:bolder;color:#FFFFFF;border-radius:5px 5px 5px 5px;" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformAfterUp()"> Add Actual</button>
                 </div>
 <!-- tampilin plan dari after launch -->
                 <div ng-repeat="caa in current_afteractual">
                 <span class="lunch">PLANING AFTER LUNCH</span>
 
-                <span class="judul-cus-view ion-person">{{caa.partner_id[1]}}</span>
+                <span class="judul-cus-view">{{caa.partner_id[1]}}</span>
                 <b class="font-location">{{caa.location}}</b>
                 <br>
                 <br>
@@ -121,7 +125,7 @@
                 </div>
              </div> 
         <div>
-         {{ current_afteractual }}
+         <!-- {{ current_afteractual }} -->
         </div>
 
 <!-- Add Actual after-->
@@ -163,6 +167,15 @@
         
         </div>
 
-         <button id="fORMUPDATEACTIVITY-button15" style="font-weight:;border-radius:5px 5px 5px 5px;" class="button button-positive  button-block icon-left ion-android-add-circle" ng-click="update()">UPDATE ACTIVITY</button>
+        <br/>
+        
+        <center>
+          <a class="button button-small button-positive" style="border-radius:5px 5px 5px 5px; width:45%;" id="formactivity-button25" ng-click="backsalesactivity()">Cancel Activity</a>
+           <button id="fORMUPDATEACTIVITY-button15" style="font-weight:;border-radius:5px 5px 5px 5px; width:45%;" class="button button-small button-positive" ng-click="update()">UPDATE ACTIVITY</button>
+        </center>
+         <br/>
+         <br/>
+         
+         
     </ion-content>
 </ion-view>

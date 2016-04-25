@@ -7,7 +7,7 @@ ion-content{
 	border-bottom: 3px solid white;
 }
 .has-header{
-	top: 0px !important;
+	/*top: 0px !important;*/
 }
 .bg-login{
 	background-image: url("../img/bg.jpg");
@@ -87,6 +87,13 @@ ion-content{
 	text-align: center;
 	/*width: 50%;*/
 }
+.namasales-timeline{
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	color: white;
+	text-align: left;
+}
 .font-black{
 	 color: black !important;
 }
@@ -95,6 +102,20 @@ ion-content{
     float: right;
     font-size: 10px;
     margin-right: 33px;
+}
+.isicontent-timeline{
+	text-align: justify;
+
+}
+.custom-list .isicontent-timeline{
+	margin-top: 0px;
+}
+
+.isicontent-timeline .ng-binding{
+	font-size: 12px !important;
+	font-family: "Arial";
+	text-align: justify;
+	padding-left: -20px;
 }
 .isicontent{
 	text-align: justify;
@@ -113,6 +134,13 @@ ion-content{
 	color: #F4B350;
 	/*float: right;*/
 	text-align: center;
+	
+}
+.judul-header-timeline{
+	font-size: 12px;
+	color: #F4B350;
+	/*float: right;*/
+	text-align: left;
 	
 }
 .judul-before-after{
@@ -358,10 +386,10 @@ ion-content{
 	margin-top: 10px;
 	font-weight: bold;
 	display: block;
-	padding-left: 5px;
 }
 .form-update{
-	 background-color: rgba(212, 197, 187, 0.5);
+	 /*background-color: rgba(212, 197, 187, 0.5);*/
+	 background-color: white;
 }
 .form-black{
 	
@@ -378,12 +406,124 @@ ion-content{
     font-size: 12px;
     line-height: 40px;
     margin: 0;
-    min-height: 0px;
-    min-width: 0px;
-    padding: 0 5px;
-    margin-top: -25px;
-    margin-right: -10px;
 }
 
+.white-button{
+	color: white;
+}
+.white-button:hover{
+	color: white;
+}
+.default-title{
+	color: white;
+}
+.back-text{
+	display: none !important;
+}
+.item{
+	padding: 5px !important;
+}
+.bar .title.title-left{
+	text-align: center !important;
+}
+pre {
+    white-space: pre-wrap;
+    margin-left: -4px !important;
+}
+.header-item{
+	right: 0px !important;
+	left: 0px !important;
+}
+.judul-create-plan{
+	display: block;
+    text-align: left;
+    background-color: #3498DB;
+    /*margin-left: -10px;
+    margin-right: -10px;
+    margin-top: -10px;*/
+    padding: 10px;
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -o-border-radius: 5px 5px 0px 0px;
+    text-transform: uppercase;
 
-
+}
+.set-form{
+	padding: 0px !important;
+	margin-bottom: 5px !important;
+}
+.button-day .button-block{
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+.font-button-right{
+	float: right;
+}
+.button-update-activity{
+	width: 100%;
+	border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -o-border-radius: 5px 5px 0px 0px;
+}
+.contect-transparant .button{
+	min-height: 10px !important;
+}
+.btn-add-update-activity{
+	font-size: 12px !important;
+	padding: 2px;
+	padding-right: 10px;
+	padding-left: 10px;
+	background-color: #3498DB;
+	margin-bottom:0px !important;
+	box-shadow: none !important;
+	color: white;
+	margin-top: -5px;
+	margin-right: -5px;
+}
+.cancel-form{
+	padding-bottom: 10px !important;
+}
+.toggle-small.item-toggle .toggle{
+	top:7px !important;
+}
+input[type="text"], input[type="search"], select, textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px #ddd inset;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 8px 0;
+    padding: 12px 20px;
+    width: 100%;
+}
+input[type="text"]:focus,input[type="search"], select:focus, textarea {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+}
+textarea{
+	width: 70% !important;
+}
+.bgwhite{
+	background-color: white;
+	min-height: 500px;
+}
+.bottom-button{
+  position: static;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+.batasmenu{
+    margin-top: -20px;
+    padding-top: 45px;
+    padding-bottom: 10px;
+    background-color: white;
+}
+md-autocomplete{
+	width: 75% !important;
+}
