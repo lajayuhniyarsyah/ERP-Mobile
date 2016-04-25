@@ -381,7 +381,7 @@ ion-content{
     min-height: 0px;
     min-width: 0px;
     padding: 0 5px;
-    margin-top: -25px;
+    margin-top: 0px !important;
     margin-right: -10px;
 }
 

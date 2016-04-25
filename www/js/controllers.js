@@ -2,9 +2,9 @@ angular.module('app.controllers', ['ngMaterial'])
 
 // angular.module('app.controllers', ['ngMaterial'])
 
-// .config(function( $mdGestureProvider ) {
-//   $mdGestureProvider.skipClickHijack();
-// })
+.config(function( $mdGestureProvider ) {
+  $mdGestureProvider.skipClickHijack();
+})
   
 .controller('menuutamaCtrl', function($scope,$http,$state,config,$ionicSideMenuDelegate) {
 	$scope.toggleLeft = function() {
@@ -217,8 +217,11 @@ angular.module('app.controllers', ['ngMaterial'])
 	 } 
 })
    
-.controller('formactivityCtrl', function($scope,$http,$state,$filter,config) {
+.controller('formactivityCtrl', function($scope,$http,$state,$filter,config,$ionicHistory) {
 	 
+	$scope.myGoBack = function() {
+	    $ionicHistory.goBack();
+	};
 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
