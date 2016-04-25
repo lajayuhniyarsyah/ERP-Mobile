@@ -5,11 +5,13 @@ angular.module('app.controllers', ['ngMaterial'])
 // .config(function( $mdGestureProvider ) {
 //   $mdGestureProvider.skipClickHijack();
 // })
-  
-.controller('menuutamaCtrl', function($scope,$http,$state,config,$ionicSideMenuDelegate) {
-	$scope.toggleLeft = function() {
-      $ionicSideMenuDelegate.toggleLeft();
-    };
+.controller('AppController', function($scope, $ionicSideMenuDelegate) {
+  $scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+})
+
+.controller('menuutamaCtrl', function($scope,$http,$state,config) {
 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
