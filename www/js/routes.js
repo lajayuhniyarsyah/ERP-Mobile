@@ -53,7 +53,7 @@ angular.module('app.routes', [])
   })
 
   .state('formupdateactivity', {
-    url: '/form-update-activity/?:hari?beforeplan?afterplan?beforeactual?afteractual',
+    url: '/form-update-activity/?:id?pic?begin?end',
     templateUrl: 'templates/formupdateactivity.html',
     controller: 'formupdateactivityCtrl'
   })
@@ -73,6 +73,12 @@ angular.module('app.routes', [])
     templateUrl: 'templates/previewcreateplan.html',
     controller: 'previewcreateplanCtrl'
   })
+
+  // .state('pREVIEWPLANACTIVITY', {
+  //   url: '/preview-planactivity',
+  //   templateUrl: 'templates/pREVIEWPLANACTIVITY-Template.html',
+  //   // controller: 'previewpaCtrl'
+  // })
   $urlRouterProvider.otherwise('/login')  
 
 });
