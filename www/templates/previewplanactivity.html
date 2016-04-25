@@ -5,7 +5,6 @@
              <div class="pic-review">
                 <i class="icon ion-clipboard"></i>
                 <p>
-
                     <b>
                     {{pic}}
                     
@@ -73,7 +72,7 @@
             </div>
             
             <div class="spacer" style="width: 284px; height: 12px;"></div>
-            
+
             <div class="list card custom-list">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>TUESDAY</b></div>
@@ -116,6 +115,7 @@
                     <b>Objectives : </b>{{apselasa.name}}
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+
                 <div class="isicontent line-silver" ng-repeat="aaselasa in aa_selasa">
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aaselasa.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
@@ -195,6 +195,7 @@
                     <b>Objectives : </b>{{bpkamis.name}}
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+
                 <div class="isicontent line-silver" ng-repeat="bakamis in ba_kamis">
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!bakamis.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
@@ -220,6 +221,7 @@
                     <b>Objectives : </b>{{apkamis.name}}
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+
                 <div class="isicontent line-silver" ng-repeat="aakamis in aa_kamis">
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aakamis.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
@@ -272,6 +274,7 @@
                     <b>Objectives : </b>{{apjumat.name}}
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
+
                 <div class="isicontent line-silver" ng-repeat="aajumat in aa_jumat">
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aajumat.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
@@ -299,6 +302,7 @@
                     <b>Objectives : </b>{{bpsabtu.name}}
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
+
                 <div class="isicontent line-silver" ng-repeat="basabtu in ba_sabtu">
                     <div class="judul-plan-preview"><b>Actual Result Went To : {{basabtu.partner_id[1]}} - {{basabtu.location}}</b></div>
                     <b>Objectives : </b>{{basabtu.name}}

@@ -8,15 +8,11 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
     
-  
-
-      .state('menuutama', {
+  .state('menuutama', {
     url: '/menu',
     templateUrl: 'templates/menuutama.html',
     controller: 'menuutamaCtrl'
   })
-
-
 
   .state('menulogin', {
     url: '/login',
@@ -56,32 +52,33 @@ angular.module('app.routes', [])
 
   })
 
-  // .state('formreviewactivity', {
-  //   url: '/form-review-activity/:idsact',
-  //   templateUrl: 'templates/formreviewactivity.html',
-  //   controller: 'formreviewactivityCtrl'
-  // })
-
   .state('formupdateactivity', {
-    url: '/form-update-activity/?:hari?beforeplan?afterplan?beforeactual?afteractual',
+    url: '/form-update-activity/?:id?pic?begin?end',
     templateUrl: 'templates/formupdateactivity.html',
     controller: 'formupdateactivityCtrl'
   })
 
   .state('formdaymonday', {
-    url: '/form-day-monday',
+    url: '/form-day-monday/?:pic?day',
     templateUrl: 'templates/formdaymonday.html',
     controller: 'formdaymondayCtrl'
   })
-
-  .state('salesactivitytimeline', {
-    url: '/sales-activity-timeline',
-    templateUrl: 'templates/salesactivitytimeline.html',
-    controller: 'salesactivitytimelineCtrl'
+  .state('salestimelineAct', {
+    url: '/salestimeline',
+    templateUrl: 'templates/salestimeline.html',
+    controller: 'salestimelineCtrl'
+  })
+  .state('previewcreateplan', {
+    url: '/preview-create-plan',
+    templateUrl: 'templates/previewcreateplan.html',
+    controller: 'previewcreateplanCtrl'
   })
 
-$urlRouterProvider.otherwise('/login')
-
-  
+  // .state('pREVIEWPLANACTIVITY', {
+  //   url: '/preview-planactivity',
+  //   templateUrl: 'templates/pREVIEWPLANACTIVITY-Template.html',
+  //   // controller: 'previewpaCtrl'
+  // })
+  $urlRouterProvider.otherwise('/login')  
 
 });

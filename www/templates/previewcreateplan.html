@@ -33,8 +33,6 @@
                 <b>Objectives : </b>{{bppsenin.objective}}
                 <div class="line-silver"></div>
                 </div>
-                <br>
-                <br>
                 
                 <span class="lunch">AFTER LUNCH</span>
 
@@ -64,8 +62,6 @@
                 <b>Objectives : </b>{{bppselasa.objective}}
                 <div class="line-silver"></div>
                 </div>
-                <br>
-                <br>
 
                 <span class="lunch">AFTER LUNCH</span>
 
@@ -86,6 +82,8 @@
                     <b>WEDNESDAY</b>
                 </div>
 
+                <span class="lunch">BEFORE LUNCH</span>
+                
                 <div ng-repeat="bpprabu in bpp_rabu">
                 <span class="judul-cus-view ion-person">{{bpprabu.customer['display_name']}}</span>
                 <b class="font-location">{{bpprabu.location}}</b>
@@ -93,8 +91,6 @@
                 <b>Objectives : </b>{{bpprabu.objective}}
                 <div class="line-silver"></div>
                 </div>
-                <br>
-                <br>
 
                 <span class="lunch">AFTER LUNCH</span>
 
@@ -124,8 +120,6 @@
                 <b>Objectives : </b>{{bppkamis.objective}}
                 <div class="line-silver"></div>
                 </div>
-                <br>
-                <br>
 
                 <span class="lunch">AFTER LUNCH</span>
 
@@ -155,12 +149,10 @@
                 <b>Objectives : </b>{{bppjumat.objective}}
                 <div class="line-silver"></div>
                 </div>
-                <br>
-                <br>
 
                 <span class="lunch">AFTER LUNCH</span>
 
-                <div ng-repeat="appsenin in app_senin">
+                <div ng-repeat="appjumat in app_jumat">
                 <span class="judul-cus-view ion-person">{{appjumat.customer['display_name']}}</span>
                 <b class="font-location ">{{appjumat.location}}</b>
                 <br><br/>
