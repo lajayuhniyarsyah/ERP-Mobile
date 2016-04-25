@@ -69,8 +69,8 @@ ion-content{
 	
 }
 .custom-list{
-	margin-top: 0px !important;	 
-	margin-bottom: 0px !important;
+	margin-top: 10px !important;	 
+	margin-bottom: 10px !important;
 }
 .item-divider-erp{
 	min-height: 0px !important;
@@ -83,8 +83,9 @@ ion-content{
 	font-weight: bold;
 	font-size: 14px;
 	color: white;
-	float: left;
-	width: 50%;
+	/*float: left;*/
+	text-align: center;
+	/*width: 50%;*/
 }
 .font-black{
 	 color: black !important;
@@ -99,15 +100,19 @@ ion-content{
 	text-align: justify;
 
 }
+.custom-list .isicontent{
+	margin-top: 30px;
+}
 .judul-user{
 	font-size: 3.0vw; 
 	margin-top: 40px;
 	
 }
 .judul-header{
-	font-size: 10px;
+	font-size: 12px;
 	color: #F4B350;
-	float: left;
+	/*float: right;*/
+	text-align: center;
 	
 }
 .judul-before-after{
@@ -180,6 +185,40 @@ ion-content{
 }
 .cancel-status{
 	background: #ec2f2f none repeat scroll 0 0;
+}
+.cancel-status-preview{
+	display: inline-block;
+	 overflow: hidden;
+    width: 100px;
+    float: right;
+    text-align: center;
+    color: white;
+    position: absolute;
+    right: 4px;
+    margin-top:-20px;
+    font-size: 9px;
+    width: 70px;
+	background: #ec2f2f none repeat scroll 0 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.ok-status-preview{
+	display: inline-block;
+	 overflow: hidden;
+    width: 100px;
+    float: right;
+    text-align: center;
+    color: white;
+    position: absolute;
+    right: 4px;
+    margin-top:-20px;
+    font-size: 9px;
+    width: 70px;
+	background: #19B5FE none repeat scroll 0 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 .cancel{
 	color: red !important;
@@ -302,13 +341,15 @@ ion-content{
 	display: block;
 }
 .lunch-view{
-	text-align: right;
+	text-align: left;
 	font-weight: bold;
-	color: #F4B350;
+	color: #22A7F0;
 	padding-top: 5px;
 	display: block;
 	font-size: 12px;
+	margin-bottom: 10px;
 }
+
 .font-location{
 	text-transform: uppercase;
 	font-size: 11px;
