@@ -1,15 +1,15 @@
- <ion-view style="" title="FORM DAY">
+ <ion-view style="" title="INPUT DATA PLAN">
+ <ion-nav-bar ng-controller="AppController">
+
+</ion-nav-bar>
     <ion-content class="has-header" overflow-scroll="true" padding="true">
-        <div style="">
-            <p>
-            </p>
+        <div class="contect-transparant bgwhite">
+        <div class="judul-create-plan" style="font-size:18px;">
             <center>
-                <b>{{day}}</b>
+                <b>PLAN {{day}}</b>
             </center>
-            <p></p>
-            <hr>
         </div>
-        
+
         <div ng-repeat="bef_rev in before_prev">
         <b>Customer : </b><u> {{(bef_rev.customer).display_name}}</u>
         <br>
@@ -23,19 +23,16 @@
         <br>
         </div>
 
-        <form style="" class="list"></form>
-        <button class="button button-positive  icon-right ion-android-add-circle" style="font-weight:bolder;color:#FFFFFF;border-radius:29px 29px 29px 29px;" id="formdaymonday-button01" ng-click="tambahformBefore()">Add</button>
-        <div style="width: 284px; height: 14px;" class="spacer"></div>
-        <div style="">
-            <p>
-                <b>
-                    <u>BEFORE LUNCH</u>
-                </b>
-            </p>
+
+        <div class="item item-divider item-divider-erp ion-clock" style="margin-left:1px; margin-right:1px; margin-top:5px;">
+            <b>PLANING BEFORE LUNCH</b>
+               <button id="fORMDAYMONDAY-button18" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformBefore()" style="margin-top:1px;"> Add Plan</button>
         </div>
-        <form style="" class="list" ng-repeat="fb in formBefore">
+
+
+        <form style="width:100%;" class="list" ng-repeat="fb in formBefore">
             <label style="" name="customer-before-lunch" class="item item-input">
-                <span class="input-label">Customer</span>
+                <span class="input-label" style="width:25%;">Customer</span>
                 <md-autocomplete md-selected-item="fb.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
                     <md-item-template>
                         <span md-highlight-text="searchText">{{item.display_name}}</span>
@@ -46,18 +43,16 @@
                 </md-autocomplete>
             </label>
             <label style="" name="location-before-lunch" class="item item-input">
-                <span class="input-label">Location</span>
+                <span class="input-label" style="width:25%;">Location</span>
                 <input placeholder="Location" type="text" ng-model="fb.location">
             </label>
             <label style="" name="objectives-before-lunch" class="item item-input">
-                <span class="input-label">Objectives</span>
+                <span class="input-label" style="width:25%;">Objectives</span>
                 <input placeholder="Objectives " type="text" ng-model="fb.objective">
             </label>
         </form>
 
-<!--         <div id="choicesDisplay">
-         {{ formBefore }}
-        </div> -->
+
         <div style="height: 10px;" class="spacer"></div>
         <div ng-repeat="aft_rev in after_prev">
         <b>Customer : </b><u> {{(aft_rev.customer).display_name}}</u>
@@ -72,18 +67,17 @@
         <br>
         </div>
         <form style="" class="list"></form>
-        <button class="button button-positive  icon-right ion-android-add-circle" style="font-weight:bolder;color:#FFFFFF;border-radius:29px 29px 29px 29px;" id="formdaymonday-button02" ng-click="tambahformAfter()">Add</button>
-        <form style="" class="list"></form>
-        <div style="">
-            <p>
-                <b>
-                    <u>AFTER LUNCH</u>
-                </b>
-            </p>
+     
+
+        <div class="item item-divider item-divider-erp ion-clock" style="margin-left:1px; margin-right:1px; margin-top:5px;">
+            <b>PLANING AFTER LUNCH</b>
+               <button id="formdaymonday-button02" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformAfter()" style="margin-top:1px;"> Add Plan</button>
         </div>
+
+
         <form style="" class="list" ng-repeat="fa in formAfter">           
             <label style="" name="customer-after-lunch" class="item item-input">
-                <span class="input-label">Customer</span>
+                <span class="input-label" style="width:25%;">Customer</span>
                 <md-autocomplete md-selected-item="fa.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
                     <md-item-template>
                         <span md-highlight-text="searchText">{{item.display_name}}</span>
@@ -94,20 +88,24 @@
                 </md-autocomplete>
             </label>
             <label style="" name="location-after-lunch" class="item item-input">
-                <span class="input-label">Location</span>
+                <span class="input-label" style="width:25%;">Location</span>
                 <input placeholder="Location" type="text" ng-model="fa.location">
             </label>
             <label style="" name="objectives-after-lunch" class="item item-input">
-                <span class="input-label">Objectives</span>
+                <span class="input-label" style="width:25%;">Objectives</span>
                 <input placeholder="Objectives " type="text" ng-model="fa.objective">
             </label>
         </form>
         
-<!--         <div id="choicesDisplay">
-         {{ formAfter }}
-        </div> -->
-        <button class="button button-positive  button-block icon ion-android-arrow-forward" style="border-radius:10px 10px 10px 10px;" id="formdaymonday-button03" ng-click="savedata()">NEXT STEP</button>
-        <form style="" class="list"></form>
-        <div style="width: 284px; height: 14px;" class="spacer"></div>
+<!-- 
+        <button class="button button-positive  button-block icon" style="border-radius:10px 10px 10px 10px;" id="formdaymonday-button03" ng-click="savedata()">SAVE &amp; CLOSE</button> -->
+
+          <center class="bottom-button">
+          <a class="button button-small button-positive" style="border-radius:5px 5px 5px 5px; width:45%;" id="formactivity-button25" ng-click="backformactivity()">CANCEL</a>
+           <button id="fORMUPDATEACTIVITY-button15" style="font-weight:;border-radius:5px 5px 5px 5px; width:45%;" class="button button-small button-positive" ng-click="savedata()">SAVE &amp; CLOSE</button>
+            </center>
+            <br/>
+
+        </div>
     </ion-content>
 </ion-view>
