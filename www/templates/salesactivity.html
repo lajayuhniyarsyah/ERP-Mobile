@@ -10,7 +10,7 @@
 <ion-nav-buttons side="right"><button  menu-toggle = "right" class = "button button-icon icon ion-navicon white-button" ng-click = "toggleLeft()"></button></ion-nav-buttons>
 
     <ion-content class="has-header" overflow-scroll="true" padding="true" >
-        <form style="" class="list" >
+        <form  class="list" style="padding:0px !important;">
         
             <ion-list ng-controller="salesactivityCtrl" >
             <a class="button button-positive  icon-left ion-edit button-update-activity" id="salesactivity-button1" ng-click="updatedata()">
@@ -22,8 +22,9 @@
                     <h2>{{sls.user_id[1]}}</h2>
                     <p>Date : {{sls.begin|date:"MM/dd/yyyy"}} - {{sls.end|date:"MM/dd/yyyy"}}</p>
                 </ion-item>
+                <a class="button button-positive  icon-right ion-android-add-circle" id="salesactivity-button2" ui-sref="formactivity" style="width:100%;">Add</a>
             </ion-list>
+
         </form>
-        <a class="button button-positive  icon-right ion-android-add-circle" id="salesactivity-button2" ui-sref="formactivity">Add</a>
     </ion-content>
 </ion-view>

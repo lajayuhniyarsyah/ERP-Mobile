@@ -1,4 +1,5 @@
- <ion-view title="" id="page3" class="bg-login menu-title">
+ <ion-view title="MENU LOGIN" id="page3" class="bg-login menu-title">
+ <ion-nav-bar ng-controller="AppController"></ion-nav-bar>
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <div style="text-align:center;">
             <img src="img/btsGDDR6QdaV6GjXik1o_company_logo.png" width="50%" height="auto">
@@ -15,12 +16,12 @@
             </div>
                 <label class="item item-input radius" name="username" >
                     <span class="button-block icon ion-ios-people custom-icon"></span>
-                    <input type="text" placeholder="Username" ng-model='data.username'/>
+                    <input type="text" class="input-login" placeholder="Username" ng-model='data.username'/>
                 </label>
                 <br/>
                 <label class="item item-input radius" name="password">
                     <span class="button-block icon ion-locked custom-icon"></span>
-                    <input type="password" ng-model='data.pass' placeholder="Password"/>
+                    <input type="password" class="input-login" ng-model='data.pass' placeholder="Password"/>
                 </label>
             <div class="spacer" style="width: 284px; height: 22px;"></div>
             <a id="menulogin-button1" style="font-weight:bold;color:#FFFFFF;" class="button button-positive  button-block icon ion-log-in login-button" ng-click="login()"> LOGIN</a>
