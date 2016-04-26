@@ -331,6 +331,10 @@ angular.module('app.controllers', ['ngMaterial'])
 	)		 
 
 	};
+	$scope.salesactivity = function(){
+		alert(1);
+		$state.go('salesactivity');
+	}
 
 	$scope.previewData = function() {
 		console.log('clicked')
@@ -2441,6 +2445,7 @@ angular.module('app.controllers', ['ngMaterial'])
 })
 
 .controller('formupdateactivityCtrl', function($scope,$stateParams,$state,$http,config) {
+	
 		
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd"));
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug"));
