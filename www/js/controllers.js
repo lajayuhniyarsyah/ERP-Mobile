@@ -2,9 +2,9 @@ angular.module('app.controllers', ['ngMaterial'])
 
 // angular.module('app.controllers', ['ngMaterial'])
 
-// .config(function( $mdGestureProvider ) {
-//   $mdGestureProvider.skipClickHijack();
-// })
+.config(function( $mdGestureProvider ) {
+  $mdGestureProvider.skipClickHijack();
+})
   
 .controller('menuutamaCtrl', function($scope,$http,$state,config,$ionicSideMenuDelegate) {
 	$scope.toggleLeft = function() {
@@ -91,13 +91,13 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	}
 })   
-.controller('submenusalesCtrl', function($scope,config) {
+.controller('submenusalesCtrl', function($scope,config,$ionicSideMenuDelegate) {
 		$scope.toggleLeft = function() {
 	      $ionicSideMenuDelegate.toggleLeft();
 	    };
 })
    
-.controller('menuactivityCtrl', function($scope,config) {
+.controller('menuactivityCtrl', function($scope,config,$ionicSideMenuDelegate) {
 		$scope.toggleLeft = function() {
 	      $ionicSideMenuDelegate.toggleLeft();
 	    };
@@ -2956,6 +2956,8 @@ angular.module('app.controllers', ['ngMaterial'])
   	);
 
 
+	
+
 	var timeline = JSON.parse(window.localStorage.getItem("timeline2")); //data to fetch in view
 	var reloadSalesTm =function(data){
 		console.log('called')
@@ -2966,6 +2968,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			$scope.sales_tm.push(data[i])
 		};
 	}
+
 	var today = new Date()
 	var yesterday = new Date()
 	yesterday.setDate(yesterday.getDate()-1);
@@ -2977,6 +2980,175 @@ angular.module('app.controllers', ['ngMaterial'])
 	
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+
+
+	var timeline = function(data){
+		var manager_group = data[0]['in_group_8']
+		var sales_supra_group = data[0]['in_group_63']
+		var direksi_group = data[0]['in_group_55']
+		var data_timeline_group = function(condition){
+
+			$http
+		  	(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/salestimeline/AllData/',
+					data: {
+							'usn':name,
+							'pw':pass,
+							"params":{
+								// "fields":'*',
+								// "table":"sales_activity_plan",
+								// 'AndOr':[],
+								'condition':condition
+								// "limit":100,
+								// 'offset':0,
+								// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+							}
+					},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+					
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					console.log(response)
+					window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+					reloadSalesTm(response.data.data)
+
+					$ionicLoading.hide();
+					if(response.data.data.length==0){
+						alertPopup = $ionicPopup.alert({
+						title: 'Warning',
+						template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
+					});
+					}
+				},
+				function errorCallback(response){
+					$ionicLoading.hide();
+					console.log(response)
+
+					console.log('erroor data kosong');
+			
+				}
+			)
+		}
+
+		if (manager_group || sales_supra_group){
+			// console.log(data[0]['kelompok_id'][0],"ini")
+			var group_sales_line =function(data){
+				// console.log(data,"sjadhkjsghadsgahudasgh")
+		 			$http(
+						{
+							method: 'POST',
+							url: 'http://'+config['host']+':'+config['port']+'/openerp/group.sales.line/ids/',
+							data: {'usn':name,
+								   'pw':pass,
+								   // 'domain':[['login','ilike',atob(name)]] ,
+								   // 'fields':['in_group_8','in_group_63','in_group_55','kelompok_id']},
+								   'ids':data,
+								   'fields':[]
+								},
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							  
+							},
+						
+						}
+					).then(
+						function successCallback(response){
+							// console.log(response.data["Result"],"oasodossjd")
+							id_group_sales_line = []
+							for (i=0;i<response.data["Result"].length;i++){
+								
+								id_group_sales_line.push(response.data["Result"][i]['name'][0])
+							}
+			   				console.log(id_group_sales_line)
+			   				var condition ={"the_date":[today,yesterday],"user_id":id_group_sales_line}
+							data_timeline_group(condition)
+						},
+						function errorCallback(response){
+							
+						}
+					)
+		 	}
+			$http
+		  	(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/group.sales/ids/',
+					data: {
+							'usn':name,
+							'pw':pass,
+							'ids':[data[0]['kelompok_id'][0]],
+							// 'domain':[['login','ilike',atob(name)]] ,
+							// 'domain':[['kelompok_id','=',8]] ,
+							'fields':['users_line'],
+							
+					},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+					
+				
+				}
+			).then(
+				function successCallback(response){
+				console.log((response.data['Result'][0])['users_line'],"disini")
+				group_sales_line((response.data['Result'][0])['users_line'])
+				},
+				function errorCallback(response){
+			
+				}
+			)
+			
+		}
+		else if (direksi_group){
+			var condition ={"the_date":[today,yesterday]}
+			data_timeline_group(condition)
+		}
+		else{
+			var condition={"the_date":false}
+			data_timeline_group(condition)
+		}
+
+			
+	}
+
+
+
+	$http(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/res.users/search/',
+					data: {'usn':name,
+						   'pw':pass,
+						   'domain':[['login','ilike',atob(name)]] ,
+						   'fields':['in_group_8','in_group_63','in_group_55','kelompok_id']},
+
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log(response.data["Result"],"iniii")
+					timeline(response.data["Result"])
+	   
+				},
+				function errorCallback(response){
+					
+				}
+			)
+
+
 	$ionicModal.fromTemplateUrl('templates/modal.html', {
 		scope: $scope,
 		hardwareBackButtonClose: false
@@ -2985,80 +3157,31 @@ angular.module('app.controllers', ['ngMaterial'])
 	    $scope.modal = modal;
 	  });
 	 $scope.openModal = function(tm) {   
-	 	// console.log(tm.the_date,"iniiii")
           $scope.user = tm;
-
           $scope.modal.show();
         };
-    $scope.doRefresh = function(){
-    
-    	$http
-	  	(
-			{
-				method: 'POST',
-				url: 'http://'+config['host']+':'+config['port']+'/openerp/salestimeline/AllData/',
-				data: {
-						'usn':name,
-						'pw':pass,
-						"params":{
-							// "fields":'*',
-							// "table":"sales_activity_plan",
-							// 'AndOr':[],
-							'condition':{"the_date":[today,yesterday]},
-							// "limit":100,
-							// 'offset':0,
-							// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
-						}
-				},
-				headers: {
-					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-				  
-				},
-				
-			
-			}
-		).then(
-			function successCallback(response){
-				console.log('success isi storage kosong dari server');
-				console.log(response)
-				window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
-				reloadSalesTm(response.data.data)
-
-				// $ionicLoading.hide();
-				$scope.$broadcast('scroll.refreshComplete');
-				if(response.data.data.length==0){
-					alertPopup = $ionicPopup.alert({
-					title: 'Warning',
-					template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
-				});
-				}
-			},
-			function errorCallback(response){
-				// $ionicLoading.hide();
-				console.log(response)
-
-				console.log('erroor data kosong');
-		
-			}
-
-	)
-
-    }
+ 
 	$scope.limit = 20;
 	// console.log(timeline,"datanya")
 	var limit_data = 0
 	var offset_data = -20
+	
+
 	$scope.loadMore = function () {
 
 		$scope.limit += 20; 
-		console.log($scope.sales_tm,"ooooooooo")
-		console.log($scope.limit,$scope.sales_tm.length) 
+
 
 		if ($scope.limit >= $scope.sales_tm.length ){
-			// alert("data habis")
-			limit_data+=20
-			offset_data+=20
-				$http
+			var load_timeline = function(data){
+				limit_data+=20
+				offset_data+=20
+				var manager_group = data[0]['in_group_8']
+				var sales_supra_group = data[0]['in_group_63']
+				var direksi_group = data[0]['in_group_55']
+				var load_timeline_group =function(condition){
+					console.log(condition,"ini kondisinya")
+				 	$http
 				  	(
 						{
 							method: 'POST',
@@ -3070,7 +3193,7 @@ angular.module('app.controllers', ['ngMaterial'])
 										// "fields":'*',
 										// "table":"sales_activity_plan",
 										// 'AndOr':[],
-										'condition':{"the_date__lt":yesterday},
+										'condition':condition,
 										"limit":limit_data,
 										'offset':offset_data,
 										// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
@@ -3087,7 +3210,7 @@ angular.module('app.controllers', ['ngMaterial'])
 							function successCallback(response){
 								console.log('success isi storage kosong dari server');
 								console.log(response)
-								window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+								
 								updateSalesTm(response.data.data)
 
 								$ionicLoading.hide();
@@ -3101,6 +3224,117 @@ angular.module('app.controllers', ['ngMaterial'])
 								
 							}
 						)
+				 }
+
+				 if(manager_group || sales_supra_group){
+				 	var group_sales_line_load =function(data){
+					// console.log(data,"conditionnya")
+			 			$http(
+							{
+								method: 'POST',
+								url: 'http://'+config['host']+':'+config['port']+'/openerp/group.sales.line/ids/',
+								data: {'usn':name,
+									   'pw':pass,
+									   'ids':data,
+									   'fields':[]
+									},
+								headers: {
+									'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+								  
+								},
+							
+							}
+						).then(
+							function successCallback(response){
+								// console.log(response.data["Result"],"oasodossjd")
+								id_group_sales_line = []
+								for (i=0;i<response.data["Result"].length;i++){
+									
+									id_group_sales_line.push(response.data["Result"][i]['name'][0])
+								}
+				   				// console.log(id_group_sales_line)
+				   				var condition ={"the_date__lt":yesterday,"user_id":id_group_sales_line}
+								load_timeline_group(condition)
+							},
+							function errorCallback(response){
+								
+							}
+						)
+			 		}
+			 		$http
+		  			(
+					{
+						method: 'POST',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/group.sales/ids/',
+						data: {
+							'usn':name,
+							'pw':pass,
+							'ids':[data[0]['kelompok_id'][0]],
+							// 'domain':[['login','ilike',atob(name)]] ,
+							// 'domain':[['kelompok_id','=',8]] ,
+							'fields':['users_line'],
+							
+					},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+					
+				
+					}
+				).then(
+					function successCallback(response){
+					// console.log((response.data['Result'][0])['users_line'],"disini")
+					group_sales_line_load((response.data['Result'][0])['users_line'])
+					},
+					function errorCallback(response){
+				
+					}
+					)
+				 }
+				 else if (direksi_group){
+				 	var condition = {"the_date__lt":yesterday}
+				 	load_timeline_group(condition)
+				 }
+				 else{
+				 	var condition = {"the_date__lt":false}
+				 	load_timeline_group(condition)
+				 }
+				  
+			}
+
+
+
+
+			$http(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/res.users/search/',
+					data: {'usn':name,
+						   'pw':pass,
+						   'domain':[['login','ilike',atob(name)]] ,
+						   'fields':['in_group_8','in_group_63','in_group_55','kelompok_id']},
+
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					// console.log(response.data["Result"],"iniii")
+					// var res_users =  response.data["Result"]
+					// console.log(manager_group)
+					load_timeline(response.data["Result"])
+	   
+				},
+				function errorCallback(response){
+					
+				}
+			)
+
+		
 			}
 
 	};
@@ -3108,53 +3342,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$scope.colortext= {
         "color" : "red",
     }
-  	$http
-  	(
-		{
-			method: 'POST',
-			url: 'http://'+config['host']+':'+config['port']+'/openerp/salestimeline/AllData/',
-			data: {
-					'usn':name,
-					'pw':pass,
-					"params":{
-						// "fields":'*',
-						// "table":"sales_activity_plan",
-						// 'AndOr':[],
-						'condition':{"the_date":[today,yesterday]},
-						// "limit":100,
-						// 'offset':0,
-						// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
-					}
-			},
-			headers: {
-				'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-			  
-			},
-			
-		
-		}
-	).then(
-		function successCallback(response){
-			console.log('success isi storage kosong dari server');
-			console.log(response)
-			window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
-			reloadSalesTm(response.data.data)
 
-			$ionicLoading.hide();
-			if(response.data.data.length==0){
-				alertPopup = $ionicPopup.alert({
-				title: 'Warning',
-				template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
-			});
-			}
-		},
-		function errorCallback(response){
-			$ionicLoading.hide();
-			console.log(response)
-
-			console.log('erroor data kosong');
-	
-		}
-	)
+  
 	reloadSalesTm(timeline)
 })
