@@ -39,22 +39,22 @@
                 <span class="lunch">ACTUAL BEFORE LUNCH</span>
                 <div class="form-update">
                     <form class="list cancel-form">
-                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.checked" ng-checked="cbp.checked"
+                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.checked" ng-checked="{{cba.batal}}"
                         >CANCEL</ion-toggle>
                     </form>
                     <form class="list">
                         <label class="item item-input" name="results-plan-before-lunch">
-                            <span class="input-label">Results :</span><textarea placeholder="Input Actual Results" rows="4" cols="10" ng-model="cba.results"> </textarea>
+                            <span class="input-label">Results :</span><textarea placeholder="{{cba.name}}" rows="4" cols="10" ng-model="cba.results"></textarea>
                         </label>
                     </form>
                 </div>
+                <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button>
                 <hr>
                 </div>
             </div>
-        
-        <div>
-         <!-- {{ current_beforeactual }} -->
-        </div>
+    <!--     <div>
+         {{ current_beforeactual }}
+        </div> -->
 
 <!-- Add Actual before-->
              <div class="list card custom-list form-update">
@@ -87,7 +87,7 @@
             </div>
 
             </div>
-       <!--  <div>
+   <!--      <div>
          {{ fBUpdate }}
         </div> -->
             <br/>
@@ -113,20 +113,21 @@
                 <span class="lunch">ACTUAL AFTER LUNCH</span>
                 <div class="form-update">
                     <form class="list">
-                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.checked" ng-checked="cap.checked">CANCEL</ion-toggle>
+                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.checked" ng-checked="{{caa.batal}}">CANCEL</ion-toggle>
                     </form>
                     <form class="list">
                         <label class="item item-input" name="results-plan-before-lunch">
-                            <span class="input-label">Results :</span><textarea placeholder="Input Actual Results" rows="4" cols="10" ng-model="caa.results"> </textarea>
+                            <span class="input-label">Results :</span><textarea placeholder="{{caa.name}}" rows="4" cols="10" ng-model="caa.results"> </textarea>
                         </label>
                     </form>
                 </div>
+                <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
                 <hr>
                 </div>
              </div> 
-        <div>
-         <!-- {{ current_afteractual }} -->
-        </div>
+   <!--      <div>
+         {{ current_afteractual }}
+        </div> -->
 
 <!-- Add Actual after-->
              <div class="list card custom-list form-update">
@@ -159,7 +160,7 @@
             </div>
 
             </div>
-      <!--   <div>
+     <!--    <div>
          {{ fAUpdate }}
         </div> -->
             <br>
