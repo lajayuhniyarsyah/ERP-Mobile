@@ -99,15 +99,11 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })   
 .controller('submenusalesCtrl', function($scope,config) {
-		$scope.toggleLeft = function() {
-	      $ionicSideMenuDelegate.toggleLeft();
-	    };
+		
 })
    
 .controller('menuactivityCtrl', function($scope,config) {
-		$scope.toggleLeft = function() {
-	      $ionicSideMenuDelegate.toggleLeft();
-	    };
+		
 })
    
 .controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$filter,$window,config) {
@@ -2710,9 +2706,7 @@ angular.module('app.controllers', ['ngMaterial'])
 							]
 						}
 						
-								isi_update[data2].push([0,0,{'partner_id':partner_id,
-								'location':data_afterAdd[daa]['location'],
-								'name':data_afterAdd[daa]['objective']}])
+								isi_update[data2].push(toPush)
 					};
 
 				if (get_update_data == null) {
