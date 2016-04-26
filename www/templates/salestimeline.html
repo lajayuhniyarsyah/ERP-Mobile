@@ -1,5 +1,14 @@
 <ion-view title="SALES ACTIVITY TIMELINE" id="page11">
-	
+	<!-- Menu Back Dan Slide Menu -->
+<!-- Menu Back Dan Slide Menu -->
+<ion-nav-bar ng-controller="AppController">
+  <ion-nav-back-button class="button-clear"
+    ng-click="myGoBack()">
+    <i class="ion-arrow-left-c white-button"></i> 
+  </ion-nav-back-button>
+</ion-nav-bar>
+
+<ion-nav-buttons side="right"><button  menu-toggle = "right" class = "button button-icon icon ion-navicon white-button" ng-click = "toggleLeft()"></button></ion-nav-buttons>
 	<ion-content overflow-scroll="true" padding="true" class="has-header">
 	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
 		<ion-list></ion-list>
@@ -8,28 +17,28 @@
 
 			<div class="item item-divider item-divider-erp">
 				<span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
-				<div class="namasales font-black">{{tm.user}}</div>
+				<div class="namesales-timeline font-black">{{tm.user}}</div>
 				<div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
 				<div class="status"><span class="ok-status">OK</span></div>
 				<div class="both"></div>
-				<div class="judul-header"><b>{{tm.partner}} - {{tm.location}} </b></div>
+				<div class="judul-header-timeline"><b><span style="text-transform: uppercase;">{{tm.partner}} - {{tm.location}}</span> </b></div>
 				<div class="judul-before-after"><b>{{tm.daylight}}</b></div>
 			</div>
 				<div class="item item-body">
 					<div class="both"></div>
 					<div class="plan">
-						<div class="isicontent line-silver" ng-if="(tm.actual_result).length!=1">
-							<div class="judul-plan"><b>Planned Go To : {{tm.partner}} - {{tm.location}}</b></div>
+						<div class="isicontent-timeline line-silver" ng-if="(tm.actual_result).length!=1">
+							<div class="judul-plan"><b>Planned to go to : <span style="text-transform: uppercase;">{{tm.partner}} - {{tm.location}}</span></b></div>
 							 <pre> {{tm.name}} </pre>
 						</div>
-						<div class="isicontent" ng-if="(tm.actual_result).length==1">
-							<div class="judul-plan"><b>Planned Go To : {{tm.partner}} - {{tm.location}}</b></div>
+						<div class="isicontent-timeline" ng-if="(tm.actual_result).length==1">
+							<div class="judul-plan"><b>Planned to go to: <span style="text-transform: uppercase;">{{tm.partner}} - {{tm.location}}</span></b></div>
 							 <pre> {{tm.name}} </pre>
 						</div>
 					</div>
 					<div ng-if="(tm.actual_result).length!=1">
-						<b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}} </b>
-						<div class="isicontent">
+						<b>Actual Result : </b>
+						<div class="isicontent-timeline">
 						 <pre>{{(tm.actual_result)}}</pre>
 					</div>
 					</div>
@@ -40,28 +49,28 @@
 		   <div class="list card custom-list" ng-if="tm.canceled_plan" ng-click="openModal(tm)">
 			<div class="item item-divider item-divider-erp">
 				<span ng-if="tm.initial" class="inisia-name">{{tm.initial}}</span>
-				<div class="namasales font-black">{{tm.user}}</div>
+				<div class="namesales-timeline font-black">{{tm.user}}</div>
 				<div class="datesales font-black">{{tm.the_date|date:"EEEE" }} {{tm.the_date|date:"dd/MM/yyyy" }}</div>
 				<div class="status"><span class="cancel-status">CANCEL</span></div>
 				<div class="both"></div>
-				<div class="judul-header"><b>{{tm.partner}} - {{tm.location}}  </b></div>
+				<div class="judul-header-timeline"><b><span style="text-transform: uppercase;">{{tm.partner}} - {{tm.location}}</span>  </b></div>
 				 <div class="judul-before-after"><b>{{tm.daylight}}</b></div>
 			</div>
 				<div class="item item-body">
 					<div class="both"></div>
 					<div class="plan cancel">
-						<div class="isicontent line-silver" ng-if="(tm.actual_result).length!=1">
-							<div class="judul-plan"><b>Planned Go To :{{tm.partner}} - {{tm.location}}  Was Canceled</b></div>
+						<div class="isicontent-timeline line-silver" ng-if="(tm.actual_result).length!=1">
+							<div class="judul-plan"><b>Planned to go to :<span style="text-transform: uppercase;">{{tm.partner}} - {{tm.location}}</span>  Was Canceled</b></div>
 							 <pre> {{tm.name}} </pre>
 						</div>
-						<div class="isicontent" ng-if="(tm.actual_result).length==1">
-							<div class="judul-plan"><b>Planned Go To :{{tm.partner}} - {{tm.location}}  Was Canceled</b></div>
+						<div class="isicontent-timeline" ng-if="(tm.actual_result).length==1">
+							<div class="judul-plan"><b>Planned to go to :<span style="text-transform: uppercase;">{{tm.partner}} - {{tm.location}}</span>  Was Canceled</b></div>
 							 <pre> {{tm.name}} </pre>
 						</div>
 					</div>
 					<div ng-if="(tm.actual_result).length!=1">
 					<b>Actual Result Went To : {{tm.actual_result_partner}} - {{tm.actual_result_location}}</b>
-					<div class="isicontent">
+					<div class="isicontent-timeline">
 						<pre>{{tm.actual_result}}</pre>
 					</div>
 				</div>
@@ -80,24 +89,24 @@
 
 					<div class="item item-divider item-divider-erp">
 						<span ng-if="user.initial" class="inisia-name">{{user.initial}}</span>
-						<div class="namasales font-black">{{user.user}}</div>
+						<div class="namesales-timeline font-black">{{user.user}}</div>
 						<div class="datesales font-black">{{user.the_date|date:"EEEE" }} {{user.the_date|date:"dd/MM/yyyy" }}</div>
 						<div class="status"><span class="ok-status">OK</span></div>
 						<div class="both"></div>
-						<div class="judul-header"><b>{{user.partner}} - {{user.location}} </b></div>
+						<div class="judul-header-timeline"><b>{{user.partner}} - {{user.location}} </b></div>
 						<div class="judul-before-after"><b>{{user.daylight}}</b></div>
 					</div>
 						<div class="item item-body">
 							<div class="both"></div>
 							<div class="plan">
-								<div class="isicontent line-silver">
-									<div class="judul-plan font-modal"><b>Planned Go To : {{user.partner}} - {{user.location}}</b></div>
+								<div class="isicontent-timeline line-silver">
+									<div class="judul-plan font-modal"><b>Planned to go to : {{user.partner}} - {{user.location}}</b></div>
 									 <span class="font-modal"><pre> {{user.name}} </pre></span>
 								</div>
 							</div>
 							<div ng-if="user.actual_result">
 								<span class="font-modal"><b>Actual Result Went To : {{user.actual_result_partner}} - {{user.actual_result_location}} </b></span>
-								<div class="isicontent font-modal">
+								<div class="isicontent-timeline font-modal">
 								 <pre>{{user.actual_result}}</pre>
 							</div>
 							</div>
@@ -107,23 +116,23 @@
 					 <div class="list card custom-list" ng-if="user.canceled_plan" >
 						<div class="item item-divider item-divider-erp">
 							<span ng-if="user.initial" class="inisia-name">{{user.initial}}</span>
-							<div class="namasales font-black">{{user.user}}</div>
+							<div class="namesales-timeline font-black">{{user.user}}</div>
 							<div class="datesales font-black">{{user.the_date|date:"EEEE" }} {{user.the_date|date:"dd/MM/yyyy" }}</div>
 							<div class="status"><span class="cancel-status">CANCEL</span></div>
 							<div class="both"></div>
-							<div class="judul-header"><b>{{user.partner}} - {{user.location}}  </b></div>
+							<div class="judul-header-timeline"><b>{{user.partner}} - {{user.location}}  </b></div>
 							 <div class="judul-before-after"><b>{{user.daylight}}</b></div>
 						</div>
 							<div class="item item-body">
 								<div class="both"></div>
 								<div class="plan cancel">
-									<div class="isicontent line-silver">
-										<div class="judul-plan font-modal"><b>Planned Go To :{{user.partner}} - {{user.location}}  Was Canceled</b></div>
+									<div class="isicontent-timeline line-silver">
+										<div class="judul-plan font-modal"><b>Planned to go to :{{user.partner}} - {{user.location}}  Was Canceled</b></div>
 										 <pre class="font-modal"> {{user.name}} </pre>
 									</div>
 								</div>
 								<div><span class="font-modal"><b>Actual Result Went To : {{user.actual_result_partner}} - {{user.actual_result_location}} </b></span></div>
-								<div class="isicontent font-modal">
+								<div class="isicontent-timeline font-modal">
 									<pre>{{user.actual_result}}</pre>
 								</div>
 							</div>
@@ -138,7 +147,7 @@
 		<div class="both"></div>
 	   
 		  
-		<center><button class="button button-full" ng-click="loadMore()">Load</button></center>
+		<center><button class="button button-full" ng-click="loadMore()">Load More</button></center>
 
 
 	   <!--  <ion-list></ion-list>
