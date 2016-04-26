@@ -541,3 +541,6 @@ textarea{
 md-autocomplete{
 	width: 75% !important;
 }
+.item-thumbnail-left, .item-thumbnail-left .item-content{
+	min-height: 65px !important;
+}
