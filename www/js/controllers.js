@@ -97,7 +97,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 })
    
-.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$window,config) {
+.controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$filter,$window,config) {
    
 	  $ionicLoading.show({
 	    content: 'Loading',
@@ -196,20 +196,20 @@ angular.module('app.controllers', ['ngMaterial'])
 	 $scope.updatedata = function () {
 		get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
 		data_login = JSON.parse( window.localStorage.getItem('login_user'));
-		tes = get_sales_data_activity.filter(function(jsonObject){
+		filter_activityid = get_sales_data_activity.filter(function(jsonObject){
 			return jsonObject.user_id[0] === data_login[1]
-		}) 	
-		for (i=0; i < 5; i++ ){
-			if (new Date >= new Date (tes[i]['begin']) && new Date <= new Date (tes[i]['end']) ){
-				var activity_id_update = tes[i]['id'];
+		}) 
+
+	    curr_date = $filter('date')(new Date,"yyyy-MM-dd");
+		
+		for (i=0; i < 3; i++) {
+			if ( curr_date >= filter_activityid[i]['begin'] && curr_date <= filter_activityid[i]['end'] ){
+				var activity_id_update = filter_activityid[i]['id'];
 				window.localStorage.setItem('activity_id_update',JSON.stringify([activity_id_update]));
 				$state.go('formupdateactivity')
 			}
 		}
-		// else {
-		// 	alert('Tidak ada rencana aktivitas untuk hari ini')
-		// 	// console.log(tes[0]['id'],"eksperimen kami")
-		// }
+
 	 } 
 })
    
@@ -2556,6 +2556,9 @@ angular.module('app.controllers', ['ngMaterial'])
   	};
 
 	$scope.update = function() {
+		val_updBefore =  false;
+		val_updAfter =  false; 
+
 		var data1 = 'beforeactual'+get_day;
 		var data2 = 'afteractual'+get_day;
 		
@@ -2567,62 +2570,92 @@ angular.module('app.controllers', ['ngMaterial'])
 		var isi_update={}
 		isi_update[data1]=[];
 		isi_update[data2]=[];
-		console.log(isi_update,'bentuk_data')
+
+		var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
 
 		for (val_dbu= 0 ; val_dbu < data_before.length ; val_dbu++) {
+			// console.log(data_before[val_dbu].results,'dsadasd')
 			if (data_before[val_dbu].results==null) {
-				alert('Result Belum diisi')
+				val_updBefore = true;
+				// break;
+			}
+		}
+		for (val_dau= 0 ; val_dau < data_after.length ; val_dau++) {
+			if (data_after[val_dau].results==null) {
+				val_updAfter = true;
+				// break;
 			}
 		}
 
-		// for (dbu = 0; dbu < data_before.length; dbu++) {
-		// 				isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].results,
-		// 				'batal': data_before[dbu].checked }])
-		// }
-		// for (dau = 0; dau < data_after.length; dau++) {
-		// 				isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].results,
-		// 				'batal': data_after[dau].checked }])
-		// }
-		// for (var dba = 0; dba < data_beforeAdd.length; dba++) {
+		if (val_updBefore && val_updAfter) {
+			alert('seluruh result harus terisi')
+		}
+		else {
 
-		// 				isi_update[data1].push([0,0,{'partner_id':data_beforeAdd[dba]['customer'].id,
-		// 				'location':data_beforeAdd[dba]['location'],
-		// 				'name':data_beforeAdd[dba]['objective']}])
-		// };
-		// for (var daa = 0; daa < data_afterAdd.length; daa++) {
+				for (dbu = 0; dbu < data_before.length; dbu++) {
+								isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].results,
+								'batal': data_before[dbu].checked }])
+				}
+				for (dau = 0; dau < data_after.length; dau++) {
+								isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].results,
+								'batal': data_after[dau].checked }])
+				}
+				for (var dba = 0; dba < data_beforeAdd.length; dba++) {
 
-		// 				isi_update[data2].push([0,0,{'partner_id':data_afterAdd[daa]['customer'].id,
-		// 				'location':data_afterAdd[daa]['location'],
-		// 				'name':data_afterAdd[daa]['objective']}])
-		// };
+								isi_update[data1].push([0,0,{'partner_id':data_beforeAdd[dba]['customer'].id,
+								'location':data_beforeAdd[dba]['location'],
+								'name':data_beforeAdd[dba]['objective']}])
+				};
+				for (var daa = 0; daa < data_afterAdd.length; daa++) {
+
+								isi_update[data2].push([0,0,{'partner_id':data_afterAdd[daa]['customer'].id,
+								'location':data_afterAdd[daa]['location'],
+								'name':data_afterAdd[daa]['objective']}])
+				};
+
+				if (get_update_data == null) {
+					
+					var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
+					window.localStorage.setItem('update_data_temp', JSON.stringify([update_data_temp]));
+				}
+				// else {
+
+				// 	var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
+
+				// }
+				// console.log()
+		
 
 
-// $http(
-// 			{
-// 				method: 'POST',
-// 				url: 'http://'+config['host']+':'+config['port']+'/openerp/update/sales.activity/',
-// 				data: {
-// 					'usn':name,'pw':pass ,'ids':id_activity_update[0],'vals':isi_update
-// 				},
-// 				headers: {
-// 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-// 				},		
-// 			}
-// 		).then(
-// 			function successCallback(response){
-// 			alert("sukses")
-// 			window.localStorage.removeItem('activity_id_update');
-// 			$state.go('menuactivity')
-// 			},
-// 			function errorCallback(response){
-// 				alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
-// 				var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
-// 				window.localStorage.setItem('update_data_temp', JSON.stringify([update_data_temp]));
-// 				// $window.localStorage.clear();
-// 				$state.go('menuactivity');
-// 			}
-// 		)			
+
+			// $http(
+			// 	{
+			// 		method: 'POST',
+			// 		url: 'http://'+config['host']+':'+config['port']+'/openerp/update/sales.activity/',
+			// 		data: {
+			// 			'usn':name,'pw':pass ,'ids':id_activity_update[0],'vals':isi_update
+			// 		},
+			// 		headers: {
+			// 			'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+			// 		},		
+			// 	}
+			// ).then(
+			// 	function successCallback(response){
+			// 	alert("sukses")
+			// 	window.localStorage.removeItem('activity_id_update');
+			// 	$state.go('menuactivity')
+			// 	},
+			// 	function errorCallback(response){
+			// 		alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
+			// 		var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
+			// 		window.localStorage.setItem('update_data_temp', JSON.stringify([update_data_temp]));
+			// 		// $window.localStorage.clear();
+			// 		$state.go('menuactivity');
+			// 	}
+			// )
+		}
 	}
+
 })
    
 .controller('formdaymondayCtrl', function($scope,$stateParams,$http,$state,config) {
