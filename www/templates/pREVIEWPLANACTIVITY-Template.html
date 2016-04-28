@@ -7,12 +7,12 @@
                 <p>
 
                     <b>
-                    Ricky Djendakang
+                    {{pic}}
                     
                     </b>
                     <br>
                     <u class="spacing">
-                        02/22/2016 - 02/28/2016
+                        {{begin|date:"MM/dd/yyyy"}} - {{end|date:"MM/dd/yyyy"}}
                     </u>
                 </p>
             </div>
@@ -24,31 +24,29 @@
                     <b>MONDAY</b>
                 </div>
 
-
                 <span class="lunch">BEFORE LUNCH</span>
 
-                <span class="judul-cus-view ion-person"> FREEPORT INDONESIA,PT</span>
-                <b class="font-location">JAKARTA</b>
+                <div ng-repeat="bppsenin in bpp_senin">
+                <span class="judul-cus-view ion-person"> {{bppsenin.customer['display_name']}} </span>
+                <b class="font-location">{{bppsenin.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
-
+                <b>Objectives : </b>{{bppsenin.objective}}
+                <div class="line-silver"></div>
+                </div>
                 <br>
                 <br>
+                
                 <span class="lunch">AFTER LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="appsenin in app_senin">
+                <span class="judul-cus-view ion-person">{{appsenin.customer['display_name']}}</span>
+                <b class="font-location ">{{appsenin.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
-
+                <b>Objectives : </b>{{appsenin.objective}}
                 <div class="line-silver"></div>
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
-                <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
-            </div>
+                </div>
 
+            </div>
 
             <div class="spacer" style="width: 284px; height: 43px;"></div>
 
@@ -59,28 +57,27 @@
 
                 <span class="lunch">BEFORE LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="bppselasa in bpp_selasa">
+                <span class="judul-cus-view ion-person">{{bppselasa.customer['display_name']}}</span>
+                <b class="font-location">{{bppselasa.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+                <b>Objectives : </b>{{bppselasa.objective}}
+                <div class="line-silver"></div>
+                </div>
+                <br>
+                <br>
 
-                <br>
-                <br>
                 <span class="lunch">AFTER LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="appselasa in app_selasa">
+                <span class="judul-cus-view ion-person">{{appselasa.customer['display_name']}}</span>
+                <b class="font-location ">{{appselasa.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
-
+                <b>Objectives : </b>{{appselasa.objective}}
                 <div class="line-silver"></div>
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
-                <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
-            </div>
+                </div>
 
+            </div>
 
             <div class="spacer" style="width: 284px; height: 43px;"></div>
 
@@ -89,28 +86,26 @@
                     <b>WEDNESDAY</b>
                 </div>
 
-                <span class="lunch">BEFORE LUNCH</span>
-
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="bpprabu in bpp_rabu">
+                <span class="judul-cus-view ion-person">{{bpprabu.customer['display_name']}}</span>
+                <b class="font-location">{{bpprabu.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+                <b>Objectives : </b>{{bpprabu.objective}}
+                <div class="line-silver"></div>
+                </div>
+                <br>
+                <br>
 
-                <br>
-                <br>
                 <span class="lunch">AFTER LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="apprabu in app_rabu">
+                <span class="judul-cus-view ion-person">{{apprabu.customer['display_name']}}</span>
+                <b class="font-location ">{{apprabu.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
-
+                <b>Objectives : </b>{{apprabu.objective}}
                 <div class="line-silver"></div>
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
-                <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+                </div>
+
             </div>
 
             <div class="spacer" style="width: 284px; height: 43px;"></div>
@@ -122,26 +117,26 @@
 
                 <span class="lunch">BEFORE LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="bppkamis in bpp_kamis">
+                <span class="judul-cus-view ion-person">{{bppkamis.customer['display_name']}}</span>
+                <b class="font-location">{{bppkamis.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+                <b>Objectives : </b>{{bppkamis.objective}}
+                <div class="line-silver"></div>
+                </div>
+                <br>
+                <br>
 
-                <br>
-                <br>
                 <span class="lunch">AFTER LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="appkamis in app_kamis">
+                <span class="judul-cus-view ion-person">{{appkamis.customer['display_name']}}</span>
+                <b class="font-location ">{{appkamis.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
-
+                <b>Objectives : </b>{{appkamis.objective}}
                 <div class="line-silver"></div>
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
-                <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+                </div>
+
             </div>
           
             <div class="spacer" style="width: 284px; height: 43px;"></div>
@@ -153,30 +148,30 @@
 
                 <span class="lunch">BEFORE LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="bppjumat in bpp_jumat">
+                <span class="judul-cus-view ion-person">{{bppjumat.customer['display_name']}}</span>
+                <b class="font-location">{{bppjumat.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley, sangat mendukung apabila Supra bisa bantu untuk maping conveyor mereka, akan di tindak lanjuti, dengan pengajuan
-                dari Supra dan akan di siapkan penginapan dan makan untuk inspektor dari Supra
+                <b>Objectives : </b>{{bppjumat.objective}}
+                <div class="line-silver"></div>
+                </div>
+                <br>
+                <br>
 
-                <br>
-                <br>
                 <span class="lunch">AFTER LUNCH</span>
 
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
+                <div ng-repeat="appsenin in app_senin">
+                <span class="judul-cus-view ion-person">{{appjumat.customer['display_name']}}</span>
+                <b class="font-location ">{{appjumat.location}}</b>
                 <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
-
+                <b>Objectives : </b>{{appjumat.objective}}
                 <div class="line-silver"></div>
-                <span class="judul-cus-view ion-person">FREEPORT INDONESIA,PT</span>
-                <b class="font-location ">JAKARTA</b>
-                <br><br/>
-                <b>Objectives : </b>Ketemu Pak Bambang Sarwoko, ada peluang untuk roller dan Belt, kurang personil untuk maping roller dan Pulley
+                </div>
+
             </div>
 
             <div class="spacer" style="width: 284px; height: 43px;"></div>
-            <button id="pREVIEWPLANACTIVITY-button9" style="font-weight:;border-radius:22px 22px 22px 22px;" class="button button-positive  button-block icon-left ion-android-add-circle">SAVE ACTIVITY</button>
+            <button id="pREVIEWPLANACTIVITY-button9" style="font-weight:;border-radius:22px 22px 22px 22px;" class="button button-positive  button-block icon-left ion-android-add-circle" ng-click="sendData()">SAVE ACTIVITY</button>
             </div>
             
        </div>
