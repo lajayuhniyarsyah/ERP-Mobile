@@ -62,16 +62,25 @@
              
              <div ng-repeat="fbu in fBUpdate">
              <form class="list">
+              <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()"><span class="ion-trash-a"></span></button>
+              <br/>
                 <label class="item item-input" name="customer-before-lunch">
                     <span class="input-label" style="width:25%;">Customer</span>
-                <md-autocomplete md-selected-item="fbu.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.display_name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete>
+                    <md-autocomplete 
+                        ng-disabled="fbu.isDisabled"
+                        md-selected-item="fbu.customer" 
+                        md-search-text="searchText" 
+                        md-items="item in getMatches(searchText)" 
+                        md-item-text="item.display_name" 
+                        placeholder="Search Customer"
+                        md-no-cache="fbu.noCache">
+                        <md-item-template>
+                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display_name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No matches found.
+                        </md-not-found>
+                    </md-autocomplete>
                 </label>
                 <label class="item item-input" name="location-before-lunch">
                     <span class="input-label" style="width:25%;">Location</span>
@@ -82,7 +91,7 @@
                     <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fbu.objective"> </textarea>
                 </label>
                 <br>
-                <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()">Remove</button>
+                <!-- <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()">Remove</button> -->
             </form>
             </div>
 
@@ -113,6 +122,7 @@
                 <span class="lunch">ACTUAL AFTER LUNCH</span>
                 <div class="form-update">
                     <form class="list">
+
                         <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.checked" ng-checked="cap.checked"class="toggle-small">CANCEL</ion-toggle>
                     </form>
                     <form class="list">
@@ -134,6 +144,7 @@
              <div ng-repeat="fau in fAUpdate">
              <form class="list">
                 <button class="remove-button" ng-show="$last" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
+                <br/>
                 <label class="item item-input" name="customer-after-lunch">
                     <span class="input-label" style="width:25%;">Customer</span>
                 <md-autocomplete md-selected-item="fau.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
