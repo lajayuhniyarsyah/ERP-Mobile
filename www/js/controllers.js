@@ -59,7 +59,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
    
-.controller('menuloginCtrl', function($scope,config, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike,config) {
+.controller('menuloginCtrl', function($scope, $window, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike, config) {
 
 	if (! localStorage.reload) {
 		localStorage.setItem("reload","true");
@@ -95,8 +95,28 @@ angular.module('app.controllers', ['ngMaterial'])
 			title:"Errorrr",
 			template:"testttt dulu bos"
 		});
+	}
+	$scope.logOut = function() {
+		// $window.localStorage.clear();
+		// $state.go('menulogin');
+		// window.location.reload();
+      var confirmPopup = $ionicPopup.confirm({
+         title: 'Log Out',
+         template: 'Apa Anda Yakin?'
+      });
+
+      confirmPopup.then(function(res) {
+         if(res) {
+			$window.localStorage.clear();
+			$state.go('menulogin');
+			window.location.reload();
+         } else {
+            console.log('batal');
+         }
+      });
 
 	}
+
 })   
 .controller('submenusalesCtrl', function($scope,config) {
 		$scope.toggleLeft = function() {
@@ -2450,7 +2470,6 @@ angular.module('app.controllers', ['ngMaterial'])
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug"));
 
 	id_activity_update = JSON.parse( window.localStorage.getItem('activity_id_update')); // ambil activity id yanga akan diupdate
-	// console.log(id_activity_update[0],'sadadasdadsasd')
 	data_login = JSON.parse( window.localStorage.getItem('login_user'));
 	
 	$scope.username_update = data_login[0];
@@ -2480,7 +2499,7 @@ angular.module('app.controllers', ['ngMaterial'])
 				}
 			).then(
 				function successCallback(response){
-					// console.log(response.data['Result'],'ini data before')
+
 					$scope.current_beforeactual = response.data['Result'];  
 				},
 				function errorCallback(response){
@@ -2524,7 +2543,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			).then(
 				function successCallback(response){
 					$scope.current_afteractual = response.data['Result'];
-					// window.localStorage.setItem( 'afterupdateid', JSON.stringify(afterupdateid));
+	
 				},
 				function errorCallback(response){
 					get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
@@ -2593,7 +2612,15 @@ angular.module('app.controllers', ['ngMaterial'])
 		return res_matched
 	}
 
-	//fungsi remove form
+	$scope.hapusBefore = function(index) {
+	$scope.current_beforeactual.splice(index, 1);
+	};
+	
+	$scope.hapusAfter = function(index) {
+	$scope.current_afteractual.splice(index, 1);
+	};
+
+	//fungsi remove form add
 	$scope.removeBeforeUp = function() {
     var lastItem = $scope.fBUpdate.length-1;
     $scope.fBUpdate.splice(lastItem);
@@ -2630,7 +2657,6 @@ angular.module('app.controllers', ['ngMaterial'])
 		val_updAfter =  false; 
 
 		for (val_dbu= 0 ; val_dbu < data_before.length ; val_dbu++) {
-			// console.log(data_before[val_dbu].results,'dsadasd')
 			if (data_before[val_dbu].results==null) {
 				val_updBefore = true;
 				break;
@@ -2670,7 +2696,8 @@ angular.module('app.controllers', ['ngMaterial'])
 							}
 						]
 					}else{
-						partner_id = data_afterAdd[daa]['customer'].id
+						
+						partner_id = data_afterAdd[dba]['customer'].id
 						toPush = [
 							0,
 							0,
@@ -2682,7 +2709,6 @@ angular.module('app.controllers', ['ngMaterial'])
 						]
 					}
 					
-
 					isi_update[data1].push(toPush)
 				};
 				for (var daa = 0; daa < data_afterAdd.length; daa++) {
@@ -2710,9 +2736,7 @@ angular.module('app.controllers', ['ngMaterial'])
 							]
 						}
 						
-								isi_update[data2].push([0,0,{'partner_id':partner_id,
-								'location':data_afterAdd[daa]['location'],
-								'name':data_afterAdd[daa]['objective']}])
+						isi_update[data2].push(toPush)
 					};
 
 				if (get_update_data == null) {
@@ -2752,8 +2776,6 @@ angular.module('app.controllers', ['ngMaterial'])
 					},
 					function errorCallback(response){
 						alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
-						// var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
-						// window.localStorage.setItem('update_data_temp', JSON.stringify([update_data_temp]));
 						$state.go('menuactivity');
 					}
 				)
@@ -3105,14 +3127,14 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(
 			function successCallback(response){
-			alert("sukses")
-			window.localStorage.removeItem('temporary_data_create_plan');
-			$state.go('menuactivity')
+				alert("sukses")
+				window.localStorage.removeItem('temporary_data_create_plan');
+				$state.go('menuactivity')
 			},
 			function errorCallback(response){
 				alert("gagal")
 				// $window.localStorage.clear();
-				// $state.go('formreviewactivity');
+				$state.go('menuactivity');
 			}
 		)			
 	}
