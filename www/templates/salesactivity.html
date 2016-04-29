@@ -10,32 +10,28 @@
 <ion-nav-buttons side="right"><button  menu-toggle = "right" class = "button button-icon icon ion-navicon white-button" ng-click = "toggleLeft()"></button></ion-nav-buttons>
 
     <ion-content class="has-header" overflow-scroll="true" >
+   <!--  <ion-refresher pulling-text="Loading..." on-refresh="salesdataRefresh()"></ion-refresher> -->
         <form  class="list" style="padding:0px !important;">
         
             <ion-list ng-controller="salesactivityCtrl" >
+            <br/>
             <a class="button button-positive  icon-left ion-edit button-update-activity" id="salesactivity-button1" ng-click="updatedata()">
                 <center>Update Current day Activity</center>
             </a>
-                 <ion-item style="" ui-sref="previewplanactivity({id: sls.id, pic: sls.user_id[1], begin: sls.begin, end: sls.end})" class="item-thumbnail-left" > 
-                        <div class="icon-right ion-chevron-right button-calm" style="float:right;margin-top:20px;margin-right:-10px;"></div>
-                        <img src="img/icon-ok.png" width="30%" height="auto" class="img-salesactivity">
-                        <div class="status"><span class="status-activity-postpone"><div class="ion-loop"></div></div>
-                        <h2>TESTING</h2>
-                        <p>Date : 12-04-2016 - 18-04-2016</p>
-                </ion-item>
-
-
+            <a class="button button-positive  icon-left ion-eye button-view-activity" id="salesactivity-button1">
+                <center>View Activity This Week</center>
+            </a>
                 <ion-item style="" ui-sref="previewplanactivity({id: sls.id, pic: sls.user_id[1], begin: sls.begin, end: sls.end})" class="item-thumbnail-left" ng-repeat="sls in sda"> 
 
                         <div class="icon-right ion-chevron-right button-calm" style="float:right;margin-top:20px;margin-right:-10px;"></div>
-                        <img src="img/icon-ok.png"  height="auto" class="img-salesactivity">
+                        <img src="data:image/png;base64,{{sls.image}}"  height="auto" class="img-salesactivity" ng-if="sls.image">
+                        <img src="img/icon-ok.png"  height="auto" class="img-salesactivity" ng-if="!sls.image">
                         <div class="status"><span class="status-activity-ok"><div class="ion-shuffle"></div></span></div>
                         <h2>{{sls.user_id[1]}}</h2>
                         <p>Date : {{sls.begin|date:"MM/dd/yyyy"}} - {{sls.end|date:"MM/dd/yyyy"}}</p>
                 </ion-item>
                 <a class="button button-positive  icon-right ion-android-add-circle" id="salesactivity-button2" ui-sref="formactivity" style="width:100%;">Create Plan Activity</a>
             </ion-list>
-
         </form>
     </ion-content>
 </ion-view>

@@ -1,6 +1,5 @@
 angular.module('app.controllers', ['ngMaterial'])
 
-
 .config(function( $mdGestureProvider ) {
   $mdGestureProvider.skipClickHijack();
 })
@@ -131,20 +130,18 @@ angular.module('app.controllers', ['ngMaterial'])
    
 .controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$filter,$window,config) {
    
-	  $ionicLoading.show({
-	    content: 'Loading',
-	    animation: 'fade-in',
-	    showBackdrop: true,
-	    maxWidth: 200,
-	    showDelay: 0
-	  });
-
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	var sales_data_activity = (window.localStorage.getItem('sales_data_activity'));
 
-	 if (sales_data_activity==null) {
-			
+		$ionicLoading.show({
+			content: 'Loading',
+			animation: 'fade-in',
+			showBackdrop: true,
+			maxWidth: 200,
+			showDelay: 0
+		});
+
 		$http(
 				{
 					method: 'POST',
@@ -156,73 +153,145 @@ angular.module('app.controllers', ['ngMaterial'])
 				}
 			).then(
 				function successCallback(response){
-					console.log('success isi storage kosong dari server');
+					console.log('success ambil data sales activity');					
 					
-					$scope.sda = response.data['Result']
-					$ionicLoading.hide();
-					var sda = response.data['Result'];
+					//get data sales activity dari server dan simpan di local storage 
+					var sales_activity = response.data['Result'];
+					window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sales_activity));
+					id_sales = [];
 
-					window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sda));	   
+					//fungsi untuk mengambil semua id dari sales 
+					for (i = 0; i < sales_activity.length; i++) {
+						id_sales.push(sales_activity[i]['user_id'][0])
+					}
+					
+					// fungsi untuk mendapatkan image dari tiap id yang ada
+						$http(
+							{
+								method: 'POST',
+								url: 'http://'+config['host']+':'+config['port']+'/openerp/res.users/search/',
+								data: {'usn':name,
+									   'pw':pass,
+									   'domain':[['id','in',id_sales]] ,
+									   'fields':['image_small']},
+
+								headers: {
+									'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+								  
+								},
+							
+							}
+						).then(
+							function successCallback(response){
+
+							var img_data = response.data['Result'];
+							for (is = 0 ; is < id_sales.length ; is++) {
+								for (ii = 0 ; ii < img_data.length ; ii++ ) {
+									if (id_sales[is] == img_data[ii].id) {
+										sales_activity[is]['image'] = img_data[ii].image_small;
+									}
+								}
+							}
+
+				   			$scope.sda = sales_activity;
+				   			console.log(sales_activity,"adsadsadasdasdsadas")
+							},
+							function errorCallback(response){
+								console.log('error get image');
+								// $state.go('menulogin');
+							}
+						)	
+
+					$ionicLoading.hide();	   
 				},
 				function errorCallback(response){
+				 
+				 	var get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
+
+					if (get_sales_data_activity == null) {
+					 	alert('Data tidak dapat ditampilkan')
+					}
+					else {
+					 // tampilkan data yang ada pada local storage
+					$scope.sda = get_sales_data_activity;
 					$ionicLoading.hide();
-					alert('Koneksi tidak ada, data tidak dapat ditampilkan')
-					// $window.localStorage.clear();
-					// $state.go('menulogin');
+					}
 				}
 			)          
-	 }
-	 else {
 
-		 var get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
-		 var ids = get_sales_data_activity[0].id;         
+	 // $scope.salesdataRefresh = function(){
 
-		$http(
-			{
-				method: 'POST',
-				url: 'http://'+config['host']+':'+config['port']+'/openerp/sales.activity/getupdate/',
-				data: {'usn':name,'pw':pass , 'fields':[],'ids':ids},
-				headers: {
-					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp", 
-				},
-			}
-		).then(
-			function successCallback(response){
-				console.log('success cek update dari server');
+		// $http(
+		// 	{
+		// 		method: 'POST',
+		// 		url: 'http://'+config['host']+':'+config['port']+'/openerp/sales.activity/',
+		// 		data: {'usn':name,'pw':pass , 'fields':[]},
+		// 		headers: {
+		// 			'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",  
+		// 		},
+		// 	}
+		// ).then(
+		// 	function successCallback(response){
+		// 		console.log('success ambil data sales activity');					
 				
-				var sda_update = response.data['Result'];
-				var currentObj = JSON.parse(window.localStorage.getItem('sales_data_activity')); //object
-					
-					if(currentObj.length>100){
-						// jika current storage sudah 100
-						for (i = 0, len = sda_update.length; i < len; i++){
+		// 		//get data sales activity dari server dan simpan di local storage 
+		// 		var sales_activity = response.data['Result'];
+		// 		window.localStorage.setItem( 'sales_data_activity', JSON.stringify(sales_activity));
+		// 		id_sales = [];
 
-							currentObj.pop();
-							window.localStorage.setItem('sales_data_activity',JSON.stringify(currentObj));
-						};
-					 }					
+		// 		//fungsi untuk mengambil semua id dari sales 
+		// 		for (i = 0; i < sales_activity.length; i++) {
+		// 			id_sales.push(sales_activity[i]['user_id'][0])
+		// 		}
+				
+		// 		// fungsi untuk mendapatkan image dari tiap id yang ada
+		// 			$http(
+		// 				{
+		// 					method: 'POST',
+		// 					url: 'http://'+config['host']+':'+config['port']+'/openerp/res.users/search/',
+		// 					data: {'usn':name,
+		// 						   'pw':pass,
+		// 						   'domain':[['id','in',id_sales]] ,
+		// 						   'fields':['image_small']},
 
-					//append new object
+		// 					headers: {
+		// 						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							  
+		// 					},
+						
+		// 				}
+		// 			).then(
+		// 				function successCallback(response){
 
-					for (i = 0, len = sda_update.length; i < len; i++){
+		// 				var img_data = response.data['Result'];
+		// 				for (is = 0 ; is < id_sales.length ; is++) {
+		// 					for (ii = 0 ; ii < img_data.length ; ii++ ) {
+		// 						if (id_sales[is] == img_data[ii].id) {
+		// 							sales_activity[is]['image'] = img_data[ii].image_small;
+		// 						}
+		// 					}
+		// 				}
 
-						currentObj.unshift(sda_update[i]);
-						window.localStorage.setItem('sales_data_activity',JSON.stringify(currentObj));
-					};
-				var get_sales_data_activity = JSON.parse(window.localStorage.getItem('sales_data_activity'));
+		// 	   			$scope.sda = sales_activity;
 
-				$scope.sda = get_sales_data_activity;
-				$ionicLoading.hide();
-			},
-			function errorCallback(response){
-				$ionicLoading.hide();
-				console.log('gagal cek update dari server');
-				// $window.localStorage.clear();
-				// $state.go('menulogin');
-			}
-		) 
-	 
-	 }
+		// 				},
+		// 				function errorCallback(response){
+		// 					console.log('error get image');
+		// 					// $state.go('menulogin');
+		// 				}
+		// 			)	
+
+		// 		// $ionicLoading.hide();
+		// 		$scope.$broadcast('scroll.refreshComplete');	   
+		// 	},
+		// 	function errorCallback(response){
+		// 		// $ionicLoading.hide();
+		// 		alert('Koneksi tidak ada, data tidak dapat ditampilkan')
+		// 		// $window.localStorage.clear();
+		// 		// $state.go('menulogin');
+		// 	}
+		// )
+	 // }
 
 	 $scope.updatedata = function () {
 		get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
@@ -246,10 +315,6 @@ angular.module('app.controllers', ['ngMaterial'])
    
 .controller('formactivityCtrl', function($scope,$http,$state,$filter,config,$ionicHistory) {
 	 
-	$scope.myGoBack = function() {
-	    $ionicHistory.goBack();
-	};
-
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 
@@ -257,16 +322,15 @@ angular.module('app.controllers', ['ngMaterial'])
 		return JSON.parse(window.localStorage.getItem(key));
 	}
 	// var temp_current_data = JSON.parse(window.localStorage.getItem('temporary_data_create_plan'));
-	var temp_current_data = getLs('temporary_data_create_plan');
+	var temp_current_data = getLs('temporary_data_create_plan');	
 	var data_login = getLs('login_user');
 
 	var setLs =function(key,val){
-		// console.log('call setLs key',key); // console.log('call setLs val',val);
+
 		window.localStorage.setItem(key, JSON.stringify(val)); //set
 		
 		//refresh
 		temp_current_data = getLs(key);
-		// console.log('Temp Updated')
 	}
 	
 	var create_pic = temp_current_data
@@ -292,6 +356,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 	//nama user yang akan dikirim ke view
 	$scope.user = data_login[0];
+	$scope.temp_data = getLs('temporary_data_create_plan');
 
 	// setting date
     $scope.dates = {};
@@ -300,6 +365,7 @@ angular.module('app.controllers', ['ngMaterial'])
        var day = date.getDay();
        return day === 1; }
 	
+	// fungsi On-Change pada date
 	$scope.datechange = function() {
 
 	temp_current_data = getLs('temporary_data_create_plan')
@@ -351,9 +417,13 @@ angular.module('app.controllers', ['ngMaterial'])
 			function errorCallback(response){
 				alert("Jaringan anda tidak tersedia")
 			}
-	)		 
-
+		)		 
 	};
+	
+	$scope.myGoBack = function() {
+	    $ionicHistory.goBack();
+	};
+
 	$scope.salesactivity = function(){
 		alert(1);
 		$state.go('salesactivity');
@@ -2469,7 +2539,6 @@ angular.module('app.controllers', ['ngMaterial'])
 
 .controller('formupdateactivityCtrl', function($scope,$stateParams,$state,$http,config) {
 	
-		
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd"));
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug"));
 
@@ -2616,12 +2685,19 @@ angular.module('app.controllers', ['ngMaterial'])
 		return res_matched
 	}
 
-	$scope.hapusBefore = function(index) {
+	//fungsi hapus form yang telah di send ke server (ket: yang tidak memiliki plan id)
+	var dataHapusBef = [];
+	var dataHapusAft = [];
+	$scope.hapusBefore = function(index) {	
+	dataHapusBef.push($scope.current_beforeactual[index].id);
 	$scope.current_beforeactual.splice(index, 1);
+	// console.log(dataHapusBef,'ini data yang dihapus')
 	};
 	
 	$scope.hapusAfter = function(index) {
+	dataHapusAft.push($scope.current_afteractual[index].id);
 	$scope.current_afteractual.splice(index, 1);
+	console.log(dataHapusAft,'ini data yang dihapus')
 	};
 
 	//fungsi remove form add
@@ -2661,13 +2737,13 @@ angular.module('app.controllers', ['ngMaterial'])
 		val_updAfter =  false; 
 
 		for (val_dbu= 0 ; val_dbu < data_before.length ; val_dbu++) {
-			if (data_before[val_dbu].results==null) {
+			if (data_before[val_dbu].name=="") {
 				val_updBefore = true;
 				break;
 			}
 		}
 		for (val_dau= 0 ; val_dau < data_after.length ; val_dau++) {
-			if (data_after[val_dau].results==null) {
+			if (data_after[val_dau].name=="") {
 				val_updAfter = true;
 				break;
 			}
@@ -2678,15 +2754,16 @@ angular.module('app.controllers', ['ngMaterial'])
 			alert('seluruh result harus terisi')
 		}
 		else {
-
+				//looping data yang akan diupdaute
 				for (dbu = 0; dbu < data_before.length; dbu++) {
-					isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].results,
-					'batal': data_before[dbu].checked }])
+					isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].name,
+					'batal': data_before[dbu].batal}])
 				}
 				for (dau = 0; dau < data_after.length; dau++) {
-					isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].results,
-					'batal': data_after[dau].checked }])
+					isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].name,
+					'batal': data_after[dau].batal }])
 				}
+				// looping data yang akan ditambahkan pada saat update
 				for (var dba = 0; dba < data_beforeAdd.length; dba++) {
 
 					if(data_beforeAdd[dba]['customer']==null){
@@ -2701,7 +2778,7 @@ angular.module('app.controllers', ['ngMaterial'])
 						]
 					}else{
 						
-						partner_id = data_afterAdd[dba]['customer'].id
+						partner_id = data_beforeAdd[dba]['customer'].id
 						toPush = [
 							0,
 							0,
@@ -2742,6 +2819,14 @@ angular.module('app.controllers', ['ngMaterial'])
 						
 						isi_update[data2].push(toPush)
 					};
+				// looping hapus data yang ada di server pada saat update (ket : hanya data tanpa plan id)
+				for (var drb = 0; drb < dataHapusBef.length; drb++) {
+					isi_update[data1].push([2,dataHapusBef[drb]])
+				};
+				for (var dra = 0; dra < dataHapusAft.length; dra++) {
+					isi_update[data2].push([2,dataHapusAft[dra]])
+					};
+
 
 				if (get_update_data == null) {
 					
@@ -2776,11 +2861,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					alert("sukses")
 					window.localStorage.removeItem('activity_id_update');
 					window.localStorage.removeItem('update_data_temp');
-					$state.go('menuactivity')
+					$state.go('salesactivity')
 					},
 					function errorCallback(response){
 						alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
-						$state.go('menuactivity');
+						$state.go('salesactivity');
 					}
 				)
 		}
