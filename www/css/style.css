@@ -24,7 +24,7 @@ ion-content{
 }
 .bar.bar-stable .title{
 	color: white !important;
-	text-align: center;	
+	text-align: center;	 
 }
 .ion-ios-lock{
 	display: block;
@@ -660,4 +660,22 @@ md-autocomplete{
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+}
+@media screen and (max-width: 400px) {
+    .button-update-activity{
+        width:100% !important;
+        border-radius: 5px 5px 0px 0px;
+	    -moz-border-radius: 5px 5px 0px 0px;
+	    -webkit-border-radius: 5px 5px 0px 0px;
+	    -o-border-radius: 5px 5px 0px 0px;
+	    font-size: 13px !important;
+    }
+    .button-view-activity{
+    	width: 100% !important;
+    	border-radius: 0px 0px 0px 0px !important;
+	    -moz-border-radius: 0px 0px 0px 0px !important;
+	    -webkit-border-radius: 0px 0px 0px 0px !important;
+	    -o-border-radius: 0px 0px 0px 0px !important;
+	    font-size: 13px !important;
+    }
 }
