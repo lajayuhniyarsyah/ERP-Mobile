@@ -3184,7 +3184,181 @@ angular.module('app.controllers', ['ngMaterial'])
 	
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	$scope.doRefresh = function(){
+		var timeline = function(data){
+		var manager_group = data[0]['in_group_8']
+		var sales_supra_group = data[0]['in_group_63']
+		var direksi_group = data[0]['in_group_55']
+		var data_timeline_group = function(condition){
 
+			$http
+		  	(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/salestimeline/AllData/',
+					data: {
+							'usn':name,
+							'pw':pass,
+							"params":{
+								// "fields":'*',
+								// "table":"sales_activity_plan",
+								// 'AndOr':[],
+								'condition':condition
+								// "limit":100,
+								// 'offset':0,
+								// "order":"order by year_p DESC, week_no DESC, dow DESC, user_id, daylight, not_planned_actual"
+							}
+					},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+					
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log('success isi storage kosong dari server');
+					console.log(response)
+					window.localStorage.setItem('timeline2',JSON.stringify(response.data.data))
+					reloadSalesTm(response.data.data)
+
+					$scope.$broadcast('scroll.refreshComplete');
+					if(response.data.data.length==0){
+						alertPopup = $ionicPopup.alert({
+						title: 'Warning',
+						template: 'Hari ini dan kemarin belum ada data!!! Tekan tombol "Load" Untuk melihat data paling baru!!'
+					});
+					}
+				},
+				function errorCallback(response){
+					$scope.$broadcast('scroll.refreshComplete');
+					console.log(response)
+					reloadSalesTm(timeline)
+					console.log('erroor data kosong');
+			
+				}
+			)
+		}
+
+		if (manager_group || sales_supra_group){
+			// console.log(data[0]['kelompok_id'][0],"ini")
+			var group_sales_line =function(data){
+				// console.log(data,"sjadhkjsghadsgahudasgh")
+		 			$http(
+						{
+							method: 'POST',
+							url: 'http://'+config['host']+':'+config['port']+'/openerp/group.sales.line/ids/',
+							data: {'usn':name,
+								   'pw':pass,
+								   // 'domain':[['login','ilike',atob(name)]] ,
+								   // 'fields':['in_group_8','in_group_63','in_group_55','kelompok_id']},
+								   'ids':data,
+								   'fields':[]
+								},
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							  
+							},
+						
+						}
+					).then(
+						function successCallback(response){
+							// console.log(response.data["Result"],"oasodossjd")
+							id_group_sales_line = []
+							for (i=0;i<response.data["Result"].length;i++){
+								
+								id_group_sales_line.push(response.data["Result"][i]['name'][0])
+							}
+			   				console.log(id_group_sales_line)
+			   				var condition ={"the_date":[today,yesterday],"user_id":id_group_sales_line}
+							data_timeline_group(condition)
+						},
+						function errorCallback(response){
+							$scope.$broadcast('scroll.refreshComplete');
+							console.log(response)
+							reloadSalesTm(timeline)
+							console.log('erroor data kosong');
+						}
+					)
+		 	}
+			$http
+		  	(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/group.sales/ids/',
+					data: {
+							'usn':name,
+							'pw':pass,
+							'ids':[data[0]['kelompok_id'][0]],
+							'fields':['users_line'],
+							
+					},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+					
+				
+				}
+			).then(
+				function successCallback(response){
+				console.log((response.data['Result'][0])['users_line'],"disini")
+				group_sales_line((response.data['Result'][0])['users_line'])
+				},
+				function errorCallback(response){
+					$scope.$broadcast('scroll.refreshComplete');
+					console.log(response)
+					reloadSalesTm(timeline)
+					console.log('erroor data kosong');
+				}
+			)
+			
+		}
+		else if (direksi_group){
+			var condition ={"the_date":[today,yesterday]}
+			data_timeline_group(condition)
+		}
+		else{
+			var condition={"the_date":false}
+			data_timeline_group(condition)
+		}
+
+			
+	}
+
+
+
+	$http(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/res.users/search/',
+					data: {'usn':name,
+						   'pw':pass,
+						   'domain':[['login','ilike',atob(name)]] ,
+						   'fields':['in_group_8','in_group_63','in_group_55','kelompok_id']},
+
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					  
+					},
+				
+				}
+			).then(
+				function successCallback(response){
+					console.log(response.data["Result"],"iniii")
+					timeline(response.data["Result"])
+	   
+				},
+				function errorCallback(response){
+					$scope.$broadcast('scroll.refreshComplete');
+					console.log(response)
+					reloadSalesTm(timeline)
+					console.log('erroor data kosong');
+				}
+			)
+
+	}
 
 	var timeline = function(data){
 		var manager_group = data[0]['in_group_8']
@@ -3234,9 +3408,9 @@ angular.module('app.controllers', ['ngMaterial'])
 				},
 				function errorCallback(response){
 					$ionicLoading.hide();
-					console.log(response)
-
-					console.log('erroor data kosong');
+					// console.log(response)
+					reloadSalesTm(timeline)
+					// console.log('erroor data kosong');
 			
 				}
 			)
@@ -3307,7 +3481,10 @@ angular.module('app.controllers', ['ngMaterial'])
 				group_sales_line((response.data['Result'][0])['users_line'])
 				},
 				function errorCallback(response){
-			
+				$ionicLoading.hide();
+					// console.log(response)
+					reloadSalesTm(timeline)
+					// console.log('erroor data kosong');
 				}
 			)
 			
@@ -3348,7 +3525,9 @@ angular.module('app.controllers', ['ngMaterial'])
 	   
 				},
 				function errorCallback(response){
-					
+					$ionicLoading.hide();
+					// console.log(response)
+					reloadSalesTm(timeline)
 				}
 			)
 
@@ -3369,6 +3548,8 @@ angular.module('app.controllers', ['ngMaterial'])
 	// console.log(timeline,"datanya")
 	var limit_data = 0
 	var offset_data = -20
+
+	
 	
 
 	$scope.loadMore = function () {
@@ -3549,4 +3730,38 @@ angular.module('app.controllers', ['ngMaterial'])
 
   
 	reloadSalesTm(timeline)
+})
+
+
+.controller('menutoogleCtrl', function($scope,$http,$state,config,menu) { 
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	$scope.logOut = function() {
+		// $window.localStorage.clear();
+		// $state.go('menulogin');
+		// window.location.reload();
+      var confirmPopup = $ionicPopup.confirm({
+         title: 'Log Out',
+         template: 'Apa Anda Yakin?'
+      });
+
+      confirmPopup.then(function(res) {
+         if(res) {
+			$window.localStorage.clear();
+			$state.go('menulogin');
+			window.location.reload();
+         } else {
+            console.log('batal');
+         }
+      });
+
+	}
+
+	console.log(menu)
+	$scope.myHTML = "<li class='active has-sub'><a href='#'><span>SALES</span></a> <ul> <li class='has-sub'><a href='#'><span>SALES</span></a> <ul> <li><a href='#' menu-close><span>Quotation</span></a></li> <li><a href='#' menu-close><span>Sales Order </span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>MATERIAL REQUEST</span></a> <ul> <li><a href='#' menu-close><span>Internal Move Request</span></a></li> <li><a href='#' menu-close><span>Internal Move</span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>PRODUCT</span></a> <ul> <li><a href='#' menu-close><span>Product</span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>ACTIVITY</span></a> <ul> <li><a href='#/form-activity' menu-close><span>Create Activity</span></a></li> <li><a href='#/sales-activity' menu-close><span>Sales Activity </span></a></li> <li><a href='#' menu-close><span>Weekly Status</span></a></li> <li><a href='#/salestimeline' menu-close><span>Activity Timeline</span></a></li> </ul> </li> </ul> </li> <li class='active has-sub'><a href='#'><span>HUMAN RESOURCES</span></a></li> <li class='active has-sub'><a href='#'><span>REPORTING</span></a></li> <li class='active has-sub'><a href='#'><span>MESSAGING</span></a></li> <li class='active has-sub' ng-click='logOut()'><a><span>LOG OUT</span></a></li> "
+	
+	
+
+
+
 })
