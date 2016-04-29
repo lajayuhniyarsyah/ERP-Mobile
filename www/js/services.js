@@ -79,3 +79,34 @@ angular.module('app.services', [])
     // return {"host":"192.168.209.129","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
     // return {"host":"192.168.9.26","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
 })
+
+.service('menu',function($http,config){
+    var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+    var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+        $http(
+                {
+                    method: 'POST',
+                    url: 'http://'+config['host']+':'+config['port']+'/openerp/menu/',
+                    data: {'usn':name,
+                           'pw':pass,
+                           
+                        },
+
+                    headers: {
+                        'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+                      
+                    },
+                
+                }
+            ).then(
+                function successCallback(response){
+                // data_menu(response.data["Result"]) 
+                console.log(response.data["Result"])
+                return {"isi":response.data["Result"]}
+                },
+                function errorCallback(response){
+                return {"gagal":"gagal"}
+                }
+            )
+    // return {"asa":"asdsd"}
+})
