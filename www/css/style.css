@@ -390,6 +390,7 @@ ion-content{
 .form-update{
 	 /*background-color: rgba(212, 197, 187, 0.5);#387ef5*/
 	 background-color: white;
+	 margin-left: -10px;
 }
 .form-black{
 	
@@ -661,6 +662,10 @@ md-autocomplete{
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+.clm-update-activity{
+	
+}
+
 @media screen and (max-width: 400px) {
     .button-update-activity{
         width:100% !important;
