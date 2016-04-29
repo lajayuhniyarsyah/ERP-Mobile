@@ -1,13 +1,11 @@
 <ion-view title="FORM UPDATE ACTIVITY" id="page10">
-<ion-nav-bar ng-controller="AppController">
-
-</ion-nav-bar>
+    <ion-nav-bar ng-controller="AppController">
+    </ion-nav-bar>
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <div class="contect-transparant">
-             <div class="pic-review">
+            <div class="pic-review">
                 <i class="icon ion-compose"></i>
                 <p>
-
                     <b>
                     {{username_update}}
                     
@@ -18,173 +16,142 @@
                     </u>
                 </p>
             </div>
-        <div class="spacer" style="width: 284px; height: 12px;"></div>
-           <div class="list card custom-list">
-
-               <div class="item item-divider item-divider-erp ion-clock">
+            <div class="spacer" style="width: 284px; height: 12px;"></div>
+            <div class="list card custom-list">
+                <div class="item item-divider item-divider-erp ion-clock">
                     <b>BEFORE LUNCH</b>
-
-                       <button id="fORMDAYMONDAY-button18" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformBeforeUp()"> Add Actual</button>
+                    <button id="fORMDAYMONDAY-button18" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformBeforeUp()"> Add Actual</button>
                 </div>
-<!-- tampilin plan dari before launch -->
+                <!-- tampilin plan dari before launch -->
                 <div ng-repeat="cba in current_beforeactual">
-                <span class="lunch">PLANING BEFORE LUNCH</span>
-
-                <span class="judul-cus-view">{{cba.partner_id[1]}}</span>
-                <b class="font-location">{{cba.location}}</b>
-                <br>
-                <br>
-                <b>Objectives : </b>{{cba.plan_id[1]}}
-                <br>
-                <span class="lunch">ACTUAL BEFORE LUNCH</span>
-                <div class="form-update">
-                    <form class="list cancel-form">
-                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.checked" ng-checked="cbp.checked"
-                        class="toggle-small">CANCEL</ion-toggle>
-                    </form>
-                    <form class="list">
-                        <label class="item item-input" name="results-plan-before-lunch">
-                            <span class="input-label" style="width:25%;">Results :</span><textarea placeholder="Input Actual Results" rows="4" cols="10" ng-model="cba.results"> </textarea>
-                        </label>
-                    </form>
-                </div>
-                <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button>
-                <hr>
+                    <span class="lunch">PLANING BEFORE LUNCH</span>
+                    <span class="judul-cus-view">{{cba.partner_id[1]}}</span>
+                    <b class="font-location">{{cba.location}}</b>
+                    <br>
+                    <br>
+                    <b>Objectives : </b>{{cba.plan_id[1]}}
+                    <br>
+                    <span class="lunch">ACTUAL BEFORE LUNCH</span>
+                    <div class="form-update">
+                        <form class="list cancel-form">
+                            <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.checked" ng-checked="{{cba.batal}}" class="toggle-small">CANCEL</ion-toggle>
+                        </form>
+                        <form class="list">
+                            <label class="item item-input" name="results-plan-before-lunch">
+                                <span class="input-label" style="width:25%;">Results :</span>
+                                <textarea placeholder="{{cba.name}}" rows="4" cols="10" ng-model="cba.results"> </textarea>
+                            </label>
+                        </form>
+                    </div>
+                    <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button>
+                    <hr>
                 </div>
             </div>
-    <!--     <div>
+            <!--     <div>
          {{ current_beforeactual }}
         </div> -->
-
-<!-- Add Actual before-->
-             <div class="list card custom-list form-update">
-             <b><center>ADD BEFORE LUNCH ACTUAL</center></b>
-             
-             <div ng-repeat="fbu in fBUpdate">
-             <form class="list">
-                <label class="item item-input" name="customer-before-lunch">
-                    <span class="input-label" style="width:25%;">Customer</span>
-                <md-autocomplete md-selected-item="fbu.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.display_name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete>
-                </label>
-                <label class="item item-input" name="location-before-lunch">
-                    <span class="input-label" style="width:25%;">Location</span>
-                    <input type="text" placeholder="Location" ng-model="fbu.location">
-                </label>
-                <label class="item item-input" name="objectives-before-lunch">
-                    <span class="input-label" style="width:25%;">Objectives</span>
-                    <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fbu.objective"> </textarea>
-                </label>
-                <br>
-                <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()">Remove</button>
-            </form>
+            <!-- Add Actual before-->
+            <div class="list card custom-list form-update">
+                <b><center>ADD BEFORE LUNCH ACTUAL</center></b>
+                <div ng-repeat="fbu in fBUpdate">
+                    <form class="list">
+                        <label class="item item-input" name="customer-before-lunch">
+                            <span class="input-label" style="width:25%;">Customer</span>
+                            <md-autocomplete md-selected-item="fbu.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText">{{item.display_name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    No matches found.
+                                </md-not-found>
+                            </md-autocomplete>
+                        </label>
+                        <label class="item item-input" name="location-before-lunch">
+                            <span class="input-label" style="width:25%;">Location</span>
+                            <input type="text" placeholder="Location" ng-model="fbu.location">
+                        </label>
+                        <label class="item item-input" name="objectives-before-lunch">
+                            <span class="input-label" style="width:25%;">Objectives</span>
+                            <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fbu.objective"> </textarea>
+                        </label>
+                        <br>
+                        <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()">Remove</button>
+                    </form>
+                </div>
             </div>
-
-            </div>
-   <!--      <div>
+            <!--      <div>
          {{ fBUpdate }}
         </div> -->
             <br/>
             <br/>
-
             <div class="list card custom-list">
-                
                 <div class="item item-divider item-divider-erp ion-clock">
                     <b>AFTER LUNCH</b>
-
-                     <button id="fORMDAYMONDAY-button18" style="font-weight:bolder;color:#FFFFFF;border-radius:5px 5px 5px 5px;" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformAfterUp()"> Add Actual</button>
+                    <button id="fORMDAYMONDAY-button18" style="font-weight:bolder;color:#FFFFFF;border-radius:5px 5px 5px 5px;" class="icon-right ion-android-add-circle btn-gantung btn-add-update-activity" ng-click="tambahformAfterUp()"> Add Actual</button>
                 </div>
-<!-- tampilin plan dari after launch -->
+                <!-- tampilin plan dari after launch -->
                 <div ng-repeat="caa in current_afteractual">
-                <span class="lunch">PLANING AFTER LUNCH</span>
-
-                <span class="judul-cus-view">{{caa.partner_id[1]}}</span>
-                <b class="font-location">{{caa.location}}</b>
-                <br>
-                <br>
-                <b>Objectives : </b>{{caa.plan_id[1]}}
-                <br>
-                <span class="lunch">ACTUAL AFTER LUNCH</span>
-                <div class="form-update">
-                    <form class="list">
-<<<<<<< HEAD
-                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.checked" ng-checked="{{caa.batal}}">CANCEL</ion-toggle>
-                    </form>
-                    <form class="list">
-                        <label class="item item-input" name="results-plan-before-lunch">
-                            <span class="input-label">Results :</span><textarea placeholder="{{caa.name}}" rows="4" cols="10" ng-model="caa.results"> </textarea>
-=======
-                        <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.checked" ng-checked="cap.checked"class="toggle-small">CANCEL</ion-toggle>
-                    </form>
-                    <form class="list">
-                        <label class="item item-input" name="results-plan-before-lunch">
-                            <span class="input-label" style="width:25%;">Results :</span><textarea placeholder="Input Actual Results" rows="4" cols="10" ng-model="caa.results"> </textarea>
->>>>>>> 572c7c6acbc7387803202cf80b5f2cb25076c244
-                        </label>
-                    </form>
+                    <span class="lunch">PLANING AFTER LUNCH</span>
+                    <span class="judul-cus-view">{{caa.partner_id[1]}}</span>
+                    <b class="font-location">{{caa.location}}</b>
+                    <br>
+                    <br>
+                    <b>Objectives : </b>{{caa.plan_id[1]}}
+                    <br>
+                    <span class="lunch">ACTUAL AFTER LUNCH</span>
+                    <div class="form-update">
+                        <form class="list">
+                            <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.checked" ng-checked="{{caa.batal}}" class="toggle-small">CANCEL</ion-toggle>
+                        </form>
+                        <form class="list">
+                            <label class="item item-input" name="results-plan-before-lunch">
+                                <span class="input-label" style="width:25%;">Results :</span>
+                                <textarea placeholder="{{caa.name}}" rows="4" cols="10" ng-model="caa.results"> </textarea>
+                            </label>
+                        </form>
+                    </div>
+                    <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
+                    <hr>
                 </div>
-                <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
-                <hr>
-                </div>
-             </div> 
-   <!--      <div>
+            </div>
+            <!--      <div>
          {{ current_afteractual }}
         </div> -->
-
-<!-- Add Actual after-->
-             <div class="list card custom-list form-update">
-             <b><center>ADD AFTER LUNCH ACTUAL</center></b>
-             <div ng-repeat="fau in fAUpdate">
-             <form class="list">
-                <button class="remove-button" ng-show="$last" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
-                <label class="item item-input" name="customer-after-lunch">
-                    <span class="input-label" style="width:25%;">Customer</span>
-                <md-autocomplete md-selected-item="fau.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.display_name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete>
-                </label>
-                <label class="item item-input" name="location-after-lunch">
-                    <span class="input-label" style="width:25%;">Location</span>
-                    <input type="text" placeholder="Location" ng-model="fau.location">
-                </label>
-                <label class="item item-input" name="objectives-after-lunch">
-                    <span class="input-label" style="width:25%;">Objectives</span>
-                    <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fau.objective"> </textarea>
-                </label>
-                <br>
-                
-            </form>
+            <!-- Add Actual after-->
+            <div class="list card custom-list form-update">
+                <b><center>ADD AFTER LUNCH ACTUAL</center></b>
+                <div ng-repeat="fau in fAUpdate">
+                    <form class="list">
+                        <button class="remove-button" ng-show="$last" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
+                        <label class="item item-input" name="customer-after-lunch">
+                            <span class="input-label" style="width:25%;">Customer</span>
+                            <md-autocomplete md-selected-item="fau.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText">{{item.display_name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    No matches found.
+                                </md-not-found>
+                            </md-autocomplete>
+                        </label>
+                        <label class="item item-input" name="location-after-lunch">
+                            <span class="input-label" style="width:25%;">Location</span>
+                            <input type="text" placeholder="Location" ng-model="fau.location">
+                        </label>
+                        <label class="item item-input" name="objectives-after-lunch">
+                            <span class="input-label" style="width:25%;">Objectives</span>
+                            <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fau.objective"> </textarea>
+                        </label>
+                        <br>
+                    </form>
+                </div>
             </div>
-
-            </div>
-<<<<<<< HEAD
-     <!--    <div>
-         {{ fAUpdate }}
-        </div> -->
             <br>
-            <br>          
-        
-        </div>
-        <br/>
-=======
-            <br>   
->>>>>>> 572c7c6acbc7387803202cf80b5f2cb25076c244
-        <center>
-          <a class="button button-small button-positive" style="border-radius:5px 5px 5px 5px; width:45%;" id="formactivity-button25" ng-click="backsalesactivity()">Cancel Activity</a>
-           <button id="fORMUPDATEACTIVITY-button15" style="font-weight:;border-radius:5px 5px 5px 5px; width:45%;" class="button button-small button-positive" ng-click="update()">UPDATE ACTIVITY</button>
-        </center>
-        <br>
+            <center>
+                <a class="button button-small button-positive" style="border-radius:5px 5px 5px 5px; width:45%;" id="formactivity-button25" ng-click="backsalesactivity()">Cancel Activity</a>
+                <button id="fORMUPDATEACTIVITY-button15" style="font-weight:;border-radius:5px 5px 5px 5px; width:45%;" class="button button-small button-positive" ng-click="update()">UPDATE ACTIVITY</button>
+            </center>
+            <br>
         </div>
     </ion-content>
 </ion-view>
