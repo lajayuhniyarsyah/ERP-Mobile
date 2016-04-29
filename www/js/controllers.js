@@ -5,7 +5,10 @@ angular.module('app.controllers', ['ngMaterial'])
   $mdGestureProvider.skipClickHijack();
 })
   
-.controller('menuutamaCtrl', function($scope,$http,$state,config) {
+.controller('menuutamaCtrl', function($scope,$http,$state,config,$ionicSideMenuDelegate) {
+	$scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -42,7 +45,6 @@ angular.module('app.controllers', ['ngMaterial'])
 					$state.go('menulogin');
 				}
 			)
-
 	}
 	else{
 		$state.go('menulogin');
@@ -50,7 +52,7 @@ angular.module('app.controllers', ['ngMaterial'])
 })
    
 .controller('menuloginCtrl', function($scope,config, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike,config) {
-	// console.log('http://'+config['host']+':'+config['port']+'/openerp-login/','ini bosss')
+
 	if (! localStorage.reload) {
 		localStorage.setItem("reload","true");
 		window.location.reload();
@@ -87,14 +89,17 @@ angular.module('app.controllers', ['ngMaterial'])
 		});
 
 	}
-})
-   
+})   
 .controller('submenusalesCtrl', function($scope,config) {
-
+		$scope.toggleLeft = function() {
+	      $ionicSideMenuDelegate.toggleLeft();
+	    };
 })
    
 .controller('menuactivityCtrl', function($scope,config) {
-
+		$scope.toggleLeft = function() {
+	      $ionicSideMenuDelegate.toggleLeft();
+	    };
 })
    
 .controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$filter,$window,config) {
@@ -134,9 +139,9 @@ angular.module('app.controllers', ['ngMaterial'])
 				},
 				function errorCallback(response){
 					$ionicLoading.hide();
-					console.log('erroor data kosong');
-					$window.localStorage.clear();
-					$state.go('menulogin');
+					alert('Koneksi tidak ada, data tidak dapat ditampilkan')
+					// $window.localStorage.clear();
+					// $state.go('menulogin');
 				}
 			)          
 	 }
@@ -177,7 +182,6 @@ angular.module('app.controllers', ['ngMaterial'])
 						currentObj.unshift(sda_update[i]);
 						window.localStorage.setItem('sales_data_activity',JSON.stringify(currentObj));
 					};
-								
 				var get_sales_data_activity = JSON.parse(window.localStorage.getItem('sales_data_activity'));
 
 				$scope.sda = get_sales_data_activity;
@@ -186,8 +190,8 @@ angular.module('app.controllers', ['ngMaterial'])
 			function errorCallback(response){
 				$ionicLoading.hide();
 				console.log('gagal cek update dari server');
-				$window.localStorage.clear();
-				$state.go('menulogin');
+				// $window.localStorage.clear();
+				// $state.go('menulogin');
 			}
 		) 
 	 
@@ -215,6 +219,7 @@ angular.module('app.controllers', ['ngMaterial'])
    
 .controller('formactivityCtrl', function($scope,$http,$state,$filter,config) {
 	 
+
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 
@@ -772,6 +777,7 @@ angular.module('app.controllers', ['ngMaterial'])
 				$scope.ba_kamis = response.data['Result'];
 				var ba_update_kamis = response.data['Result'];
 
+
 				window.localStorage.setItem( 'sales_activity_before_actual_kamis', JSON.stringify(ba_update_kamis));
 			},
 			function errorCallback(response){
@@ -807,10 +813,10 @@ angular.module('app.controllers', ['ngMaterial'])
 				// $state.go('formreviewactivity');
 			}
 		)
-
 	$http(
 			{
 				method: 'POST',
+
 				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.jumat/search/',
 				data: {
 					'domain':[
@@ -823,6 +829,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(
 			function successCallback(response){
+
 				console.log('sukses isi storage kosong before plan jumat dari server')
 				$scope.bp_jumat = response.data['Result'];
 				var bp_update_jumat = response.data['Result'];
@@ -835,6 +842,7 @@ angular.module('app.controllers', ['ngMaterial'])
 				// $state.go('formreviewactivity');
 			}
 		)
+
 	$http(
 			{
 				method: 'POST',
@@ -865,6 +873,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
+
 				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.jumat/search/',
 				data: {
 					'domain':[
@@ -916,7 +925,6 @@ angular.module('app.controllers', ['ngMaterial'])
 				// $state.go('formreviewactivity');
 			}
 		)
-
 	$http(
 			{
 				method: 'POST',
@@ -959,6 +967,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(
 			function successCallback(response){
+
 				console.log('sukses isi storage kosong after plan sabtu dari server')
 				$scope.ap_sabtu = response.data['Result'];
 				var ap_update_sabtu = response.data['Result'];
@@ -974,6 +983,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	$http(
 			{
 				method: 'POST',
+
 				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.sabtu/search/',
 				data: {
 					'domain':[
@@ -986,6 +996,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(
 			function successCallback(response){
+
 				console.log('sukses isi storage kosong before actual sabtu dari server')
 				$scope.ba_sabtu = response.data['Result'];
 				var ba_update_sabtu = response.data['Result'];
@@ -1013,6 +1024,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(
 			function successCallback(response){
+
 				console.log('sukses isi storage kosong after actual sabtu dari server')
 				$scope.aa_sabtu = response.data['Result'];
 				var aa_update_sabtu = response.data['Result'];
@@ -1025,7 +1037,6 @@ angular.module('app.controllers', ['ngMaterial'])
 				// $state.go('formreviewactivity');
 			}
 		)
-
 	$http(
 			{
 				method: 'POST',
@@ -1111,6 +1122,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			{
 				method: 'POST',
 				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.ahad/search/',
+
 				data: {
 					'domain':[
 								['activity_id','=',parseInt(id)],
@@ -1122,6 +1134,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		).then(
 			function successCallback(response){
+
 				console.log('sukses isi storage kosong after actual ahad dari server')
 				$scope.aa_ahad = response.data['Result'];
 				var aa_update_ahad = response.data['Result'];
@@ -2426,6 +2439,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug"));
 
 	id_activity_update = JSON.parse( window.localStorage.getItem('activity_id_update')); // ambil activity id yanga akan diupdate
+	// console.log(id_activity_update[0],'sadadasdadsasd')
 	data_login = JSON.parse( window.localStorage.getItem('login_user'));
 	
 	$scope.username_update = data_login[0];
@@ -2444,7 +2458,7 @@ angular.module('app.controllers', ['ngMaterial'])
 					data: {'usn':name,'pw':pass , 
 						   'fields':[],
 						   'domain':[
-										['activity_id','=',id_activity_update],
+										['activity_id','=',id_activity_update[0]],
 									],
 						},
 
@@ -2455,48 +2469,72 @@ angular.module('app.controllers', ['ngMaterial'])
 				}
 			).then(
 				function successCallback(response){
-
-					$scope.current_beforeactual = response.data['Result'];	
-					// console.log(response.data['Result'],'beforeactualdata');
-					// window.localStorage.setItem( 'beforeupdateid', JSON.stringify(beforeupdateid));	   
+					// console.log(response.data['Result'],'ini data before')
+					$scope.current_beforeactual = response.data['Result'];  
 				},
 				function errorCallback(response){
-					console.log('erroor data kosong');
-					// $window.localStorage.clear();
-					// $state.go('formreviewactivity');
+					get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
+					filter_salesdataactivity = get_sales_data_activity.filter(function(jsonObject){
+						return jsonObject.id === id_activity_update[0]
+					})
+
+					if (filter_salesdataactivity.length == 0) {
+						alert("Actual tidak bisa diupdate")
+					}
+					else{
+						beforeactual_mapping = [];
+						
+						for (bef_act_id = 0; bef_act_id < filter_salesdataactivity[0]['beforeactual'+get_day].length; bef_act_id++) {
+							beforeactual_mapping.push({'id': filter_salesdataactivity[0]['beforeactual'+get_day][bef_act_id]});
+						}
+
+						$scope.current_beforeactual = beforeactual_mapping;
+					}
 				}
 			)
 		
 		//ambil data dari after_actual yang akan di update			
 			$http(
-					{
-						method: 'POST',
-						url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.'+get_day+'/search/',
-						data: {'usn':name,'pw':pass , 
-							   'fields':[],
-   							   'domain':[
-											['activity_id','=',id_activity_update],
-										],
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.'+get_day+'/search/',
+					data: {'usn':name,'pw':pass , 
+						   'fields':[],
+							   'domain':[
+										['activity_id','=',id_activity_update[0]],
+									],
 
 					},
-						headers: {
-							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-						},
-					
-					}
-				).then(
-					function successCallback(response){
-
-						$scope.current_afteractual = response.data['Result'];
-						// console.log(response.data['Result'],'afteractualdata');
-						// window.localStorage.setItem( 'afterupdateid', JSON.stringify(afterupdateid));
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
 					},
-					function errorCallback(response){
-						console.log('erroor data kosong');
-						// $window.localStorage.clear();
-						// $state.go('formreviewactivity');
+				
+				}
+			).then(
+				function successCallback(response){
+					$scope.current_afteractual = response.data['Result'];
+					// window.localStorage.setItem( 'afterupdateid', JSON.stringify(afterupdateid));
+				},
+				function errorCallback(response){
+					get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
+					filter_salesdataactivity = get_sales_data_activity.filter(function(jsonObject){
+						return jsonObject.id === id_activity_update[0]
+					})
+
+					if (filter_salesdataactivity.length == 0) {
+						alert("Actual tidak bisa diupdate")
 					}
-				)
+					else {
+						afteractual_mapping = [];
+						
+						for (aft_act_id = 0; aft_act_id < filter_salesdataactivity[0]['afteractual'+get_day].length; aft_act_id++) {
+							afteractual_mapping.push({'id': filter_salesdataactivity[0]['afteractual'+get_day][aft_act_id]});
+						}
+						
+						$scope.current_afteractual = afteractual_mapping;
+					}
+				}
+			)
 
 	//fungsi tambah form
 	$scope.fBUpdate = [];
@@ -2556,8 +2594,6 @@ angular.module('app.controllers', ['ngMaterial'])
   	};
 
 	$scope.update = function() {
-		val_updBefore =  false;
-		val_updAfter =  false; 
 
 		var data1 = 'beforeactual'+get_day;
 		var data2 = 'afteractual'+get_day;
@@ -2573,86 +2609,138 @@ angular.module('app.controllers', ['ngMaterial'])
 
 		var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
 
+		//fungsi untuk validasi data telah diiisi semuanya
+		val_updBefore =  false;
+		val_updAfter =  false; 
+
 		for (val_dbu= 0 ; val_dbu < data_before.length ; val_dbu++) {
 			// console.log(data_before[val_dbu].results,'dsadasd')
 			if (data_before[val_dbu].results==null) {
 				val_updBefore = true;
-				// break;
+				break;
 			}
 		}
 		for (val_dau= 0 ; val_dau < data_after.length ; val_dau++) {
 			if (data_after[val_dau].results==null) {
 				val_updAfter = true;
-				// break;
+				break;
 			}
 		}
 
-		if (val_updBefore && val_updAfter) {
+		//proses
+		if (val_updBefore || val_updAfter) {
 			alert('seluruh result harus terisi')
 		}
 		else {
 
 				for (dbu = 0; dbu < data_before.length; dbu++) {
-								isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].results,
-								'batal': data_before[dbu].checked }])
+					isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].results,
+					'batal': data_before[dbu].checked }])
 				}
 				for (dau = 0; dau < data_after.length; dau++) {
-								isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].results,
-								'batal': data_after[dau].checked }])
+					isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].results,
+					'batal': data_after[dau].checked }])
 				}
 				for (var dba = 0; dba < data_beforeAdd.length; dba++) {
 
-								isi_update[data1].push([0,0,{'partner_id':data_beforeAdd[dba]['customer'].id,
+					if(data_beforeAdd[dba]['customer']==null){
+						partner_id = null
+						toPush = [
+							0,
+							0,
+							{
 								'location':data_beforeAdd[dba]['location'],
-								'name':data_beforeAdd[dba]['objective']}])
+								'name':data_beforeAdd[dba]['objective']
+							}
+						]
+					}else{
+						partner_id = data_afterAdd[daa]['customer'].id
+						toPush = [
+							0,
+							0,
+							{
+								'partner_id':partner_id,
+								'location':data_beforeAdd[dba]['location'],
+								'name':data_beforeAdd[dba]['objective']
+							}
+						]
+					}
+					
+
+					isi_update[data1].push(toPush)
 				};
 				for (var daa = 0; daa < data_afterAdd.length; daa++) {
-
-								isi_update[data2].push([0,0,{'partner_id':data_afterAdd[daa]['customer'].id,
+				
+					if(data_afterAdd[daa]['customer']==null){
+							partner_id = null
+							toPush = [
+								0,
+								0,
+								{
+									'location':data_afterAdd[daa]['location'],
+									'name':data_afterAdd[daa]['objective']
+								}
+							]
+						}else{
+							partner_id = data_afterAdd[daa]['customer'].id
+							toPush = [
+								0,
+								0,
+								{
+									'partner_id':partner_id,
+									'location':data_afterAdd[daa]['location'],
+									'name':data_afterAdd[daa]['objective']
+								}
+							]
+						}
+						
+								isi_update[data2].push([0,0,{'partner_id':partner_id,
 								'location':data_afterAdd[daa]['location'],
 								'name':data_afterAdd[daa]['objective']}])
-				};
+					};
 
 				if (get_update_data == null) {
 					
 					var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
-					window.localStorage.setItem('update_data_temp', JSON.stringify([update_data_temp]));
+					window.localStorage.setItem('update_data_temp', JSON.stringify(update_data_temp));
 				}
-				// else {
+				else {
+					
+					var get_update_data_add = JSON.parse( window.localStorage.getItem('update_data_temp'));
+					
+					get_update_data_add['data_val'][data1] = isi_update[data1];
+					get_update_data_add['data_val'][data2] = isi_update[data2];		
 
-				// 	var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
+					window.localStorage.setItem('update_data_temp', JSON.stringify(get_update_data_add));
+				}
 
-				// }
-				// console.log()
-		
+				var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
 
-
-
-			// $http(
-			// 	{
-			// 		method: 'POST',
-			// 		url: 'http://'+config['host']+':'+config['port']+'/openerp/update/sales.activity/',
-			// 		data: {
-			// 			'usn':name,'pw':pass ,'ids':id_activity_update[0],'vals':isi_update
-			// 		},
-			// 		headers: {
-			// 			'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-			// 		},		
-			// 	}
-			// ).then(
-			// 	function successCallback(response){
-			// 	alert("sukses")
-			// 	window.localStorage.removeItem('activity_id_update');
-			// 	$state.go('menuactivity')
-			// 	},
-			// 	function errorCallback(response){
-			// 		alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
-			// 		var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
-			// 		window.localStorage.setItem('update_data_temp', JSON.stringify([update_data_temp]));
-			// 		// $window.localStorage.clear();
-			// 		$state.go('menuactivity');
-			// 	}
-			// )
+				$http(
+					{
+						method: 'POST',
+						url: 'http://'+config['host']+':'+config['port']+'/openerp/update/sales.activity/',
+						data: {
+							'usn':name,'pw':pass ,'ids':get_update_data['activity_id'],'vals':get_update_data['data_val']
+						},
+						headers: {
+							'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+						},		
+					}
+				).then(
+					function successCallback(response){
+					alert("sukses")
+					window.localStorage.removeItem('activity_id_update');
+					window.localStorage.removeItem('update_data_temp');
+					$state.go('menuactivity')
+					},
+					function errorCallback(response){
+						alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
+						// var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
+						// window.localStorage.setItem('update_data_temp', JSON.stringify([update_data_temp]));
+						$state.go('menuactivity');
+					}
+				)
 		}
 	}
 
@@ -3170,19 +3258,13 @@ angular.module('app.controllers', ['ngMaterial'])
 								
 							}
 						)
-							
-
 			}
 
 	};
 	// $scope.loadMore();
 	$scope.colortext= {
         "color" : "red",
-        
     }
-	
-
-
   	$http
   	(
 		{
@@ -3231,6 +3313,5 @@ angular.module('app.controllers', ['ngMaterial'])
 	
 		}
 	)
-
 	reloadSalesTm(timeline)
 })
