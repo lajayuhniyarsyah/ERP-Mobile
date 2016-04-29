@@ -13,17 +13,13 @@
         <form  class="list" style="padding:0px !important;">
         
             <ion-list ng-controller="salesactivityCtrl" >
+            <br/>
             <a class="button button-positive  icon-left ion-edit button-update-activity" id="salesactivity-button1" ng-click="updatedata()">
                 <center>Update Current day Activity</center>
             </a>
-                 <ion-item style="" ui-sref="previewplanactivity({id: sls.id, pic: sls.user_id[1], begin: sls.begin, end: sls.end})" class="item-thumbnail-left" > 
-                        <div class="icon-right ion-chevron-right button-calm" style="float:right;margin-top:20px;margin-right:-10px;"></div>
-                        <img src="img/icon-ok.png" width="30%" height="auto" class="img-salesactivity">
-                        <div class="status"><span class="status-activity-postpone"><div class="ion-loop"></div></div>
-                        <h2>TESTING</h2>
-                        <p>Date : 12-04-2016 - 18-04-2016</p>
-                </ion-item>
-
+            <a class="button button-positive  icon-left ion-eye button-view-activity" id="salesactivity-button1" ng-click="updatedata()">
+                <center>View Activity This Week</center>
+            </a>
 
                 <ion-item style="" ui-sref="previewplanactivity({id: sls.id, pic: sls.user_id[1], begin: sls.begin, end: sls.end})" class="item-thumbnail-left" ng-repeat="sls in sda"> 
 
