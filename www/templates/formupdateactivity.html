@@ -43,14 +43,14 @@
                                 </label>
                             </form>
                         </div>
+                        <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button>
+                        <hr>
                     </div>
 
                 </div>
             </div>
-            <!--         <div>
-         {{ current_beforeactual }}
-        </div> -->
-            <!-- Add Actual before-->
+
+
             <div class="list card custom-list form-update">
                 <b><center>ADD BEFORE LUNCH ACTUAL</center></b>
                 <div ng-repeat="fbu in fBUpdate">
@@ -109,8 +109,11 @@
                             <br>
                         </form>
                     </div>
+                    <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
+                    <hr>
                 </div>
             </div>
+        <!-- Add Actual after-->
             <div class="list card custom-list form-update">
                 <b><center>ADD AFTER LUNCH ACTUAL</center></b>
                 <div ng-repeat="fau in fAUpdate">
