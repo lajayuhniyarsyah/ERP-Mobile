@@ -42,41 +42,41 @@
                                 </label>
                             </form>
                         </div>
+                        <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button>
+                        <hr>
                     </div>
+
                 </div>
             </div>
-            <!--         <div>
-         {{ current_beforeactual }}
-        </div> -->
-
-<!-- Add Actual before-->
-             <div class="list card custom-list form-update">
-             <b><center>ADD BEFORE LUNCH ACTUAL</center></b>
-             
-             <div ng-repeat="fbu in fBUpdate">
-             <form class="list">
-                <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()"><span class="ion-trash-a"></span></button>
-                <label class="item item-input" name="customer-before-lunch">
-                    <span class="input-label" style="width:25%;">Customer</span>
-                <md-autocomplete md-selected-item="fbu.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.display_name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete>
-                </label>
-                <label class="item item-input" name="location-before-lunch">
-                    <span class="input-label" style="width:25%;">Location</span>
-                    <input type="text" placeholder="Location" ng-model="fbu.location">
-                </label>
-                <label class="item item-input" name="objectives-before-lunch">
-                    <span class="input-label" style="width:25%;">Objectives</span>
-                    <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fbu.objective"> </textarea>
-                </label>
-                <br>
-            </form>
+         <!-- Add Actual before-->
+            <div class="list card custom-list form-update">
+                <b><center>ADD BEFORE LUNCH ACTUAL</center></b>
+                <div ng-repeat="fbu in fBUpdate">
+                    <form class="list">
+                        <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()"><span class="ion-trash-a"></span></button>
+                        <br/>
+                        <label class="item item-input" name="customer-before-lunch">
+                            <span class="input-label" style="width:25%;">Customer</span>
+                            <md-autocomplete ng-disabled="fbu.isDisabled" md-selected-item="fbu.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer" md-no-cache="fbu.noCache">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display_name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    No matches found.
+                                </md-not-found>
+                            </md-autocomplete>
+                        </label>
+                        <label class="item item-input" name="location-before-lunch">
+                            <span class="input-label" style="width:25%;">Location</span>
+                            <input type="text" placeholder="Location" ng-model="fbu.location">
+                        </label>
+                        <label class="item item-input" name="objectives-before-lunch">
+                            <span class="input-label" style="width:25%;">Objectives</span>
+                            <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fbu.objective"> </textarea>
+                        </label>
+                        <br>
+                    </form>
+                </div>
             </div>
             <br/>
             <br/>
@@ -106,8 +106,11 @@
                             <br>
                         </form>
                     </div>
+                    <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
+                    <hr>
                 </div>
             </div>
+        <!-- Add Actual after-->
             <div class="list card custom-list form-update">
                 <b><center>ADD AFTER LUNCH ACTUAL</center></b>
                 <div ng-repeat="fau in fAUpdate">
@@ -136,42 +139,6 @@
                         <br>
                     </form>
                 </div>
-                <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
-                <hr>
-                </div>
-             </div> 
-     <!--    <div>
-         {{ current_afteractual }}
-        </div> -->
-
-<!-- Add Actual after-->
-             <div class="list card custom-list form-update">
-             <b><center>ADD AFTER LUNCH ACTUAL</center></b>
-             
-             <div ng-repeat="fau in fAUpdate">
-             <form class="list">   
-                <button class="remove-button" ng-show="$last" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
-                <label class="item item-input" name="customer-after-lunch">
-                    <span class="input-label" style="width:25%;">Customer</span>
-                <md-autocomplete md-selected-item="fau.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.display_name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete>
-                </label>
-                <label class="item item-input" name="location-after-lunch">
-                    <span class="input-label" style="width:25%;">Location</span>
-                    <input type="text" placeholder="Location" ng-model="fau.location">
-                </label>
-                <label class="item item-input" name="objectives-after-lunch">
-                    <span class="input-label" style="width:25%;">Objectives</span>
-                    <textarea placeholder="Objectives" rows="4" cols="10" ng-model="fau.objective"> </textarea>
-                </label>
-                <br>
-            </form>
             </div>
             <br>
             <br>
