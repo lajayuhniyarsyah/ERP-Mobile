@@ -33,6 +33,7 @@
                         <b>Objectives : </b>{{cba.plan_id[1]}}
                         <br>
                         <span class="lunch">ACTUAL BEFORE LUNCH</span>
+                        <button class="remove-button" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
                         <div class="form-update">
                             <form class="list cancel-form">
                                 <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.batal" ng-checked="cba.batal" class="toggle-small">Cancel</ion-toggle>
@@ -48,7 +49,8 @@
 
                 </div>
             </div>
-         <!-- Add Actual before-->
+
+
             <div class="list card custom-list form-update">
                 <b><center>ADD BEFORE LUNCH ACTUAL</center></b>
                 <div ng-repeat="fbu in fBUpdate">
@@ -94,7 +96,8 @@
                     <br>
                     <b>Objectives : </b>{{caa.plan_id[1]}}
                     <br>
-                    <span class="lunch">ACTUAL AFTER LUNCH</span>
+                    <span class="lunch">ACTUAL AFTER LUNCH </span> 
+                    <button class="remove-button" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
                     <div class="form-update">
                         <form class="list">
                             <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.batal" ng-checked="cap.batal" class="toggle-small">Cancel</ion-toggle>
