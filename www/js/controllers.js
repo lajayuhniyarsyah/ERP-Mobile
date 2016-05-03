@@ -338,13 +338,16 @@ angular.module('app.controllers', ['ngMaterial'])
 				}
 			)          
 
-	 // $scope.viewupdatedata = function () {
-	 // 	get_update_data_temp = JSON.parse( window.localStorage.getItem('update_data_temp'));
+	 $scope.viewsyncupdatedata = function () {
+	 	get_update_data_temp = JSON.parse( window.localStorage.getItem('update_data_temp'));
 
-	 // 	if (!get_update_data_temp) {
-	 // 		alert ('Seluruh aktivitas ')
-	 // 	}
-	 // }
+	 	if (!get_update_data_temp) {
+	 		alert ('Seluruh aktivitas telah tersinkronisasi dengan server!!!')
+	 	}
+	 	else {
+	 		$state.go('previewsyncupdate')
+	 	}
+	 }
 	 
 	 $scope.updatedata = function () {
 		get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
@@ -2086,6 +2089,7 @@ angular.module('app.controllers', ['ngMaterial'])
 				}
 
 				var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
+			
 			//fungsi kirim data yang akan diupdate ke server
 			$http(
 					{
@@ -2201,6 +2205,16 @@ angular.module('app.controllers', ['ngMaterial'])
 		}
 
 	}
+})
+
+.controller('previewsyncupdateCtrl', function($scope,config) {
+		
+	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
+	data_login = JSON.parse( window.localStorage.getItem('login_user'));
+
+	$scope.username = data_login[0]; 
+
 })
    
 .controller('formdaymondayCtrl', function($scope,$stateParams,$http,$state,config) {
@@ -3172,7 +3186,9 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	}
 
+
 	console.log(menu)
 	$scope.myHTML = "<li class='active has-sub'><a href='#'><span>SALES</span></a> <ul> <li class='has-sub'><a href='#'><span>SALES</span></a> <ul> <li><a href='#'><span>Quotation</span></a></li> <li><a href='#' menu-close=\'\'><span>Sales Order </span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>MATERIAL REQUEST</span></a> <ul> <li><a href='#' menu-close=\'\'><span>Internal Move Request</span></a></li> <li><a href='#' menu-close=\'\'><span>Internal Move</span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>PRODUCT</span></a> <ul> <li><a href='#' menu-close=\'\'><span>Product</span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>ACTIVITY</span></a> <ul> <li><a menu-close=\'\' class='menu-link' href='#/form-activity'><span>Create Activity</span></a></li> <li><a href='#/sales-activity' menu-close=\'\'><span>Sales Activity </span></a></li> <li><a href='#' menu-close=\'\'><span>Weekly Status</span></a></li> <li><a href='#/salestimeline' menu-close=\'\'><span>Activity Timeline</span></a></li> </ul> </li> </ul> </li> <li class='active has-sub'><a href='#'><span>HUMAN RESOURCES</span></a></li> <li class='active has-sub'><a href='#'><span>REPORTING</span></a></li> <li class='active has-sub'><a href='#'><span>MESSAGING</span></a></li> <li class='active has-sub' ng-click='logOut()'><a><span>LOG OUT</span></a></li> "
+
 
 })

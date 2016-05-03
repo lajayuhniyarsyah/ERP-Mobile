@@ -101,7 +101,7 @@ angular.module('app.services', [])
             ).then(
                 function successCallback(response){
                 // data_menu(response.data["Result"]) 
-                console.log(response.data["Result"])
+                // console.log(response.data["Result"])
                 return {"isi":response.data["Result"]}
                 },
                 function errorCallback(response){
