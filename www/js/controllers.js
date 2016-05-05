@@ -2469,7 +2469,6 @@ angular.module('app.controllers', ['ngMaterial'])
 
 .controller('formupdateactivityCtrl', function($scope,$stateParams,$state,$http,config) {
 	
-		
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd"));
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug"));
 
@@ -2616,13 +2615,13 @@ angular.module('app.controllers', ['ngMaterial'])
 		return res_matched
 	}
 
-	$scope.hapusBefore = function(index) {
-	$scope.current_beforeactual.splice(index, 1);
-	};
+	// $scope.hapusBefore = function(index) {
+	// $scope.current_beforeactual.splice(index, 1);
+	// };
 	
-	$scope.hapusAfter = function(index) {
-	$scope.current_afteractual.splice(index, 1);
-	};
+	// $scope.hapusAfter = function(index) {
+	// $scope.current_afteractual.splice(index, 1);
+	// };
 
 	//fungsi remove form add
 	$scope.removeBeforeUp = function() {
@@ -2661,13 +2660,13 @@ angular.module('app.controllers', ['ngMaterial'])
 		val_updAfter =  false; 
 
 		for (val_dbu= 0 ; val_dbu < data_before.length ; val_dbu++) {
-			if (data_before[val_dbu].results==null) {
+			if (data_before[val_dbu].name=="") {
 				val_updBefore = true;
 				break;
 			}
 		}
 		for (val_dau= 0 ; val_dau < data_after.length ; val_dau++) {
-			if (data_after[val_dau].results==null) {
+			if (data_after[val_dau].name=="") {
 				val_updAfter = true;
 				break;
 			}
@@ -2680,12 +2679,12 @@ angular.module('app.controllers', ['ngMaterial'])
 		else {
 
 				for (dbu = 0; dbu < data_before.length; dbu++) {
-					isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].results,
-					'batal': data_before[dbu].checked }])
+					isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].name,
+					'batal': data_before[dbu].batal}])
 				}
 				for (dau = 0; dau < data_after.length; dau++) {
-					isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].results,
-					'batal': data_after[dau].checked }])
+					isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].name,
+					'batal': data_after[dau].batal }])
 				}
 				for (var dba = 0; dba < data_beforeAdd.length; dba++) {
 
@@ -2701,7 +2700,7 @@ angular.module('app.controllers', ['ngMaterial'])
 						]
 					}else{
 						
-						partner_id = data_afterAdd[dba]['customer'].id
+						partner_id = data_beforeAdd[dba]['customer'].id
 						toPush = [
 							0,
 							0,
@@ -2776,11 +2775,11 @@ angular.module('app.controllers', ['ngMaterial'])
 					alert("sukses")
 					window.localStorage.removeItem('activity_id_update');
 					window.localStorage.removeItem('update_data_temp');
-					$state.go('menuactivity')
+					$state.go('salesactivity')
 					},
 					function errorCallback(response){
 						alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
-						$state.go('menuactivity');
+						$state.go('salesactivity');
 					}
 				)
 		}
