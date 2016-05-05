@@ -2624,7 +2624,7 @@ angular.module('app.controllers', ['ngMaterial'])
     	$scope.after_prev.splice(index, 1);
 		};
 	} 
-	//simpan data ke local storage
+	//simpan data ke ls 
 
 	$scope.backformactivity = function(){
 		$state.go('formactivity');
