@@ -59,7 +59,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
    
-.controller('menuloginCtrl', function($scope, $window, LoginService, $ionicPopup, $state, $http, $httpParamSerializerJQLike, config) {
+.controller('menuloginCtrl', function($scope, $window, LoginService, $state) {
 
 	if (! localStorage.reload) {
 		localStorage.setItem("reload","true");
@@ -90,16 +90,12 @@ angular.module('app.controllers', ['ngMaterial'])
 			
 		});
 	}
-	$scope.test_service = function() {
-		$ionicPopup.alert({
-			title:"Errorrr",
-			template:"testttt dulu bos"
-		});
-	}
+
+})  
+
+.controller('logoutCtrl', function($scope,$state,$window,$ionicPopup) {	
+
 	$scope.logOut = function() {
-		// $window.localStorage.clear();
-		// $state.go('menulogin');
-		// window.location.reload();
       var confirmPopup = $ionicPopup.confirm({
          title: 'Log Out',
          template: 'Apa Anda Yakin?'
@@ -113,11 +109,12 @@ angular.module('app.controllers', ['ngMaterial'])
          } else {
             console.log('batal');
          }
+
       });
 
 	}
 
-})   
+}) 
 
 .controller('submenusalesCtrl', function($scope,config) {
 		
@@ -131,8 +128,7 @@ angular.module('app.controllers', ['ngMaterial'])
 .controller('salesactivityCtrl', function($scope,$http,$state,$ionicLoading,$filter,$window,config) {
    
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
-	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
-	var sales_data_activity = (window.localStorage.getItem('sales_data_activity'));
+	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug"));
 	data_login = JSON.parse( window.localStorage.getItem('login_user'));
 	var hari = ['ahad','senin','selasa','rabu','kamis','jumat','sabtu'];
 
@@ -329,165 +325,163 @@ angular.module('app.controllers', ['ngMaterial'])
 					 }
 					window.localStorage.setItem('current_activity_id',JSON.stringify([filter_userlogin[0]['id']]));
 				}
- 			// 	else if (current_local[0] < filter_userlogin[0]['id']) {
-				// 	$ionicLoading.show({
-				// 		content: 'Loading',
-				// 		animation: 'fade-in',
-				// 		showBackdrop: true,
-				// 		maxWidth: 200,
-				// 		showDelay: 0
-				// 	});	
+ 				else if (current_local[0] < filter_userlogin[0]['id']) {
+					$ionicLoading.show({
+						content: 'Loading',
+						animation: 'fade-in',
+						showBackdrop: true,
+						maxWidth: 200,
+						showDelay: 0
+					});	
 				
-				// current_local.unshift(filter_userlogin[0]['id'])
-				// window.localStorage.setItem('current_activity_id',JSON.stringify(current_local));
+				current_local.unshift(filter_userlogin[0]['id'])
+				window.localStorage.setItem('current_activity_id',JSON.stringify(current_local));
 
-				// var currentWeekSalesDataAdd = function(hari,cek_terakhir){
+				var currentWeekSalesDataAdd = function(hari,cek_terakhir){
 
-				// 	$http(
-				// 		{
-				// 			method: 'POST',
-				// 			url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.'+hari+'/search/',
-				// 			data: {
-				// 				'domain':[
-				// 							['activity_id','=',filter_userlogin[0]['id']],
-				// 						],
-				// 				'usn':name,'pw':pass ,'fields':[]},
-				// 			headers: {
-				// 				'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-				// 			},		
-				// 		}
-				// 	).then(
-				// 		function successCallback(response){
-				// 			console.log('sukses tambah storage before plan'+h +'test'+hari+' dari server')
-				// 			sales_activity_before_plan_add = JSON.parse( window.localStorage.getItem('sales_activity_before_plan_'+hari));
-				// 			var bp_update = response.data['Result'];
+					$http(
+						{
+							method: 'POST',
+							url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.'+hari+'/search/',
+							data: {
+								'domain':[
+											['activity_id','=',filter_userlogin[0]['id']],
+										],
+								'usn':name,'pw':pass ,'fields':[]},
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							},		
+						}
+					).then(
+						function successCallback(response){
+							console.log('sukses tambah storage before plan'+h +'test'+hari+' dari server')
+							sales_activity_before_plan_add = JSON.parse( window.localStorage.getItem('sales_activity_before_plan_'+hari));
+							var bp_update = response.data['Result'];
 							
-				// 			for (var i = 0;i<bp_update.length; i++) {
-				// 				sales_activity_before_plan_add.push(bp_update[i]);
-				// 			};
+							for (var i = 0;i<bp_update.length; i++) {
+								sales_activity_before_plan_add.push(bp_update[i]);
+							};
 
-				// 			window.localStorage.setItem('sales_activity_before_plan_'+hari, JSON.stringify(sales_activity_before_plan_add));
-				// 		},
-				// 		function errorCallback(response){
-				// 			console.log('erroor data kosong');
-				// 			// $state.go('formreviewactivity');
-				// 		}
-				// 	)
-				// 	$http(
-				// 			{
-				// 				method: 'POST',
-				// 				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.'+hari+'/search/',
-				// 				data: {
-				// 					'domain':[
-				// 								['activity_id','=',filter_userlogin[0]['id']],
-				// 							],
-				// 					'usn':name,'pw':pass ,'fields':[]},
-				// 				headers: {
-				// 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-				// 				},		
-				// 			}
-				// 		).then(
-				// 			function successCallback(response){
-				// 				console.log('sukses tambah storage after plan'+h +'test'+hari+'dari server')
-				// 				sales_activity_after_plan_add = JSON.parse( window.localStorage.getItem('sales_activity_after_plan_'+hari));
-				// 				var ap_update = response.data['Result'];
+							window.localStorage.setItem('sales_activity_before_plan_'+hari, JSON.stringify(sales_activity_before_plan_add));
+						},
+						function errorCallback(response){
+							console.log('erroor data kosong');
+							// $state.go('formreviewactivity');
+						}
+					)
+					$http(
+							{
+								method: 'POST',
+								url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.'+hari+'/search/',
+								data: {
+									'domain':[
+												['activity_id','=',filter_userlogin[0]['id']],
+											],
+									'usn':name,'pw':pass ,'fields':[]},
+								headers: {
+									'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+								},		
+							}
+						).then(
+							function successCallback(response){
+								console.log('sukses tambah storage after plan'+h +'test'+hari+'dari server')
+								sales_activity_after_plan_add = JSON.parse( window.localStorage.getItem('sales_activity_after_plan_'+hari));
+								var ap_update = response.data['Result'];
 							
-				// 			for (var i = 0;i<ap_update.length; i++) {
-				// 				sales_activity_after_plan_add.push(ap_update[i]);
-				// 			};
+							for (var i = 0;i<ap_update.length; i++) {
+								sales_activity_after_plan_add.push(ap_update[i]);
+							};
 
-				// 				window.localStorage.setItem( 'sales_activity_after_plan_'+hari, JSON.stringify(sales_activity_after_plan_add));
-				// 			},
-				// 			function errorCallback(response){
-				// 				console.log('erroor data kosong');
-				// 				// $state.go('formreviewactivity');
-				// 			}
-				// 		)
-				// 	$http(
-				// 			{
-				// 				method: 'POST',
-				// 				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.'+hari+'/search/',
-				// 				data: {
-				// 					'domain':[
-				// 								['activity_id','=',filter_userlogin[0]['id']],
-				// 							],
-				// 					'usn':name,'pw':pass ,'fields':[]},
-				// 				headers: {
-				// 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-				// 				},		
-				// 			}
-				// 		).then(
-				// 			function successCallback(response){
-				// 				console.log('sukses tambah storage before actual'+h +'test'+hari+'dari server')
-				// 				sales_activity_before_actual_add = JSON.parse( window.localStorage.getItem('sales_activity_before_actual_'+hari));
-				// 				var ba_update = response.data['Result'];
+								window.localStorage.setItem( 'sales_activity_after_plan_'+hari, JSON.stringify(sales_activity_after_plan_add));
+							},
+							function errorCallback(response){
+								console.log('erroor data kosong');
+								// $state.go('formreviewactivity');
+							}
+						)
+					$http(
+							{
+								method: 'POST',
+								url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.'+hari+'/search/',
+								data: {
+									'domain':[
+												['activity_id','=',filter_userlogin[0]['id']],
+											],
+									'usn':name,'pw':pass ,'fields':[]},
+								headers: {
+									'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+								},		
+							}
+						).then(
+							function successCallback(response){
+								console.log('sukses tambah storage before actual'+h +'test'+hari+'dari server')
+								sales_activity_before_actual_add = JSON.parse( window.localStorage.getItem('sales_activity_before_actual_'+hari));
+								var ba_update = response.data['Result'];
 							
-				// 			for (var i = 0;i<ba_update.length; i++) {
-				// 				sales_activity_before_actual_add.push(ba_update[i]);
-				// 			};
+							for (var i = 0;i<ba_update.length; i++) {
+								sales_activity_before_actual_add.push(ba_update[i]);
+							};
 
-				// 				window.localStorage.setItem( 'sales_activity_before_actual_'+hari, JSON.stringify(sales_activity_before_actual_add));
-				// 			},
-				// 			function errorCallback(response){
-				// 				console.log('erroor data kosong');
-				// 				// $state.go('formreviewactivity');
-				// 			}
-				// 		)
-				// 	$http(
-				// 			{
-				// 				method: 'POST',
-				// 				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.'+hari+'/search/',
-				// 				data: {
-				// 					'domain':[
-				// 								['activity_id','=',filter_userlogin[0]['id']],
-				// 							],
-				// 					'usn':name,'pw':pass ,'fields':[]},
-				// 				headers: {
-				// 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
-				// 				},		
-				// 			}
-				// 		).then(
-				// 			function successCallback(response){
-				// 				console.log('sukses tambah storage after actual'+h +'test'+hari+'dari server')
-				// 				sales_activity_after_actual_add = JSON.parse( window.localStorage.getItem('sales_activity_after_actual_'+hari));
-				// 				var aa_update = response.data['Result'];
+								window.localStorage.setItem( 'sales_activity_before_actual_'+hari, JSON.stringify(sales_activity_before_actual_add));
+							},
+							function errorCallback(response){
+								console.log('erroor data kosong');
+								// $state.go('formreviewactivity');
+							}
+						)
+					$http(
+							{
+								method: 'POST',
+								url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.'+hari+'/search/',
+								data: {
+									'domain':[
+												['activity_id','=',filter_userlogin[0]['id']],
+											],
+									'usn':name,'pw':pass ,'fields':[]},
+								headers: {
+									'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+								},		
+							}
+						).then(
+							function successCallback(response){
+								console.log('sukses tambah storage after actual'+h +'test'+hari+'dari server')
+								sales_activity_after_actual_add = JSON.parse( window.localStorage.getItem('sales_activity_after_actual_'+hari));
+								var aa_update = response.data['Result'];
 								
-				// 				for (var i = 0;i<aa_update.length; i++) {
-				// 				sales_activity_after_actual_add.push(aa_update[i]);
-				// 				};
+								for (var i = 0;i<aa_update.length; i++) {
+								sales_activity_after_actual_add.push(aa_update[i]);
+								};
 							
-				// 				window.localStorage.setItem( 'sales_activity_after_actual_'+hari, JSON.stringify(sales_activity_after_actual_add));
+								window.localStorage.setItem( 'sales_activity_after_actual_'+hari, JSON.stringify(sales_activity_after_actual_add));
 								
-				// 				if (cek_terakhir){
-				// 					 $ionicLoading.hide();
-				// 				}
-				// 			},
-				// 			function errorCallback(response){
-				// 				console.log('erroor data kosong');
-				// 				// $state.go('formreviewactivity');
-				// 			}
-				// 		)
-				// }
-				// 	for (h = 0 ; h < hari.length ; h++) {
-				// 		if (h==(hari.length-1)){
-				// 			currentWeekSalesDataAdd(hari[h],'ada')
-				// 		}
-				// 		else{
-				// 			currentWeekSalesDataAdd(hari[h])
-				// 		}
+								if (cek_terakhir){
+									 $ionicLoading.hide();
+								}
+							},
+							function errorCallback(response){
+								console.log('erroor data kosong');
+								// $state.go('formreviewactivity');
+							}
+						)
+				}
+					for (h = 0 ; h < hari.length ; h++) {
+						if (h==(hari.length-1)){
+							currentWeekSalesDataAdd(hari[h],'ada')
+						}
+						else{
+							currentWeekSalesDataAdd(hari[h])
+						}
 						
-				// 	 }
- 			// 	}
+					 }
+ 				}
 
 				},
 				function errorCallback(response){
-
-					console.log('sadddddddddddddddddddddddddddddddddddddddddddddddddd')
 				 
 				 	var get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
 
 					if (get_sales_data_activity == null) {
-					 	alert('Data tidak dapat ditampilkan')
+ 					 	alert('Data tidak dapat ditampilkan')
 					}
 					else {
 					 // tampilkan data yang ada pada local storage
@@ -528,7 +522,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	 } 
 })
    
-.controller('formactivityCtrl', function($scope,$http,$state,$filter,config,$ionicHistory) {
+.controller('formactivityCtrl', function($scope,$http,$state,$filter,config) {
 	 
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
@@ -634,13 +628,8 @@ angular.module('app.controllers', ['ngMaterial'])
 			}
 		)		 
 	};
-	
-	$scope.myGoBack = function() {
-	    $ionicHistory.goBack();
-	};
 
 	$scope.salesactivity = function(){
-		alert(1);
 		$state.go('salesactivity');
 	}
 
@@ -674,7 +663,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
 
-.controller('previewplanactivityCtrl', function($scope,$stateParams,$state,$http,$timeout,$ionicLoading,config) {
+.controller('previewplanactivityCtrl', function($scope,$stateParams,$state,$http,$ionicLoading,config) {
 
     $scope.pic = $stateParams.pic;
     $scope.begin = $stateParams.begin;
@@ -2246,12 +2235,30 @@ angular.module('app.controllers', ['ngMaterial'])
 
 				// mapping untuk data yang ditambahkan saat update yang akan ditampilkan pada form sync jika data belum terkirim
 				for (dbav = 0; dbav < data_beforeAdd.length; dbav++) {
-					data_readUp[data1].push({'customer':data_beforeAdd[dbav].partner_id[0],'location':data_beforeAdd[dbav].location,
-					'name':data_beforeAdd[dbav].name,'plan_id':false,'batal':false})
+					
+					if(data_beforeAdd[dbav]['customer']==null){
+						customer = null
+						toPush = {'location':data_beforeAdd[dbav].location,'name':data_beforeAdd[dbav].name,
+						'plan_id':false,'batal':false}
+					}else{
+						customer = data_beforeAdd[dbav].customer
+						toPush = {'customer':customer,'location':data_beforeAdd[dbav].location,'name':data_beforeAdd[dbav].name,
+						'plan_id':false,'batal':false}
+					}
+					data_readUp[data1].push(toPush)
 				}
 				for (daav = 0; daav < data_afterAdd.length; daav++) {
-					data_readUp[data2].push({'customer':data_afterAdd[daav].partner_id[1],'location':data_afterAdd[daav].location,
-					'name':data_afterAdd[daav].name,'plan_id':data_afterAdd[daav].plan_id,'batal': data_afterAdd[daav].batal})
+					
+					if(data_afterAdd[daav]['customer']==null){
+						customer = null
+						toPush = {'location':data_afterAdd[daav].location,'name':data_afterAdd[daav].name,
+						'plan_id':false,'batal':false}
+					}else{
+						customer = data_afterAdd[daav].customer
+						toPush = {'customer':customer,'location':data_afterAdd[daav].location,'name':data_afterAdd[daav].name,
+						'plan_id':false,'batal':false}
+					}
+					data_readUp[data2].push(toPush)
 				}
 
 				// simpan data di localStorage
@@ -2389,7 +2396,7 @@ angular.module('app.controllers', ['ngMaterial'])
 					},
 					function errorCallback(response){
 						alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
-						$state.go('menuactivity');
+						$state.go('salesactivity');
 					}
 				)			
 		}
@@ -2397,7 +2404,7 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
 
-.controller('previewsyncupdateCtrl', function($http,$scope,config) {
+.controller('previewsyncupdateCtrl', function($http,$scope,$state,config) {
 		
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
