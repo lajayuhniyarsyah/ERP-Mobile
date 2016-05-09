@@ -49,7 +49,7 @@
                         </label>
                     </form>
                 </div>
-                <!-- <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button> -->
+                <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button>
                 <hr>
                 </div>
             </div>
@@ -63,7 +63,7 @@
              
              <div ng-repeat="fbu in fBUpdate">
              <form class="list">
-                <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()" class="ion-trash-a">Remove</button>
+                <button class="remove-button" ng-show="$last" ng-click="removeBeforeUp()"><span class="ion-trash-a"></span></button>
                 <label class="item item-input" name="customer-before-lunch">
                     <span class="input-label" style="width:25%;">Customer</span>
                 <md-autocomplete md-selected-item="fbu.customer" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display_name" placeholder="Search Customer">
@@ -88,9 +88,9 @@
             </div>
 
             </div>
-        <div>
+   <!--      <div>
          {{ fBUpdate }}
-        </div>
+        </div> -->
             <br/>
             <br/>
 
@@ -123,7 +123,7 @@
                         </label>
                     </form>
                 </div>
-                <!-- <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button> -->
+                <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
                 <hr>
                 </div>
              </div> 
@@ -162,9 +162,9 @@
             </div>
 
             </div>
-        <div>
+    <!--     <div>
          {{ fAUpdate }}
-        </div>
+        </div> -->
             <br>
             <br>          
         
