@@ -1,11 +1,5 @@
-<ion-view style="" title="FORM ACTIVITY">
-<!-- Menu Back Dan Slide Menu -->
-<ion-nav-bar ng-controller="AppController">
-  <ion-nav-back-button class="button-clear"
-    ng-click="myGoBack()">
-    <i class="ion-arrow-left-c white-button"></i> 
-  </ion-nav-back-button>
-</ion-nav-bar>
+<ion-view style="" title="FORM ACTIVITY" cache-view = "false">
+<ion-nav-bar></ion-nav-bar>
 
     <ion-content class="has-header" overflow-scroll="true" padding="true">
         <div style="width: 284px; height: 10px;" class="spacer"></div>
@@ -32,20 +26,20 @@
             </label>
         </form>
         <div class="button-day">
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button14" ui-sref="formdaymonday({pic: user, day: 'monday'})"><span class="font-button-left">Monday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].monday_before.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].monday_before.length==0"></span></span></a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button14" ui-sref="formdaymonday({pic: user, day: 'monday'})"><span class="font-button-left">Monday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].monday_before.length!=0 && temp_data[0].monday_after.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].monday_before.length==0 || temp_data[0].monday_after.length==0"></span></span></a>
             
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button16" ui-sref="formdaymonday({pic: user, day: 'tuesday'})"><span class="font-button-left">Tuesday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].tuesday_before.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].tuesday_before.length==0"></span></span></a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button16" ui-sref="formdaymonday({pic: user, day: 'tuesday'})"><span class="font-button-left">Tuesday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].tuesday_before.length!=0 && temp_data[0].tuesday_after.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].tuesday_before.length==0 || temp_data[0].tuesday_after.length==0"></span></span></a>
         
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button21" ui-sref="formdaymonday({pic: user, day: 'wednesday'})"><span class="font-button-left">Wednesday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].wednesday_before.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].wednesday_before.length==0"></span></span></a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button21" ui-sref="formdaymonday({pic: user, day: 'wednesday'})"><span class="font-button-left">Wednesday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].wednesday_before.length!=0 && temp_data[0].wednesday_after.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].wednesday_before.length==0 || temp_data[0].wednesday_after.length==0"></span></span></a>
             
-            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button23" ui-sref="formdaymonday({pic: user, day: 'thursday'})"><span class="font-button-left">Thursday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].thursday_before.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].thursday_before.length==0"></span></span></a>
+            <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button23" ui-sref="formdaymonday({pic: user, day: 'thursday'})"><span class="font-button-left">Thursday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].thursday_before.length!=0 && temp_data[0].thursday_after.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].thursday_before.length==0 || temp_data[0].thursday_after.length==0"></span></span></a>
         
-           <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button24" ui-sref="formdaymonday({pic: user, day: 'friday'})"><span class="font-button-left">Friday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].friday_before.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].friday_before.length==0"></span></span></a>
+           <a class="button button-stable  button-block icon-left ion-calendar" id="formactivity-button24" ui-sref="formdaymonday({pic: user, day: 'friday'})"><span class="font-button-left">Friday</span><span class="badge font-button-right button-balanced" style="margin-top:12px;"><span class="ion-checkmark-round ok-proses" ng-if="temp_data[0].friday_before.length!=0 && temp_data[0].friday_after.length!=0"></span><span class="ion-checkmark-round postpone-proses" ng-if="temp_data[0].friday_before.length==0 || temp_data[0].friday_after.length==0"></span></span></a>
           </div>
         <br/>
        <div class="batasmenu">
          <center>
-          <a class="button button-small button-positive" style="border-radius:5px 5px 5px 5px; width:45%;" id="formactivity-button25" ui-sref="salesactivity()">Cancel Activity</a>
+          <a class="button button-small button-positive" style="border-radius:5px 5px 5px 5px; width:45%;" id="formactivity-button25" ng-click="salesactivity()">Cancel Activity</a>
           <a class="button button-small button-positive" style="border-radius:5px 5px 5px 5px; width:45%;" id="formactivity-button25" ng-click="previewData()">Preview &amp; Save</a>
         </center>
        </div>
