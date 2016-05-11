@@ -18,11 +18,22 @@
                md-min-date="minDate"
                type="text" 
 
-               md-date-filter="onlyWeekendsPredicate"></md-datepicker>                    
+               md-date-filter="onlyWeekendsPredicate">
+             </md-datepicker>                    
+            </label>
+            <label style="" name="date-begin" class="item item-input" ng-if="temp_data[0].begin">
+                <span class="ion-checkmark-round ok-proses" style="width:27%;"></span>
+                <!-- <span class="input-label" style="width:27%;"></span> -->
+                <h2>{{temp_data[0].begin}}</h2>
             </label>
             <label style="" name="data-end" class="item item-input">
                 <span class="input-label" style="width:27%;">End</span>
             <input placeholder="End Date" type="text" ng-model="endDate" value="endDate" readonly>
+            </label>
+            <label style="" name="date-end" class="item item-input" ng-if="temp_data[0].end">
+                <span class="ion-checkmark-round ok-proses" style="width:27%;"></span>
+                <!-- <span class="input-label" style="width:27%;"></span> -->
+                <h2>{{temp_data[0].end}}</h2>
             </label>
         </form>
         <div class="button-day">

@@ -1933,15 +1933,21 @@ angular.module('app.controllers', ['ngMaterial'])
 					$scope.current_beforeactual = response.data['Result'];  
 				},
 				function errorCallback(response){
+					get_update_data_sync_view = JSON.parse( window.localStorage.getItem('update_data_sync_view'));
+					get_before_day = 'beforeactual'+get_day;
+					get_before_add_day = 'beforeactualadd'+get_day;
 					get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
 					filter_salesdataactivity = get_sales_data_activity.filter(function(jsonObject){
 						return jsonObject.id === id_activity_update[0]
 					})
 
-					if (filter_salesdataactivity.length == 0) {
-						alert("Actual tidak bisa diupdate")
+					if (get_update_data_sync_view[0][get_before_day]) {
+
+						$scope.current_beforeactual = get_update_data_sync_view[0][get_before_day];
+						$scope.fBUpdate = get_update_data_sync_view[0][get_before_add_day];
 					}
-					else{
+					else if (filter_salesdataactivity.length != 0) {
+
 						beforeactual_mapping = [];
 						
 						for (bef_act_id = 0; bef_act_id < filter_salesdataactivity[0]['beforeactual'+get_day].length; bef_act_id++) {
@@ -1966,6 +1972,9 @@ angular.module('app.controllers', ['ngMaterial'])
 						}
 
 						$scope.current_beforeactual = beforeactual_mapping;
+					}
+					else{
+						alert("Actual tidak bisa diupdate")
 					}
 				}
 			)
@@ -1993,15 +2002,21 @@ angular.module('app.controllers', ['ngMaterial'])
 	
 				},
 				function errorCallback(response){
+					get_update_data_sync_view = JSON.parse( window.localStorage.getItem('update_data_sync_view'));
+					get_after_day = 'afteractual'+get_day;
+					get_after_add_day = 'afteractualadd'+get_day;
 					get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
 					filter_salesdataactivity = get_sales_data_activity.filter(function(jsonObject){
 						return jsonObject.id === id_activity_update[0]
 					})
 
-					if (filter_salesdataactivity.length == 0) {
-						alert("Actual tidak bisa diupdate")
+					if (get_update_data_sync_view[0][get_after_day]) {
+
+						$scope.current_afteractual = get_update_data_sync_view[0][get_after_day];
+						$scope.fAUpdate = get_update_data_sync_view[0][get_after_add_day];
 					}
-					else {
+					else if (filter_salesdataactivity.length != 0) {
+
 						afteractual_mapping = [];
 						
 						for (aft_act_id = 0; aft_act_id < filter_salesdataactivity[0]['afteractual'+get_day].length; aft_act_id++) {
@@ -2027,6 +2042,9 @@ angular.module('app.controllers', ['ngMaterial'])
 						
 						$scope.current_afteractual = afteractual_mapping;
 					}
+					else {
+						alert("Actual tidak bisa diupdate")
+					}
 				}
 			)
 
@@ -2036,11 +2054,13 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	$scope.tambahformBeforeUp = function() {
 		var newItemNo = $scope.fBUpdate.length+1;
-	    $scope.fBUpdate.push({'id':'bpu'+newItemNo});
+	    // $scope.fBUpdate.push({'id':'bpu'+newItemNo});
+	    $scope.fBUpdate.push({});
 	};  
 	$scope.tambahformAfterUp = function() {
 		var newItemNo = $scope.fAUpdate.length+1;
-	    $scope.fAUpdate.push({'id':'apu'+newItemNo});
+	    // $scope.fAUpdate.push({'id':'apu'+newItemNo});
+	    $scope.fAUpdate.push({});
 	};
 	
 	//fungsi untuk nyari data
@@ -2111,6 +2131,8 @@ angular.module('app.controllers', ['ngMaterial'])
 
 		var data1 = 'beforeactual'+get_day;
 		var data2 = 'afteractual'+get_day;
+		var data1add = 'beforeactualadd'+get_day;
+		var data2add = 'afteractualadd'+get_day;
 		
 		var data_before = $scope.current_beforeactual;
 		var data_after = $scope.current_afteractual;
@@ -2123,7 +2145,9 @@ angular.module('app.controllers', ['ngMaterial'])
 
 		var data_readUp={}
 		data_readUp[data1]=[];
-		data_readUp[data2]=[];		
+		data_readUp[data2]=[];	
+		data_readUp[data1add]=[];
+		data_readUp[data2add]=[];			
 
 		var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
 
@@ -2169,7 +2193,7 @@ angular.module('app.controllers', ['ngMaterial'])
 							0,
 							{
 								'location':data_beforeAdd[dba]['location'],
-								'name':data_beforeAdd[dba]['objective']
+								'name':data_beforeAdd[dba]['name']
 							}
 						]
 					}else{
@@ -2181,7 +2205,7 @@ angular.module('app.controllers', ['ngMaterial'])
 							{
 								'partner_id':partner_id,
 								'location':data_beforeAdd[dba]['location'],
-								'name':data_beforeAdd[dba]['objective']
+								'name':data_beforeAdd[dba]['name']
 							}
 						]
 					}
@@ -2197,7 +2221,7 @@ angular.module('app.controllers', ['ngMaterial'])
 								0,
 								{
 									'location':data_afterAdd[daa]['location'],
-									'name':data_afterAdd[daa]['objective']
+									'name':data_afterAdd[daa]['name']
 								}
 							]
 						}else{
@@ -2208,7 +2232,7 @@ angular.module('app.controllers', ['ngMaterial'])
 								{
 									'partner_id':partner_id,
 									'location':data_afterAdd[daa]['location'],
-									'name':data_afterAdd[daa]['objective']
+									'name':data_afterAdd[daa]['name']
 								}
 							]
 						}
@@ -2225,12 +2249,14 @@ angular.module('app.controllers', ['ngMaterial'])
 
 				// mapping untuk data update yang akan ditampilkan pada form sync jika data belum terkirim
 				for (dbuv = 0; dbuv < data_before.length; dbuv++) {
-					data_readUp[data1].push({'customer':data_before[dbuv].partner_id[1],'location':data_before[dbuv].location,
-					'name':data_before[dbuv].name,'plan_id':data_before[dbuv].plan_id,'batal': data_before[dbuv].batal})
+					data_readUp[data1].push({'partner_id':data_before[dbuv].partner_id,'location':data_before[dbuv].location,
+					'name':data_before[dbuv].name,'plan_id':data_before[dbuv].plan_id,'batal': data_before[dbuv].batal, 
+					'id' : data_before[dbuv].id})
 				}
 				for (dauv = 0; dauv < data_after.length; dauv++) {
-					data_readUp[data2].push({'customer':data_after[dauv].partner_id[1],'location':data_after[dauv].location,
-					'name':data_after[dauv].name,'plan_id':data_after[dauv].plan_id,'batal': data_after[dauv].batal})
+					data_readUp[data2].push({'partner_id':data_after[dauv].partner_id,'location':data_after[dauv].location,
+					'name':data_after[dauv].name,'plan_id':data_after[dauv].plan_id,'batal': data_after[dauv].batal, 
+					'id' : data_after[dauv].id})
 				}
 
 				// mapping untuk data yang ditambahkan saat update yang akan ditampilkan pada form sync jika data belum terkirim
@@ -2238,27 +2264,27 @@ angular.module('app.controllers', ['ngMaterial'])
 					
 					if(data_beforeAdd[dbav]['customer']==null){
 						customer = null
-						toPush = {'location':data_beforeAdd[dbav].location,'name':data_beforeAdd[dbav].name,
+						toPush = {'customer':customer,'location':data_beforeAdd[dbav].location,'name':data_beforeAdd[dbav].name,
 						'plan_id':false,'batal':false}
 					}else{
-						customer = data_beforeAdd[dbav].customer
+						customer = data_beforeAdd[dbav]['customer'];
 						toPush = {'customer':customer,'location':data_beforeAdd[dbav].location,'name':data_beforeAdd[dbav].name,
 						'plan_id':false,'batal':false}
 					}
-					data_readUp[data1].push(toPush)
+					data_readUp[data1add].push(toPush)
 				}
 				for (daav = 0; daav < data_afterAdd.length; daav++) {
 					
 					if(data_afterAdd[daav]['customer']==null){
 						customer = null
-						toPush = {'location':data_afterAdd[daav].location,'name':data_afterAdd[daav].name,
+						toPush = {'customer':customer,'location':data_afterAdd[daav].location,'name':data_afterAdd[daav].name,
 						'plan_id':false,'batal':false}
 					}else{
-						customer = data_afterAdd[daav].customer
+						customer = data_afterAdd[daav]['customer'];
 						toPush = {'customer':customer,'location':data_afterAdd[daav].location,'name':data_afterAdd[daav].name,
 						'plan_id':false,'batal':false}
 					}
-					data_readUp[data2].push(toPush)
+					data_readUp[data2add].push(toPush)
 				}
 
 				// simpan data di localStorage
@@ -2278,7 +2304,9 @@ angular.module('app.controllers', ['ngMaterial'])
 					get_update_data_add['data_val'][data2] = isi_update[data2];	
 
 					get_update_data_sync_view_add[0][data1] = data_readUp[data1];
-					get_update_data_sync_view_add[0][data2] = data_readUp[data2];	
+					get_update_data_sync_view_add[0][data2] = data_readUp[data2];
+					get_update_data_sync_view_add[0][data1add] = data_readUp[data1add];
+					get_update_data_sync_view_add[0][data2add] = data_readUp[data2add];	
 
 					window.localStorage.setItem('update_data_temp', JSON.stringify(get_update_data_add));
 					window.localStorage.setItem('update_data_sync_view', JSON.stringify(get_update_data_sync_view_add));
@@ -2428,6 +2456,21 @@ angular.module('app.controllers', ['ngMaterial'])
 	$scope.afsabtu = get_update_data_sync_view_add[0].afteractualsabtu;
 	$scope.befahad = get_update_data_sync_view_add[0].beforeactualahad;
 	$scope.afahad = get_update_data_sync_view_add[0].afteractualahad;
+
+	$scope.befaddsenin = get_update_data_sync_view_add[0].beforeactualaddsenin;
+	$scope.afaddsenin = get_update_data_sync_view_add[0].afteractualaddsenin;
+	$scope.befaddselasa = get_update_data_sync_view_add[0].beforeactualaddselasa;
+	$scope.afaddselasa = get_update_data_sync_view_add[0].afteractualaddselasa;
+	$scope.befaddrabu = get_update_data_sync_view_add[0].beforeactualaddrabu;
+	$scope.afaddrabu = get_update_data_sync_view_add[0].afteractualaddrabu;
+	$scope.befaddkamis = get_update_data_sync_view_add[0].beforeactualaddkamis;
+	$scope.afaddkamis = get_update_data_sync_view_add[0].afteractualaddkamis;
+	$scope.befaddjumat = get_update_data_sync_view_add[0].beforeactualaddjumat;
+	$scope.afaddjumat = get_update_data_sync_view_add[0].afteractualaddjumat;
+	$scope.befaddsabtu = get_update_data_sync_view_add[0].beforeactualaddsabtu;
+	$scope.afaddsabtu = get_update_data_sync_view_add[0].afteractualaddsabtu;
+	$scope.befaddahad = get_update_data_sync_view_add[0].beforeactualaddahad;
+	$scope.afaddahad = get_update_data_sync_view_add[0].afteractualaddahad;
 
 	$scope.sendbackupdate = function() {
 		
@@ -2899,12 +2942,12 @@ angular.module('app.controllers', ['ngMaterial'])
 			function successCallback(response){
 				alert("sukses")
 				window.localStorage.removeItem('temporary_data_create_plan');
-				$state.go('menuactivity')
+				$state.go('salesactivity')
 			},
 			function errorCallback(response){
 				alert("gagal")
 				// $window.localStorage.clear();
-				$state.go('menuactivity');
+				$state.go('salesactivity');
 			}
 		)			
 	}
