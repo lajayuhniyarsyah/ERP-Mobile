@@ -75,8 +75,8 @@ angular.module('app.services', [])
 
 // .service('ErpService',)
 .service('config', function($q,$http) {
-    // return {"host":"10.36.15.51","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
-    return {"host":"192.168.209.130","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
+    return {"host":"10.36.15.51","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
+    // return {"host":"192.168.209.130","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
     // return {"host":"192.168.9.26","port":'8000',"secret":"cmV6YTpzdXByYWJha3Rp"}
 })
 

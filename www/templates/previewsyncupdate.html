@@ -26,15 +26,15 @@
             <div class="content-preview">
             <div class="spacer" style="width: 284px; height: 12px;"></div>
 
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="befsenin">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>MONDAY</b></div>        
                     <div class="both"></div>
                     <div class="judul-header"><b>PLAN ACTUAL BEFORE LUNCH</b></div>
                 </div>
                 <span class="lunch-view">PLAN BEFORE LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="bpsenin in befsenin" ng-if="bpsenin.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{bpsenin.customer}} - {{bpsenin.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="bpsenin in befsenin">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpsenin.partner_id[1]}} - {{bpsenin.location}}</b></div>
                     <b>Objectives : </b><pre>{{bpsenin.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
@@ -42,12 +42,18 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!basenin.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="basenin.batal" class="cancel-status-preview ion-close-circled"> Cancel</span>
-                    Actual Result Went To : {{basenin.customer}} - {{basenin.location}}</b></div>
+                    Actual Result Went To : {{basenin.partner_id[1]}} - {{basenin.location}}</b></div>
                     <b>Results : </b><pre>{{basenin.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="baaddsenin in befaddsenin" ng-if="befaddsenin.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{baaddsenin.customer[display_name]}} - {{baaddsenin.location}}</b></div>
+                    <b>Results : </b><pre>{{baaddsenin.name}}</pre>
                 </div>
             </div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="afsenin">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>MONDAY</b></div>
                     <div class="both"></div>
@@ -55,26 +61,29 @@
                 </div>
 
                 <span class="lunch-view">PLAN AFTER LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="apsenin in afsenin" ng-if="apsenin.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{apsenin.customer}} - {{apsenin.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="apsenin in afsenin">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apsenin.partner_id[1]}} - {{apsenin.location}}</b></div>
                     <b>Objectives : </b><pre>{{apsenin.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
                 <div class="isicontent line-silver" ng-repeat="aasenin in afsenin">
-                    <div class="judul-plan-preview">
-                        <b>
-                            <span ng-if="!aasenin.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
-                            <span ng-if="aasenin.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                            Actual Result Went To : {{aasenin.customer}} - {{aasenin.location}}
-                        </b>
-                    </div>
+                    <div class="judul-plan-preview"><b>
+                    <span ng-if="!aasenin.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    <span ng-if="aasenin.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
+                    Actual Result Went To : {{aasenin.partner_id[1]}} - {{aasenin.location}}</b></div>
                     <b>Results : </b><pre>{{aasenin.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="aaaddsenin in afaddsenin" ng-if="afaddsenin.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{aaaddsenin.customer[display_name]}} - {{aaaddsenin.location}}</b></div>
+                    <b>Results : </b><pre>{{aaaddsenin.name}}</pre>
                 </div>
             </div>
             
             <div class="spacer" style="width: 284px; height: 12px;"></div>
 
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="befselasa">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>TUESDAY</b></div>
                     <div class="both"></div>
@@ -82,8 +91,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN BEFORE LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="bpselasa in befselasa" ng-if="bpselasa.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{bpselasa.customer}} - {{bpselasa.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="bpselasa in befselasa">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpselasa.partner_id[1]}} - {{bpselasa.location}}</b></div>
                     <b>Objectives : </b><pre>{{bpselasa.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
@@ -93,12 +102,20 @@
                     <b>
                     <span ng-if="!baselasa.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="baselasa.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{baselasa.customer}} - {{baselasa.location}}</b></div>
+                    Actual Result Went To : {{baselasa.partner_id[1]}} - {{baselasa.location}}</b></div>
                     <b>Results : </b><pre>{{baselasa.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="baaddselasa in befaddselasa" ng-if="befaddselasa.length!=0">
+                    <div class="judul-plan-preview">
+
+                    <b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span>  
+                    Actual Result Went To : {{baaddselasa.customer[display_name]}} - {{baaddselasa.location}}</b></div>
+                    <b>Results : </b><pre>{{baaddselasa.name}}</pre>
                 </div>
             </div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="afselasa">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>TUESDAY</b></div>
                     <div class="both"></div>
@@ -106,8 +123,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN AFTER LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="apselasa in afselasa" ng-if="apselasa.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{apselasa.customer}} - {{apselasa.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="apselasa in afselasa">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apselasa.partner_id[1]}} - {{apselasa.location}}</b></div>
                     <b>Objectives : </b><pre>{{apselasa.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
@@ -116,14 +133,20 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aaselasa.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="aaselasa.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{aaselasa.customer}} - {{aaselasa.location}}</b></div>
+                    Actual Result Went To : {{aaselasa.partner_id[1]}} - {{aaselasa.location}}</b></div>
                     <b>Results : </b><pre>{{aaselasa.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="aaaddselasa in afaddselasa" ng-if="afaddselasa.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span>
+                    Actual Result Went To : {{aaaddselasa.customer[display_name]}} - {{aaaddselasa.location}}</b></div>
+                    <b>Results : </b><pre>{{aaaddselasa.name}}</pre>
                 </div>
             </div>
 
             <div class="spacer" style="width: 284px; height: 12px;"></div>
 
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="befrabu">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>WEDNESDAY</b></div>
                     <div class="both"></div>
@@ -131,8 +154,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN BEFORE LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="bprabu in befrabu" ng-if="bprabu.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{bprabu.customer}} - {{bprabu.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="bprabu in befrabu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bprabu.partner_id[1]}} - {{bprabu.location}}</b></div>
                     <b>Objectives : </b><pre>{{bprabu.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
@@ -140,12 +163,18 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!barabu.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="barabu.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{barabu.customer}} - {{barabu.location}}</b></div>
+                    Actual Result Went To : {{barabu.partner_id[1]}} - {{barabu.location}}</b></div>
                     <b>Results : </b><pre>{{barabu.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="baaddrabu in befaddrabu" ng-if="befaddrabu.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{baaddrabu.customer[display_name]}} - {{baaddrabu.location}}</b></div>
+                    <b>Results : </b><pre>{{baaddrabu.name}}</pre>
                 </div>
             </div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="afrabu">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>WEDNESDAY</b></div>
                     <div class="both"></div>
@@ -153,8 +182,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN AFTER LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="aprabu in afrabu" ng-if="aprabu.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{aprabu.customer}} - {{aprabu.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="aprabu in afrabu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{aprabu.partner_id[1]}} - {{aprabu.location}}</b></div>
                     <b>Objectives : </b><pre>{{aprabu.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
@@ -162,14 +191,20 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aarabu.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="aarabu.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{aarabu.customer}} - {{aarabu.location}}</b></div>
+                    Actual Result Went To : {{aarabu.partner_id[1]}} - {{aarabu.location}}</b></div>
                     <b>Results : </b><pre>{{aarabu.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="aaaddrabu in afaddrabu" ng-if="afaddrabu.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{aaaddrabu.customer[display_name]}} - {{aaaddrabu.location}}</b></div>
+                    <b>Results : </b><pre>{{aaaddrabu.name}}</pre>
                 </div>
             </div>
 
             <div class="spacer" style="width: 284px; height: 12px;"></div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="befkamis">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>THURSDAY</b></div>
                     <div class="both"></div>
@@ -177,8 +212,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN BEFORE LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="bpkamis in befkamis" ng-if="bpkamis.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{bpkamis.customer}} - {{bpkamis.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="bpkamis in befkamis">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpkamis.partner_id[1]}} - {{bpkamis.location}}</b></div>
                     <b>Objectives : </b><pre>{{bpkamis.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
@@ -187,12 +222,18 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!bakamis.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="bakamis.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{bakamis.customer}} - {{bakamis.location}}</b></div>
+                    Actual Result Went To : {{bakamis.partner_id[1]}} - {{bakamis.location}}</b></div>
                     <b>Results : </b><pre>{{bakamis.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="baaddkamis in befaddkamis" ng-if="befaddkamis.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span>  
+                    Actual Result Went To : {{baaddkamis.customer[display_name]}} - {{baaddkamis.location}}</b></div>
+                    <b>Results : </b><pre>{{baaddkamis.name}}</pre>
                 </div>
             </div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="afkamis">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>THURSDAY</b></div>
                     <div class="both"></div>
@@ -200,24 +241,30 @@
                 </div>
 
                 <span class="lunch-view">PLAN AFTER LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="apkamis in afkamis" ng-if="apkamis.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{apkamis.customer}} - {{apkamis.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="apkamis in afkamis">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apkamis.partner_id[1]}} - {{apkamis.location}}</b></div>
                     <b>Objectives : </b><pre>{{apkamis.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
-
+                
                 <div class="isicontent line-silver" ng-repeat="aakamis in afkamis">
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aakamis.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="aakamis.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{aakamis.customer}} - {{aakamis.location}}</b></div>
+                    Actual Result Went To : {{aakamis.partner_id[1]}} - {{aakamis.location}}</b></div>
                     <b>Results : </b><pre>{{aakamis.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="aaaddkamis in afaddkamis" ng-if='afaddkamis.length!=0'>
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{aaaddkamis.customer[display_name]}} - {{aaaddkamis.location}}</b></div>
+                    <b>Results : </b><pre>{{aaaddkamis.name}}</pre>
                 </div>
             </div>
 
             <div class="spacer" style="width: 284px; height: 12px;"></div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="befjumat">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>FRIDAY</b></div>
                     <div class="both"></div>
@@ -225,8 +272,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN BEFORE LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="bpjumat in befjumat" ng-if="bpjumat.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{bpjumat.customer}} - {{bpjumat.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="bpjumat in befjumat">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpjumat.partner_id[1]}} - {{bpjumat.location}}</b></div>
                     <b>Objectives : </b><pre>{{bpjumat.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
@@ -234,12 +281,18 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!bajumat.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="bajumat.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{bajumat.customer}} - {{bajumat.location}}</b></div>
+                    Actual Result Went To : {{bajumat.partner_id[1]}} - {{bajumat.location}}</b></div>
                     <b>Results : </b><pre>{{bajumat.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="baaddjumat in befaddjumat" ng-if="befaddjumat.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span>  
+                    Actual Result Went To : {{baaddjumat.customer[display_name]}} - {{baaddjumat.location}}</b></div>
+                    <b>Results : </b><pre>{{baaddjumat.name}}</pre>
                 </div>
             </div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="afjumat">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>FRIDAY</b></div>
                     <div class="both"></div>
@@ -247,8 +300,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN AFTER LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="apjumat in afjumat" ng-if="apjumat.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{apjumat.customer}} - {{apjumat.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="apjumat in afjumat">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apjumat.partner_id[1]}} - {{apjumat.location}}</b></div>
                     <b>Objectives : </b><pre>{{apjumat.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
@@ -257,14 +310,20 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aajumat.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="aajumat.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{aajumat.customer}} - {{aajumat.location}}</b></div>
+                    Actual Result Went To : {{aajumat.partner_id[1]}} - {{aajumat.location}}</b></div>
                     <b>Results : </b><pre>{{aajumat.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="aaaddjumat in afaddjumat" ng-if="afaddjumat.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span>  
+                    Actual Result Went To : {{aaaddjumat.customer[display_name]}} - {{aaaddjumat.location}}</b></div>
+                    <b>Results : </b><pre>{{aaaddjumat.name}}</pre>
                 </div>
             </div>
 
             <div class="spacer" style="width: 284px; height: 12px;"></div>
 
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="befsabtu">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>SATURDAY</b></div>
                     <div class="both"></div>
@@ -272,8 +331,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN BEFORE LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="bpsabtu in befsabtu" ng-if="bpsabtu.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{bpsabtu.customer}} - {{bpsabtu.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="bpsabtu in befsabtu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpsabtu.partner_id[1]}} - {{bpsabtu.location}}</b></div>
                     <b>Objectives : </b><pre>{{bpsabtu.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
@@ -281,12 +340,18 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!basabtu.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="basabtu.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{basabtu.customer}} - {{basabtu.location}}</b></div>
+                    Actual Result Went To : {{basabtu.partner_id[1]}} - {{basabtu.location}}</b></div>
                     <b>Results : </b><pre>{{basabtu.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="baaddsabtu in befaddsabtu" ng-if="befaddsabtu.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span>  
+                    Actual Result Went To : {{baaddsabtu.customer[display_name]}} - {{baaddsabtu.location}}</b></div>
+                    <b>Results : </b><pre>{{baaddsabtu.name}}</pre>
                 </div>
             </div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="afsabtu">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>SATURDAY</b></div>
                     <div class="both"></div>
@@ -294,8 +359,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN AFTER LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="apsabtu in afsabtu" ng-if="apsabtu.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{apsabtu.customer}} - {{apsabtu.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="apsabtu in afsabtu">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apsabtu.partner_id[1]}} - {{apsabtu.location}}</b></div>
                     <b>Objectives : </b><pre>{{apsabtu.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
@@ -304,14 +369,20 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aasabtu.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="aasabtu.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{aasabtu.customer}} - {{aasabtu.location}}</b></div>
+                    Actual Result Went To : {{aasabtu.partner_id[1]}} - {{aasabtu.location}}</b></div>
                     <b>Results : </b><pre>{{aasabtu.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="aaaddsabtu in afaddsabtu" ng-if="afaddsabtu.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{aaaddsabtu.customer[display_name]}} - {{aaaddsabtu.location}}</b></div>
+                    <b>Results : </b><pre>{{aaaddsabtu.name}}</pre>
                 </div>
             </div>
 
             <div class="spacer" style="width: 284px; height: 12px;"></div>
 
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="befahad">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>SUNDAY</b></div>
                     <div class="both"></div>
@@ -319,8 +390,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN BEFORE LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="bpahad in befahad" ng-if="bpahad.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{bpahad.customer}} - {{bpahad.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="bpahad in befahad">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{bpahad.partner_id[1]}} - {{bpahad.location}}</b></div>
                     <b>Objectives : </b><pre>{{bpahad.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL BEFORE LUNCH</span>
@@ -328,12 +399,18 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!baahad.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="baahad.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{baahad.customer}} - {{baahad.location}}</b></div>
+                    Actual Result Went To : {{baahad.partner_id[1]}} - {{baahad.location}}</b></div>
                     <b>Results : </b><pre>{{baahad.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="baaddahad in befaddahad" ng-if="befaddahad.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{baaddahad.customer[display_name]}} - {{baaddahad.location}}</b></div>
+                    <b>Results : </b><pre>{{baaddahad.name}}</pre>
                 </div>
             </div>
             
-            <div class="list card custom-list">
+            <div class="list card custom-list" ng-if="afahad">
                 <div class="item item-divider item-divider-erp">
                     <div class="namasales font-black ion-calendar"> <b>SUNDAY</b></div>
                     <div class="both"></div>
@@ -341,8 +418,8 @@
                 </div>
 
                 <span class="lunch-view">PLAN AFTER LUNCH</span>
-                <div class="isicontent line-silver" ng-repeat="apahad in afahad" ng-if="apahad.plan_id!=false">
-                    <div class="judul-plan-preview"><b>Planned Go To : {{apahad.customer}} - {{apahad.location}}</b></div>
+                <div class="isicontent line-silver" ng-repeat="apahad in afahad">
+                    <div class="judul-plan-preview"><b>Planned Go To : {{apahad.partner_id[1]}} - {{apahad.location}}</b></div>
                     <b>Objectives : </b><pre>{{apahad.plan_id[1]}}</pre>
                 </div>
                 <span class="lunch-view">ACTUAL AFTER LUNCH</span>
@@ -351,8 +428,14 @@
                     <div class="judul-plan-preview"><b>
                     <span ng-if="!aaahad.batal" class="ok-status-preview ion-checkmark-circled"> OK</span> 
                     <span ng-if="aaahad.batal" class="cancel-status-preview ion-close-circled"> Cancel</span> 
-                    Actual Result Went To : {{aaahad.customer}} - {{aaahad.location}}</b></div>
+                    Actual Result Went To : {{aaahad.partner_id[1]}} - {{aaahad.location}}</b></div>
                     <b>Results : </b><pre>{{aaahad.name}}</pre>
+                </div>
+                <div class="isicontent line-silver" ng-repeat="aaaddahad in afaddahad" ng-if="afaddahad.length!=0">
+                    <div class="judul-plan-preview"><b>
+                    <span class="ok-status-preview ion-checkmark-circled"> OK</span> 
+                    Actual Result Went To : {{aaaddahad.customer[display_name]}} - {{aaaddahad.location}}</b></div>
+                    <b>Results : </b><pre>{{aaaddahad.name}}</pre>
                 </div>
             </div>
             <button id="pREVIEWPLANACTIVITY-button9" style="font-weight:;border-radius:22px 22px 22px 22px;" class="button button-positive  button-block icon-left ion-android-add-circle" ng-click="sendbackupdate()">RE-SAVE ACTIVITY</button>
