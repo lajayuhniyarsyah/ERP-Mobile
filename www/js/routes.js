@@ -74,11 +74,12 @@ angular.module('app.routes', [])
     controller: 'previewcreateplanCtrl'
   })
 
-  // .state('pREVIEWPLANACTIVITY', {
-  //   url: '/preview-planactivity',
-  //   templateUrl: 'templates/pREVIEWPLANACTIVITY-Template.html',
-  //   // controller: 'previewpaCtrl'
-  // })
+  .state('previewsyncupdate', {
+    url: '/preview-sync-update',
+    templateUrl: 'templates/previewsyncupdate.html',
+    controller: 'previewsyncupdateCtrl'
+  })
+  
   $urlRouterProvider.otherwise('/login')  
 
 });
