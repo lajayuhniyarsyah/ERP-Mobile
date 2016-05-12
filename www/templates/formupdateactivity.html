@@ -33,7 +33,6 @@
                         <b>Objectives : </b>{{cba.plan_id[1]}}
                         <br>
                         <span class="lunch">ACTUAL BEFORE LUNCH</span>
-                        <button class="remove-button" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
                         <div class="form-update">
                             <form class="list cancel-form">
                                 <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="cba.batal" ng-checked="cba.batal" class="toggle-small">Cancel</ion-toggle>
@@ -43,13 +42,15 @@
                                 </label>
                             </form>
                         </div>
-                        <button class="remove" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false">Remove</button>
+                        <button class="remove-button" ng-click="hapusBefore($index)" ng-if="cba.plan_id==false"><span class="ion-trash-a"></span></button>
                         <hr>
                     </div>
-
                 </div>
             </div>
-
+        <!-- <div>
+         {{ current_beforeactual }}
+        </div> -->
+        <!-- Add Actual before-->
             <div class="list card custom-list form-update">
                 <b><center>ADD BEFORE LUNCH ACTUAL</center></b>
                 <div ng-repeat="fbu in fBUpdate">
@@ -79,6 +80,9 @@
                     </form>
                 </div>
             </div>
+    <!--    <div>
+         {{ fBUpdate }}
+        </div> -->
             <br/>
             <br/>
             <div class="list card custom-list">
@@ -96,10 +100,9 @@
                     <b>Objectives : </b>{{caa.plan_id[1]}}
                     <br>
                     <span class="lunch">ACTUAL AFTER LUNCH </span> 
-                    <button class="remove-button" ng-click="removeAfterUp()"><span class="ion-trash-a"></span></button>
                     <div class="form-update">
                         <form class="list">
-                            <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.batal" ng-checked="cap.batal" class="toggle-small">Cancel</ion-toggle>
+                            <ion-toggle toggle-class="toggle-assertive" name="cancel-plan-before-lunch" ng-model="caa.batal" ng-checked="caa.batal" class="toggle-small">Cancel</ion-toggle>
                       
                             <label class="item item-input" name="results-plan-before-lunch">
                                 <span class="input-label" style="width:25%;">Results :</span>
@@ -108,7 +111,7 @@
                             <br>
                         </form>
                     </div>
-                    <button class="remove" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false">Remove</button>
+                    <button class="remove-button" ng-click="hapusAfter($index)" ng-if="caa.plan_id==false"><span class="ion-trash-a"></span></button>
                     <hr>
                 </div>
             </div>

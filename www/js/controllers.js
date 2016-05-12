@@ -137,15 +137,6 @@ angular.module('app.controllers', ['ngMaterial'])
 	var hari = ['ahad','senin','selasa','rabu','kamis','jumat','sabtu'];
 
 	var current_local = JSON.parse(window.localStorage.getItem('current_activity_id'));
-	
-
-		$ionicLoading.show({
-			content: 'Loading',
-			animation: 'fade-in',
-			showBackdrop: true,
-			maxWidth: 200,
-			showDelay: 0
-		});
 
 		$http(
 				{
@@ -210,9 +201,19 @@ angular.module('app.controllers', ['ngMaterial'])
 					filter_userlogin = sales_activity.filter(function(jsonObject){
 						return jsonObject.user_id[0] === data_login[1]
 					})
+				
 				// fungsi untuk set data activity minggu terakhir dari user yang login (berhubungan dengan form update)
 				if(current_local==null){
-				var currentWeekSalesData = function(hari){
+					
+					$ionicLoading.show({
+						content: 'Loading',
+						animation: 'fade-in',
+						showBackdrop: true,
+						maxWidth: 200,
+						showDelay: 0
+					});	
+
+				var currentWeekSalesData = function(hari,cek_terakhir){
 
 					$http(
 						{
@@ -306,7 +307,9 @@ angular.module('app.controllers', ['ngMaterial'])
 							function successCallback(response){
 								console.log('sukses isi storage kosong after actual'+h +'test'+hari+'dari server')
 								var aa_update = response.data['Result'];
-
+								if (cek_terakhir){
+									 $ionicLoading.hide();
+								}
 								window.localStorage.setItem( 'sales_activity_after_actual_'+hari, JSON.stringify(aa_update));
 							},
 							function errorCallback(response){
@@ -316,14 +319,170 @@ angular.module('app.controllers', ['ngMaterial'])
 						)
 				}
 					for (h = 0 ; h < hari.length ; h++) {
-						currentWeekSalesData(hari[h])
+						if (h==(hari.length-1)){
+							currentWeekSalesData(hari[h],'ada')
+						}
+						else{
+							currentWeekSalesData(hari[h])
+						}
+						
 					 }
 					window.localStorage.setItem('current_activity_id',JSON.stringify([filter_userlogin[0]['id']]));
 				}
+ 			// 	else if (current_local[0] < filter_userlogin[0]['id']) {
+				// 	$ionicLoading.show({
+				// 		content: 'Loading',
+				// 		animation: 'fade-in',
+				// 		showBackdrop: true,
+				// 		maxWidth: 200,
+				// 		showDelay: 0
+				// 	});	
+				
+				// current_local.unshift(filter_userlogin[0]['id'])
+				// window.localStorage.setItem('current_activity_id',JSON.stringify(current_local));
 
-					$ionicLoading.hide();	   
+				// var currentWeekSalesDataAdd = function(hari,cek_terakhir){
+
+				// 	$http(
+				// 		{
+				// 			method: 'POST',
+				// 			url: 'http://'+config['host']+':'+config['port']+'/openerp/before.plan.'+hari+'/search/',
+				// 			data: {
+				// 				'domain':[
+				// 							['activity_id','=',filter_userlogin[0]['id']],
+				// 						],
+				// 				'usn':name,'pw':pass ,'fields':[]},
+				// 			headers: {
+				// 				'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				// 			},		
+				// 		}
+				// 	).then(
+				// 		function successCallback(response){
+				// 			console.log('sukses tambah storage before plan'+h +'test'+hari+' dari server')
+				// 			sales_activity_before_plan_add = JSON.parse( window.localStorage.getItem('sales_activity_before_plan_'+hari));
+				// 			var bp_update = response.data['Result'];
+							
+				// 			for (var i = 0;i<bp_update.length; i++) {
+				// 				sales_activity_before_plan_add.push(bp_update[i]);
+				// 			};
+
+				// 			window.localStorage.setItem('sales_activity_before_plan_'+hari, JSON.stringify(sales_activity_before_plan_add));
+				// 		},
+				// 		function errorCallback(response){
+				// 			console.log('erroor data kosong');
+				// 			// $state.go('formreviewactivity');
+				// 		}
+				// 	)
+				// 	$http(
+				// 			{
+				// 				method: 'POST',
+				// 				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.plan.'+hari+'/search/',
+				// 				data: {
+				// 					'domain':[
+				// 								['activity_id','=',filter_userlogin[0]['id']],
+				// 							],
+				// 					'usn':name,'pw':pass ,'fields':[]},
+				// 				headers: {
+				// 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				// 				},		
+				// 			}
+				// 		).then(
+				// 			function successCallback(response){
+				// 				console.log('sukses tambah storage after plan'+h +'test'+hari+'dari server')
+				// 				sales_activity_after_plan_add = JSON.parse( window.localStorage.getItem('sales_activity_after_plan_'+hari));
+				// 				var ap_update = response.data['Result'];
+							
+				// 			for (var i = 0;i<ap_update.length; i++) {
+				// 				sales_activity_after_plan_add.push(ap_update[i]);
+				// 			};
+
+				// 				window.localStorage.setItem( 'sales_activity_after_plan_'+hari, JSON.stringify(sales_activity_after_plan_add));
+				// 			},
+				// 			function errorCallback(response){
+				// 				console.log('erroor data kosong');
+				// 				// $state.go('formreviewactivity');
+				// 			}
+				// 		)
+				// 	$http(
+				// 			{
+				// 				method: 'POST',
+				// 				url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.'+hari+'/search/',
+				// 				data: {
+				// 					'domain':[
+				// 								['activity_id','=',filter_userlogin[0]['id']],
+				// 							],
+				// 					'usn':name,'pw':pass ,'fields':[]},
+				// 				headers: {
+				// 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				// 				},		
+				// 			}
+				// 		).then(
+				// 			function successCallback(response){
+				// 				console.log('sukses tambah storage before actual'+h +'test'+hari+'dari server')
+				// 				sales_activity_before_actual_add = JSON.parse( window.localStorage.getItem('sales_activity_before_actual_'+hari));
+				// 				var ba_update = response.data['Result'];
+							
+				// 			for (var i = 0;i<ba_update.length; i++) {
+				// 				sales_activity_before_actual_add.push(ba_update[i]);
+				// 			};
+
+				// 				window.localStorage.setItem( 'sales_activity_before_actual_'+hari, JSON.stringify(sales_activity_before_actual_add));
+				// 			},
+				// 			function errorCallback(response){
+				// 				console.log('erroor data kosong');
+				// 				// $state.go('formreviewactivity');
+				// 			}
+				// 		)
+				// 	$http(
+				// 			{
+				// 				method: 'POST',
+				// 				url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.'+hari+'/search/',
+				// 				data: {
+				// 					'domain':[
+				// 								['activity_id','=',filter_userlogin[0]['id']],
+				// 							],
+				// 					'usn':name,'pw':pass ,'fields':[]},
+				// 				headers: {
+				// 					'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+				// 				},		
+				// 			}
+				// 		).then(
+				// 			function successCallback(response){
+				// 				console.log('sukses tambah storage after actual'+h +'test'+hari+'dari server')
+				// 				sales_activity_after_actual_add = JSON.parse( window.localStorage.getItem('sales_activity_after_actual_'+hari));
+				// 				var aa_update = response.data['Result'];
+								
+				// 				for (var i = 0;i<aa_update.length; i++) {
+				// 				sales_activity_after_actual_add.push(aa_update[i]);
+				// 				};
+							
+				// 				window.localStorage.setItem( 'sales_activity_after_actual_'+hari, JSON.stringify(sales_activity_after_actual_add));
+								
+				// 				if (cek_terakhir){
+				// 					 $ionicLoading.hide();
+				// 				}
+				// 			},
+				// 			function errorCallback(response){
+				// 				console.log('erroor data kosong');
+				// 				// $state.go('formreviewactivity');
+				// 			}
+				// 		)
+				// }
+				// 	for (h = 0 ; h < hari.length ; h++) {
+				// 		if (h==(hari.length-1)){
+				// 			currentWeekSalesDataAdd(hari[h],'ada')
+				// 		}
+				// 		else{
+				// 			currentWeekSalesDataAdd(hari[h])
+				// 		}
+						
+				// 	 }
+ 			// 	}
+
 				},
 				function errorCallback(response){
+
+					console.log('sadddddddddddddddddddddddddddddddddddddddddddddddddd')
 				 
 				 	var get_sales_data_activity = JSON.parse( window.localStorage.getItem('sales_data_activity'));
 
@@ -1973,6 +2132,10 @@ angular.module('app.controllers', ['ngMaterial'])
 		isi_update[data1]=[];
 		isi_update[data2]=[];
 
+		var data_readUp={}
+		data_readUp[data1]=[];
+		data_readUp[data2]=[];		
+
 		var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
 
 		//fungsi untuk validasi data telah diiisi semuanya
@@ -1998,7 +2161,7 @@ angular.module('app.controllers', ['ngMaterial'])
 			alert('seluruh result harus terisi')
 		}
 		else {
-				//looping data yang akan diupdaute
+				//mappiing untuk data yang akan diupdate
 				for (dbu = 0; dbu < data_before.length; dbu++) {
 					isi_update[data1].push([1,data_before[dbu].id,{'name':data_before[dbu].name,
 					'batal': data_before[dbu].batal}])
@@ -2007,7 +2170,7 @@ angular.module('app.controllers', ['ngMaterial'])
 					isi_update[data2].push([1,data_after[dau].id,{'name':data_after[dau].name,
 					'batal': data_after[dau].batal }])
 				}
-				// looping data yang akan ditambahkan pada saat update
+				// mapping untuk data yang akan ditambahkan pada saat update
 				for (var dba = 0; dba < data_beforeAdd.length; dba++) {
 
 					if(data_beforeAdd[dba]['customer']==null){
@@ -2063,7 +2226,7 @@ angular.module('app.controllers', ['ngMaterial'])
 						
 						isi_update[data2].push(toPush)
 					};
-				// looping hapus data yang ada di server pada saat update (ket : hanya data tanpa plan id)
+				// mapping untuk hapus data yang ada di server pada saat update (ket : hanya data tanpa plan_id)
 				for (var drb = 0; drb < dataHapusBef.length; drb++) {
 					isi_update[data1].push([2,dataHapusBef[drb]])
 				};
@@ -2071,24 +2234,50 @@ angular.module('app.controllers', ['ngMaterial'])
 					isi_update[data2].push([2,dataHapusAft[dra]])
 					};
 
+				// mapping untuk data update yang akan ditampilkan pada form sync jika data belum terkirim
+				for (dbuv = 0; dbuv < data_before.length; dbuv++) {
+					data_readUp[data1].push({'customer':data_before[dbuv].partner_id[1],'location':data_before[dbuv].location,
+					'name':data_before[dbuv].name,'plan_id':data_before[dbuv].plan_id,'batal': data_before[dbuv].batal})
+				}
+				for (dauv = 0; dauv < data_after.length; dauv++) {
+					data_readUp[data2].push({'customer':data_after[dauv].partner_id[1],'location':data_after[dauv].location,
+					'name':data_after[dauv].name,'plan_id':data_after[dauv].plan_id,'batal': data_after[dauv].batal})
+				}
+
+				// mapping untuk data yang ditambahkan saat update yang akan ditampilkan pada form sync jika data belum terkirim
+				for (dbav = 0; dbav < data_beforeAdd.length; dbav++) {
+					data_readUp[data1].push({'customer':data_beforeAdd[dbav].partner_id[0],'location':data_beforeAdd[dbav].location,
+					'name':data_beforeAdd[dbav].name,'plan_id':false,'batal':false})
+				}
+				for (daav = 0; daav < data_afterAdd.length; daav++) {
+					data_readUp[data2].push({'customer':data_afterAdd[daav].partner_id[1],'location':data_afterAdd[daav].location,
+					'name':data_afterAdd[daav].name,'plan_id':data_afterAdd[daav].plan_id,'batal': data_afterAdd[daav].batal})
+				}
+
 				// simpan data di localStorage
 				if (get_update_data == null) {
 					
 					var update_data_temp = {'activity_id' : id_activity_update[0], 'data_val' : isi_update};
 					window.localStorage.setItem('update_data_temp', JSON.stringify(update_data_temp));
+					window.localStorage.setItem('update_data_sync_view', JSON.stringify([data_readUp]));
 				}
 				// jika data form local storage exist maka update ls tsb
 				else {
 					
 					var get_update_data_add = JSON.parse( window.localStorage.getItem('update_data_temp'));
+					var get_update_data_sync_view_add = JSON.parse( window.localStorage.getItem('update_data_sync_view'));
 					
 					get_update_data_add['data_val'][data1] = isi_update[data1];
-					get_update_data_add['data_val'][data2] = isi_update[data2];		
+					get_update_data_add['data_val'][data2] = isi_update[data2];	
+
+					get_update_data_sync_view_add[0][data1] = data_readUp[data1];
+					get_update_data_sync_view_add[0][data2] = data_readUp[data2];	
 
 					window.localStorage.setItem('update_data_temp', JSON.stringify(get_update_data_add));
+					window.localStorage.setItem('update_data_sync_view', JSON.stringify(get_update_data_sync_view_add));
 				}
 
-				var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
+			var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
 			
 			//fungsi kirim data yang akan diupdate ke server
 			$http(
@@ -2106,6 +2295,7 @@ angular.module('app.controllers', ['ngMaterial'])
 					function successCallback(response){
 						alert("sukses")
 						window.localStorage.removeItem('update_data_temp'); //ls dihapus
+						window.localStorage.removeItem('update_data_sync_view'); // ls dihapus
 
 					//fungsi untuk get data dan kirim data update ke localstorage yang di tuju
 						//ambil data dari before_actual yang akan di update
@@ -2199,7 +2389,7 @@ angular.module('app.controllers', ['ngMaterial'])
 					},
 					function errorCallback(response){
 						alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
-						$state.go('salesactivity');
+						$state.go('menuactivity');
 					}
 				)			
 		}
@@ -2207,13 +2397,153 @@ angular.module('app.controllers', ['ngMaterial'])
 	}
 })
 
-.controller('previewsyncupdateCtrl', function($scope,config) {
+.controller('previewsyncupdateCtrl', function($http,$scope,config) {
 		
 	var name =(window.localStorage.getItem("dhaussjauhxdjuzlgzuglscfasshdausdjfkjzasd")) ;
 	var pass =(window.localStorage.getItem("uhadlfdlfgghfrejajkfdfhzjudfakjhbfkjagfjufug")) ;
 	data_login = JSON.parse( window.localStorage.getItem('login_user'));
 
 	$scope.username = data_login[0]; 
+
+	var get_update_data_sync_view_add = JSON.parse( window.localStorage.getItem('update_data_sync_view'));
+
+	$scope.befsenin = get_update_data_sync_view_add[0].beforeactualsenin;
+	$scope.afsenin = get_update_data_sync_view_add[0].afteractualsenin;
+	$scope.befselasa = get_update_data_sync_view_add[0].beforeactualselasa;
+	$scope.afselasa = get_update_data_sync_view_add[0].afteractualselasa;
+	$scope.befrabu = get_update_data_sync_view_add[0].beforeactualrabu;
+	$scope.afrabu = get_update_data_sync_view_add[0].afteractualrabu;
+	$scope.befkamis = get_update_data_sync_view_add[0].beforeactualkamis;
+	$scope.afkamis = get_update_data_sync_view_add[0].afteractualkamis;
+	$scope.befjumat = get_update_data_sync_view_add[0].beforeactualjumat;
+	$scope.afjumat = get_update_data_sync_view_add[0].afteractualjumat;
+	$scope.befsabtu = get_update_data_sync_view_add[0].beforeactualsabtu;
+	$scope.afsabtu = get_update_data_sync_view_add[0].afteractualsabtu;
+	$scope.befahad = get_update_data_sync_view_add[0].beforeactualahad;
+	$scope.afahad = get_update_data_sync_view_add[0].afteractualahad;
+
+	$scope.sendbackupdate = function() {
+		
+		var day = ['ahad','senin','selasa','rabu','kamis','jumat','sabtu'];
+		var date_current = new Date();
+		var get_day = day[date_current.getDay()];
+		
+		var get_update_data = JSON.parse( window.localStorage.getItem('update_data_temp'));
+		
+		//fungsi kirim data yang akan diupdate ke server
+		$http(
+				{
+					method: 'POST',
+					url: 'http://'+config['host']+':'+config['port']+'/openerp/update/sales.activity/',
+					data: {
+						'usn':name,'pw':pass ,'ids':get_update_data['activity_id'],'vals':get_update_data['data_val']
+					},
+					headers: {
+						'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+					},		
+				}
+			).then(
+				function successCallback(response){
+					alert("sukses")
+					window.localStorage.removeItem('update_data_temp'); //ls dihapus
+					window.localStorage.removeItem('update_data_sync_view'); // ls dihapus
+
+				//fungsi untuk get data dan kirim data update ke localstorage yang di tuju
+					//ambil data dari before_actual yang akan di update
+					$http(
+						{
+							method: 'POST',
+							url: 'http://'+config['host']+':'+config['port']+'/openerp/before.actual.'+get_day+'/search/',
+							data: {'usn':name,'pw':pass , 
+								   'fields':[],
+								   'domain':[
+												['activity_id','=',id_activity_update[0]],
+											],
+								},
+
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							  
+							},
+						}
+					).then(
+						function successCallback(response){
+							var update_day_activity_before = JSON.parse( window.localStorage.getItem('sales_activity_before_actual_'+get_day));
+							var data_update_before = response.data['Result'];
+
+							//fungsi hapus data yang akan di update
+							var newPushBefore = []
+							angular.forEach(update_day_activity_before, function(val_hapusBefore,key_hapusBefore){
+								if(val_hapusBefore['activity_id'][0] != id_activity_update[0]){
+									newPushBefore.push(val_hapusBefore)
+								}
+							})
+
+							// fungsi tambah data yang telah diupdate dan disimpan di local storage
+							// tambahin dari response
+							angular.forEach(data_update_before, function(val_tambahBefore,key_tambahBefore){
+								newPushBefore.push(val_tambahBefore)
+							})
+
+							window.localStorage.setItem('sales_activity_before_actual_'+get_day, JSON.stringify(newPushBefore));
+						},
+						function errorCallback(response){
+							console.log('gagal ambil data update before dari server')
+						}
+					)
+
+					//ambil data dari after_actual yang akan di update			
+					$http(
+						{
+							method: 'POST',
+							url: 'http://'+config['host']+':'+config['port']+'/openerp/after.actual.'+get_day+'/search/',
+							data: {'usn':name,'pw':pass , 
+								   'fields':[],
+									   'domain':[
+												['activity_id','=',id_activity_update[0]],
+											],
+
+							},
+							headers: {
+								'Authorization': 'Basic ' + "cmV6YTpzdXByYWJha3Rp",
+							},
+						
+						}
+					).then(
+						function successCallback(response){
+							var update_day_activity_after = JSON.parse( window.localStorage.getItem('sales_activity_after_actual_'+get_day));
+							var data_update_after = response.data['Result'];
+							
+							//fungsi hapus data yang akan di update
+							var newPushAfter = []
+							angular.forEach(update_day_activity_after, function(val_hapusAfter,key_hapusAfter){
+								if(val_hapusAfter['activity_id'][0] != id_activity_update[0]){
+									newPushAfter.push(val_hapusAfter)
+								}
+							})
+
+							// fungsi tambah data yang telah diupdate dan disimpan di local storage
+							// tambahin dari response
+							angular.forEach(data_update_after, function(val_tambahAfter,key_tambahAfter){
+								newPushAfter.push(val_tambahAfter)
+							})
+
+							window.localStorage.setItem('sales_activity_after_actual_'+get_day, JSON.stringify(newPushAfter));
+						},
+						function errorCallback(response){
+							console.log('gagal ambil data update after dari server')
+						}
+					)
+						window.localStorage.removeItem('activity_id_update');
+						$state.go('salesactivity')
+
+				},
+				function errorCallback(response){
+					alert("Koneksi saat ini tidak tersedia, data anda akan kami simpan")
+					$state.go('salesactivity');
+				}
+			)
+	}
 
 })
    
@@ -3186,8 +3516,7 @@ angular.module('app.controllers', ['ngMaterial'])
 
 	}
 
-
-	console.log(menu)
+	// console.log(menu)
 	$scope.myHTML = "<li class='active has-sub'><a href='#'><span>SALES</span></a> <ul> <li class='has-sub'><a href='#'><span>SALES</span></a> <ul> <li><a href='#'><span>Quotation</span></a></li> <li><a href='#' menu-close=\'\'><span>Sales Order </span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>MATERIAL REQUEST</span></a> <ul> <li><a href='#' menu-close=\'\'><span>Internal Move Request</span></a></li> <li><a href='#' menu-close=\'\'><span>Internal Move</span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>PRODUCT</span></a> <ul> <li><a href='#' menu-close=\'\'><span>Product</span></a></li> </ul> </li> <li class='has-sub'><a href='#'><span>ACTIVITY</span></a> <ul> <li><a menu-close=\'\' class='menu-link' href='#/form-activity'><span>Create Activity</span></a></li> <li><a href='#/sales-activity' menu-close=\'\'><span>Sales Activity </span></a></li> <li><a href='#' menu-close=\'\'><span>Weekly Status</span></a></li> <li><a href='#/salestimeline' menu-close=\'\'><span>Activity Timeline</span></a></li> </ul> </li> </ul> </li> <li class='active has-sub'><a href='#'><span>HUMAN RESOURCES</span></a></li> <li class='active has-sub'><a href='#'><span>REPORTING</span></a></li> <li class='active has-sub'><a href='#'><span>MESSAGING</span></a></li> <li class='active has-sub' ng-click='logOut()'><a><span>LOG OUT</span></a></li> "
 
 
