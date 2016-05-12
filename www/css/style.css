@@ -24,7 +24,7 @@ ion-content{
 }
 .bar.bar-stable .title{
 	color: white !important;
-	text-align: center;	
+	text-align: center;	 
 }
 .ion-ios-lock{
 	display: block;
@@ -390,6 +390,7 @@ ion-content{
 .form-update{
 	 /*background-color: rgba(212, 197, 187, 0.5);#387ef5*/
 	 background-color: white;
+	 margin-left: -10px;
 }
 .form-black{
 	
@@ -468,19 +469,19 @@ pre {
 	width: 50%;
 	float: left;
 	font-size: 11px;
-	border-radius: 5px 5px 0px 0px;
-    -moz-border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px;
-    -o-border-radius: 5px 5px 0px 0px;
+	border-radius: 5px 0px 0px 0px;
+    -moz-border-radius: 5px 0px 0px 0px;
+    -webkit-border-radius: 5px 0px 0px 0px;
+    -o-border-radius: 5px 0px 0px 0px;
 }
 .button-view-activity{
 	width: 50%;
 	float: right;
 	font-size: 11px;
-	border-radius: 5px 5px 0px 0px;
-    -moz-border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px;
-    -o-border-radius: 5px 5px 0px 0px;
+	border-radius: 0px 5px 0px 0px;
+    -moz-border-radius: 0px 5px 0px 0px;
+    -webkit-border-radius: 0px 5px 0px 0px;
+    -o-border-radius: 0px 5px 0px 0px;
 }
 .contect-transparant .button{
 	min-height: 10px !important;
@@ -511,18 +512,16 @@ md-autocomplete{
     border: 1px solid #ccc;
     border-radius: 6px;
     box-shadow: 0 1px 3px #ddd inset;
-    /*box-sizing: border-box;*/
     display: inline-block;
-    /*margin: 8px 0;*/
     padding: 0px 0px;
     width: 100%;
 }
-md-autocomplete md-autocomplete-wrap{
+/*md-autocomplete md-autocomplete-wrap{
 	height: 0px !important;
-}
+}*/
 
 .md-virtual-repeat-container.md-autocomplete-suggestions-container{
-	top:195px !important;
+	/*top:195px !important;*/
 }
 input[type="text"], input[type="search"], select, textarea{
     border: 1px solid #ccc;
@@ -662,4 +661,26 @@ md-autocomplete{
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+}
+.clm-update-activity{
+	
+}
+
+@media screen and (max-width: 400px) {
+    .button-update-activity{
+        width:100% !important;
+        border-radius: 5px 5px 0px 0px;
+	    -moz-border-radius: 5px 5px 0px 0px;
+	    -webkit-border-radius: 5px 5px 0px 0px;
+	    -o-border-radius: 5px 5px 0px 0px;
+	    font-size: 13px !important;
+    }
+    .button-view-activity{
+    	width: 100% !important;
+    	border-radius: 0px 0px 0px 0px !important;
+	    -moz-border-radius: 0px 0px 0px 0px !important;
+	    -webkit-border-radius: 0px 0px 0px 0px !important;
+	    -o-border-radius: 0px 0px 0px 0px !important;
+	    font-size: 13px !important;
+    }
 }
